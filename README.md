@@ -46,7 +46,7 @@ The platform aims to demonstrate support for the following core supervisory func
 
 ## 5. Module Breakdown (Functionality by Sidebar Hierarchy - Revision 2)
 
-This section details planned functionality, organized under the main sidebar items shown in the `image_0aa5e9.png` screenshot. A separate **Dashboard** (landing page) and **Settings** module are also assumed unless specified otherwise.
+This section details planned functionality. A separate **Dashboard** (landing page) and **Settings** module are also assumed unless specified otherwise.
 
 **5.0. Dashboard** (Top-level landing page)
     * **Purpose:** High-level overview post-login.
@@ -117,8 +117,6 @@ This section details planned functionality, organized under the main sidebar ite
     * **Sub-Functions / Features:** User Management, Role/Permission Management, System Config, Localization, Template Management (Reports, Workflows, Forms). *(Mapped from old 'Settings' concept)*
 
 ## 6. Advanced Capabilities (To be demonstrated conceptually)
-
-*(This section remains largely the same but notes where features are now mapped above, e.g., Unstructured Data Analysis under Risk Assessments)*
 
 * **Automated Compliance Checks:** System cross-validates submitted data/documents against configured rules/guidelines (Mapped under Compliance Monitoring).
 * **Custom Forms/Surveys:** Ability for supervisors to create, deploy, and analyze responses (Mapped under Compliance Monitoring, potentially elsewhere too).

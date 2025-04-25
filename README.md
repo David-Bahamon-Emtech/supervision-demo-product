@@ -44,38 +44,39 @@ The platform aims to demonstrate support for the following core supervisory func
 * **High Availability & DR:** Conceptual consideration for resilience.
 * **Integration Hooks:** Design with potential integration points.
 
-## 5. Module Breakdown (Functionality by Sidebar Hierarchy)
+## 5. Module Breakdown (Functionality by Sidebar Hierarchy - Revision 2)
 
 This section details planned functionality, organized under the main sidebar items shown in the `image_0aa5e9.png` screenshot. A separate **Dashboard** (landing page) and **Settings** module are also assumed unless specified otherwise.
 
-**5.0. Dashboard** (Likely still the main landing page)
+**5.0. Dashboard** (Top-level landing page)
     * **Purpose:** High-level overview post-login.
     * **Key Features:** Summary Widgets (Risk Alerts, Tasks Due, Recent Submissions), Quick Access Links, Recent Activity Feeds.
 
 **5.1. Regulatory Review Mgmt.**
-    * **Purpose:** Manage entity information, licensing, reporting submissions, and related workflows/communication.
+    * **Purpose:** Manage incoming submissions, applications, related communication, and internal review processes.
     * **Sub-Functions / Features:**
-        * **Entity Management / Company Profile:** View list, Search/Filter, Add Entity, View/Edit Profile (Basic Info, Ownership, License Details, History). *(Mapped from old 'Entities & Licensing')*
-        * **Licensing & Registration:** Workflow for new applications, Fit & Proper tracking, Automated checks against rules. *(Mapped from old 'Entities & Licensing')*
-        * **Reporting Intake & Review:** Portal for submissions (Prudential, AML, Ad-hoc, etc.), View status, Submission Workflow (Upload/Validate/Submit), History view, Handle structured/unstructured data. *(Mapped from old 'Reporting')*
-        * **Correspondence:** Secure messaging related to reviews, submissions, licensing. *(Mapped from old 'Correspondence')*
-        * **Workflow Management:** Manage internal tasks/processes related to reviews, approvals, etc. View task lists, use templates, track history, view efficiency analytics. *(Mapped from old 'Workflows')*
+        * **Reporting Intake Portal:** View required reports, track submission status (Pending, Received, Overdue), entity submission interface (Upload/Validate/Submit), submission history. *(Mapped from old 'Reporting')*
+        * **Application Intake (Licensing, etc.):** Portal/workflow for entities submitting applications (New License, Fit & Proper, etc.). *(Mapped from old 'Entities & Licensing')*
+        * **Review Workflows:** Internal task lists/dashboards for assigned reviews (reports, applications), workflow templates, status tracking, efficiency analytics. *(Mapped from old 'Workflows')*
+        * **Correspondence Hub:** Secure messaging linked to specific reviews, submissions, or entities. *(Mapped from old 'Correspondence')*
 
 **5.2. Risk Assessments**
-    * **Purpose:** Ongoing monitoring, risk analysis, profiling, and related analytics.
+    * **Purpose:** Analyze entity and systemic risk using various data points and tools. Includes viewing the entity context.
     * **Sub-Functions / Features:**
-        * **Off-Site Monitoring & Analysis:** KRI dashboards, Threshold breach alerts (e.g., Capital Adequacy), Log reviews/notes, Assign actions. *(Mapped from old 'Supervision')*
+        * **Company Profile / Entity View:** Detailed view of an entity's information (Basic Info, Ownership, Licensing Status, Compliance/Risk History). *(Mapped from old 'Entities & Licensing')*
+        * **Off-Site Monitoring & Analysis:** KRI dashboards, Threshold breach alerts, Logging supervisor reviews/notes, Follow-up actions. *(Mapped from old 'Supervision')*
         * **Risk Scoring & Profiling:** Define methodologies, Generate/adjust composite risk scores (using quantitative/qualitative data), Maintain assessment history. *(Mapped from old 'Risk Management')*
         * **Risk Analytics & Visualization:** Interactive dashboards (Filters: Sector, Risk, Date), Heatmaps, Trendlines, Risk Distribution Graphs, Top Risk Lists. *(Mapped from old 'Analytics')*
-        * **Unstructured Data Analysis (for Risk):** Conceptual tools (NLP/ML) to extract risks from reports, policies, financials (ICAAP/ORSA), emails. *(Mapped from 'Advanced Capabilities')*
+        * **Unstructured Data Analysis (for Risk):** Conceptual tools (NLP/ML) to extract risks from documents (reports, policies, ICAAP/ORSA, emails). *(Mapped from 'Advanced Capabilities')*
         * **DeFi / Embedded Supervision Monitoring:** Conceptual views showing real-time data/compliance from integrated protocols. *(Mapped from 'Advanced Capabilities')*
 
 **5.3. Compliance Monitoring**
-    * **Purpose:** Track and ensure adherence to specific regulatory rules and guidelines.
+    * **Purpose:** Verify and enforce adherence to specific regulatory requirements and rules.
     * **Sub-Functions / Features:**
-        * **Automated Compliance Checks:** Cross-validation of data/documents against configured rules. *(Mapped from 'Advanced Capabilities')*
-        * **Real-time Monitoring Views:** Dashboards focused on specific compliance metrics. *(Mapped from old 'Supervision')*
-        * **AML/CFT Supervision Tools:** Specific views/checks related to anti-money laundering regulations. *(Partially from old 'Reporting')*
+        * **Automated Compliance Checks:** Cross-validation of submitted data/documents against configured rules (applied during Intake or specific checks). *(Mapped from 'Advanced Capabilities')*
+        * **Thematic Compliance Reviews:** Tools to conduct targeted reviews across multiple entities for specific regulations (e.g., AML/CFT checks). *(Partially from old 'Reporting'/'Supervision')*
+        * **Compliance Status Views:** Dashboards showing overall compliance posture or status against specific regulations. *(New derived function)*
+        * **Licensing Status Management:** View/update license validity, conditions, and restrictions based on compliance. *(Partially from old 'Entities & Licensing')*
         * **Custom Forms/Surveys (for Compliance):** Deploy and analyze targeted compliance questionnaires. *(Mapped from 'Advanced Capabilities')*
 
 **5.4. Onsite Examinations**
@@ -88,32 +89,32 @@ This section details planned functionality, organized under the main sidebar ite
         * **Audit Metrics & History:** View key metrics, Access past exam records. *(Mapped directly from old 'Audit / Examination')*
 
 **5.5. Market Conduct**
-    * **Purpose:** Supervise how firms conduct business, treat customers, and interact with the market. *(New top-level item, requires feature definition)*
+    * **Purpose:** Supervise how firms conduct business, treat customers, and interact with the market.
     * **Sub-Functions / Features:**
         * *_(Placeholder)_* Complaints Handling & Analysis.
-        * *_(Placeholder)_* Sales Practices Review.
-        * *_(Placeholder)_* Product Oversight Monitoring.
+        * *_(Placeholder)_* Sales Practices Review & Monitoring.
+        * *_(Placeholder)_* Product Oversight Tools.
         * *_(Placeholder)_* Advertising & Disclosure Review.
 
 **5.6. Enforcement**
-    * **Purpose:** Manage actions taken in response to breaches or non-compliance identified during supervision. *(New top-level item)*
+    * **Purpose:** Manage actions taken in response to breaches or non-compliance.
     * **Sub-Functions / Features:**
-        * *_(Placeholder)_* Enforcement Case Management.
-        * *_(Placeholder)_* Tracking of Actions (Warnings, Penalties, Sanctions).
-        * *_(Placeholder)_* Reporting on Enforcement Outcomes.
-        * *_(Placeholder)_* Linkage to findings from other modules (Risk, Compliance, Exams).
+        * *_(Placeholder)_* Enforcement Case Initiation & Management.
+        * *_(Placeholder)_* Tracking of Actions (Warnings, Penalties, Remediation Plans).
+        * *_(Placeholder)_* Reporting on Enforcement Activities & Outcomes.
+        * *_(Placeholder)_* Linkage to findings from Risk, Compliance, Exams, Market Conduct.
 
 **5.7. Macro Supervision**
     * **Purpose:** Monitor and analyze the financial system at a systemic level.
     * **Sub-Functions / Features:**
-        * **Systemic Risk Dashboards:** Monitor aggregate indicators and interconnectedness.
-        * **Sector-Wide Analytics:** Aggregate reporting data for trend analysis. *(Partially from old 'Analytics')*
-        * **Stress Testing Analysis (Aggregate):** Analyze system-wide resilience.
+        * **Systemic Risk Dashboards:** Monitor aggregate indicators, interconnectedness, sentiment analysis (conceptual).
+        * **Sector-Wide Analytics & Reporting:** Aggregate reporting data for trend analysis and regulatory reporting. *(Partially from old 'Analytics')*
+        * **Stress Testing Analysis (Aggregate):** Tools to analyze system-wide resilience based on submitted stress tests.
         * **Policy Impact Simulation Tools (Conceptual):** Model effects of regulatory changes.
 
-**5.8. Settings** (Likely accessed via gear icon or user menu, not main sidebar)
+**5.8. Settings** (Likely accessed via gear icon or user menu)
     * **Purpose:** Platform administration and configuration.
-    * **Sub-Functions / Features:** User Management, Role/Permission Management, System Config, Localization, Template Management. *(Mapped from old 'Settings' concept)*
+    * **Sub-Functions / Features:** User Management, Role/Permission Management, System Config, Localization, Template Management (Reports, Workflows, Forms). *(Mapped from old 'Settings' concept)*
 
 ## 6. Advanced Capabilities (To be demonstrated conceptually)
 

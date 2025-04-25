@@ -5,7 +5,7 @@
 
 ## 1. Overview
 
-This document outlines the initial plan and structure for the Government Supervision Demo Platform. The goal is to create a functional React-based demonstration showcasing modern SupTech (Supervisory Technology) capabilities for financial regulators, drawing inspiration from real-world requirements and advanced concepts like embedded supervision.
+This document outlines the initial plan and structure for the **Beyond Supervision** Demo Platform. The goal is to create a functional React-based demonstration showcasing modern SupTech (Supervisory Technology) capabilities for financial regulators, drawing inspiration from real-world requirements and advanced concepts like embedded supervision.
 
 ## 2. Core Objectives
 
@@ -22,10 +22,12 @@ The platform aims to demonstrate support for the following core supervisory func
 
 ## 3. Technical Stack & Structure
 
-* **Frontend:** React
+* **Frontend Framework:** React
+* **Build Tool / Dev Environment:** Vite (Chosen for fast development server and optimized builds)
 * **Layout:** Based on the provided `Layout.js` and `Sidebar.js` components, featuring a fixed left-hand sidebar for navigation and a main content area.
-* **Styling:** Inspired by the provided sidebar screenshot (`image_d89e07.png`), aiming for a clean, professional look with a dark sidebar, light text, and gold highlights/icons. Responsiveness for tablet/laptop sizes is key.
+* **Styling:** Tailwind CSS (Planned, based on existing class names and desired look/feel from screenshot). Responsiveness for tablet/laptop sizes is key.
 * **State Management:** Likely involves React Context (as seen in `App.js`) or a dedicated state management library for managing application-wide state and data flow.
+* **API Integration:** Plan for numerous API calls. Utilize environment variables (`.env` files supported by Vite) to manage different API endpoints (dev, staging, prod). Consider using an HTTP client library like `axios` for streamlined requests and error handling.
 
 ## 4. Key Design Considerations
 
@@ -36,6 +38,7 @@ The platform aims to demonstrate support for the following core supervisory func
 * **Secure Communication:** Secure messaging and file exchange within the platform.
 * **Upload Validation:** Implement validation rules, potentially using templates for reporting.
 * **Modern UX:** Intuitive navigation, clean layouts, clear workflows.
+* **Build Process:** Leverage Vite's optimized build process for production deployments.
 * **High Availability & DR:** Conceptual consideration for resilient operations.
 * **Integration Hooks:** Design with potential integration points for data intake/export (e.g., with systems like FAME/FEDM mentioned in CBTT RFP).
 

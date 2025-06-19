@@ -1,0 +1,66 @@
+productId,entityId,productName,description,licenseTypeRequired
+prod_001,ent_001,SummitPay Direct,Direct payment processing solution for online merchants.,Payment Institution License
+prod_002,ent_001,Summit E-Wallet,Consumer-focused e-wallet for online and P2P payments.,E-Money Institution License
+prod_003,ent_002,ApexTrade Crypto,"Platform for buying, selling, and storing crypto assets.",Crypto Asset Service Provider License
+prod_004,ent_003,GlobalInvest Portfolio,Managed investment portfolios for retail investors.,Investment Firm License
+prod_005,ent_004,SecureLend P2P,Peer-to-peer lending platform for consumer loans.,Credit Institution License
+prod_006,ent_005,FinAdvisor Connect,Account information service provider for consolidated financial views.,PISP/AISP License
+prod_007,ent_006,TrustGuard Payments,Escrow and third-party payment holding services.,Payment Institution License
+prod_008,ent_007,PartnerFX Solutions,Forex trading platform for institutional clients.,Investment Firm License
+prod_009,ent_008,InnovatePay Gateway,Advanced payment gateway with integrated fraud detection.,Payment Institution License
+prod_010,ent_009,CryptoVest Fund,Investment fund focused on digital and crypto assets.,Crypto Asset Service Provider License
+prod_011,ent_010,WealthFlow Manager,Comprehensive wealth management and financial advisory services.,Investment Firm License
+prod_012,ent_011,HorizonCrowd Equity,Equity crowdfunding platform for startups and SMEs.,Investment Firm License
+prod_013,ent_012,MicroUnity Finance,Micro-lending and financial inclusion services.,Credit Institution License
+prod_014,ent_013,DigitalSafe Custody,Custody solutions for digital assets and cryptocurrencies.,Crypto Asset Service Provider License
+prod_015,ent_014,TenRing Payments,Global payment network for cross-border transactions.,Payment Institution License
+prod_016,ent_015,PymParticle Payments,Micropayments solution for digital content and services.,E-Money Institution License
+prod_017,ent_016,ShieldTrust SecurePay,Secure payment processing for high-risk industries.,Payment Institution License
+prod_018,ent_017,ReguSure ComplyTech,RegTech solution for automated compliance reporting (AISP functionalities).,PISP/AISP License
+prod_019,ent_018,SigmaAI TradingBot,AI-driven automated trading platform for various asset classes.,Investment Firm License
+prod_020,ent_019,WakandaDeFi Access,Decentralized finance (DeFi) access and investment platform.,Crypto Asset Service Provider License
+prod_021,ent_020,DoomCoin Exchange,Centralized cryptocurrency exchange with advanced trading features.,Crypto Asset Service Provider License
+prod_022,ent_021,Veidt Secure Payments,Ultra-secure payment initiation service for large enterprises.,PISP/AISP License
+prod_023,ent_022,HandPay Solutions,Merchant payment solutions and point-of-sale integrations.,Payment Institution License
+prod_024,ent_023,Ultron AlgoInvest,Algorithmic investment strategies for institutional investors.,Investment Firm License
+prod_025,ent_024,OmegaDex Crypto,Cryptocurrency exchange focused on exotic and emerging digital assets.,Crypto Asset Service Provider License
+prod_026,ent_025,AetherPay International,Cross-border payment and remittance services using novel technologies.,Payment Institution License
+prod_027,ent_026,Wallace Secure Wallet,Digital wallet with enhanced biometric security features.,E-Money Institution License
+prod_028,ent_027,Starlight Aggregator,Account aggregation service for a holistic view of finances.,PISP/AISP License
+prod_029,ent_028,Galaxy Asset Lending,Crypto-backed lending and borrowing services.,Credit Institution License
+prod_030,ent_028,Millennium Exchange,High-frequency crypto trading platform.,Crypto Asset Service Provider License
+prod_031,ent_029,Quantum SecurePay,Payment services leveraging quantum-resistant cryptography.,Payment Institution License
+prod_032,ent_030,Neptune Digital Wallet,E-money wallet with integrated cross-border payment capabilities.,E-Money Institution License
+prod_033,ent_031,FrostBanc Savings,Digital savings accounts and term deposit products.,Credit Institution License
+prod_034,ent_032,EmeraldCity Invest,Investment platform with a focus on green and ethical projects.,Investment Firm License
+prod_035,ent_033,GothamSecure Pay,Secure payment infrastructure for urban ecosystems.,Payment Institution License
+prod_036,ent_034,WakandaFintech Core,Core banking and payment solutions for emerging markets.,Payment Institution License
+prod_037,ent_034,Vibranium Vault Crypto,Ultra-secure custody for high-value crypto assets.,Crypto Asset Service Provider License
+prod_038,ent_035,StarkPay PISP,Payment initiation service for e-commerce businesses.,PISP/AISP License
+prod_039,ent_036,Hobbiton E-Money,Community-focused e-money and local payment system.,E-Money Institution License
+prod_040,ent_037,TronGrid Payments,Payment solutions for digital marketplaces and virtual economies.,Payment Institution License
+prod_041,ent_038,Skynet AI Finance,AI-powered financial analysis and account information services.,PISP/AISP License
+prod_042,ent_039,Gringotts CryptoSafe,Secure storage and exchange services for various cryptocurrencies.,Crypto Asset Service Provider License
+prod_043,ent_040,Pandora Digital Cash,Digital cash solution for underserved populations.,E-Money Institution License
+prod_044,ent_041,Jurassic Investments,Alternative investment funds focusing on emerging technologies.,Investment Firm License
+prod_045,ent_042,MatrixPay Connect,Payment initiation and account information services for the digital realm.,PISP/AISP License
+prod_046,ent_042,Zion Digital Lending,Community-based lending platform offering micro-credits.,Credit Institution License
+prod_047,ent_043,XandarPay Universal,Universal payment acceptance platform for global merchants.,Payment Institution License
+prod_048,ent_044,Krypton Crypto Exchange,High-performance cryptocurrency exchange with margin trading.,Crypto Asset Service Provider License
+prod_049,ent_045,WesterosBanc Prime,Prime brokerage and investment services for high-net-worth individuals.,Investment Firm License
+prod_050,ent_046,Naboo E-Credits,Regional e-money system for promoting local commerce.,E-Money Institution License
+prod_051,ent_047,Gallifrey TimePay,Payment solutions with temporal settlement features (conceptual).,Payment Institution License
+prod_052,ent_048,Bespin Cloud Credits,Cloud-based credit facilities for businesses.,Credit Institution License
+prod_053,ent_049,DailyPlanet Pensions AIS,Account information service for managing pension funds.,PISP/AISP License
+prod_054,ent_050,Federation Standard Coin,Stablecoin for inter-Federation commerce and settlements.,Crypto Asset Service Provider License
+prod_055,ent_001,SummitFX Pro,Retail forex and CFD trading platform.,Investment Firm License
+prod_056,ent_010,Xavier MicroCredit,Micro-credit services for small businesses and entrepreneurs.,Credit Institution License
+prod_057,ent_020,Latveria Global Pay,International payment services with strong emphasis on compliance.,Payment Institution License
+prod_058,ent_030,Atlantis Treasury,Treasury management and cash pooling services for corporates.,Payment Institution License
+prod_059,ent_040,Eywa DeFi YieldFarm,Yield farming and liquidity provision platform for DeFi assets.,Crypto Asset Service Provider License
+prod_060,ent_050,Starfleet Mutual Fund,Mutual fund investing in diversified portfolios across the Federation.,Investment Firm License
+prod_061,ent_002,NovaBank E-Money,Digital banking app with e-money accounts and payment cards.,E-Money Institution License
+prod_062,ent_015,AntMan AccountView,Consolidated account information service for personal finance management.,PISP/AISP License
+prod_063,ent_025,Asgardian Gold Crypto,Gold-backed cryptocurrency token and exchange.,Crypto Asset Service Provider License
+prod_064,ent_035,RescueLoan Services,Short-term emergency loan services for individuals.,Credit Institution License
+prod_065,ent_045,IronThrone Capital,Private equity and venture capital investment services.,Investment Firm License

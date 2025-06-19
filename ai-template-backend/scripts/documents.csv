@@ -1,0 +1,21 @@
+documentId,fileName,documentType,version,uploadDate,uploadedBy,mimeType,dummyFileContentLink,description
+doc_gen_001,generic_business_plan_v1.pdf,Business Plan,1,45028,applicant_contact_generic,application/pdf,/dummy_documents/generic_document.txt,Generic Business Plan for applicant.
+doc_gen_002,generic_aml_policy_v1.2.pdf,AML/CFT Policy,1.2,45031,applicant_contact_generic,application/pdf,/dummy_documents/generic_document.txt,Generic AML/CFT Policy for applicant.
+doc_gen_003,generic_financials_2023.xlsx,Financial Projections,1,45066,applicant_contact_generic,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,/dummy_documents/generic_document.txt,Generic Financial Projections for applicant.
+doc_gen_004,generic_cert_of_inc.pdf,Certificate of Incorporation,1,44995,applicant_contact_generic,application/pdf,/dummy_documents/generic_document.txt,Generic Certificate of Incorporation for applicant.
+doc_gen_005,generic_id_scan_director_A.jpg,Director ID Scan,1,45028,applicant_contact_generic,image/jpeg,/dummy_documents/generic_document.txt,Generic ID Scan for an applicant director.
+doc_gen_006,generic_proof_of_address_dir_A.pdf,Proof of Address,1,45028,applicant_contact_generic,application/pdf,/dummy_documents/generic_document.txt,Generic Proof of Address for an applicant director.
+doc_gen_007,generic_sys_architecture_v1.pdf,System Architecture Diagram,1,45078,applicant_contact_generic,application/pdf,/dummy_documents/generic_document.txt,Generic System Architecture Diagram for applicant.
+doc_gen_008,generic_proof_of_funds.pdf,Proof of Funds,1,45082,applicant_contact_generic,application/pdf,/dummy_documents/generic_document.txt,Generic Proof of Funds statement for applicant.
+doc_gen_009,generic_incident_response_plan.pdf,Incident Response Plan,1,45129,applicant_contact_generic,application/pdf,/dummy_documents/generic_document.txt,Generic Incident Response Plan for applicant.
+doc_gen_010,generic_data_privacy_policy.pdf,Data Privacy Policy,1,45129,applicant_contact_generic,application/pdf,/dummy_documents/generic_document.txt,Generic Data Privacy Policy for applicant.
+doc_gen_011,generic_investor_pitch_deck.pptx,Pitch Deck,2,45139,applicant_contact_generic,application/vnd.openxmlformats-officedocument.presentationml.presentation,/dummy_documents/generic_document.txt,Generic Pitch Deck for applicant.
+doc_gen_012,generic_user_agreement.docx,User Agreement Template,1,45139,applicant_contact_generic,application/vnd.openxmlformats-officedocument.wordprocessingml.document,/dummy_documents/generic_document.txt,Generic User Agreement Template for applicant.
+doc_gen_013,generic_financials_2024_Q1.xlsx,Financial Projections,1.1,45400,applicant_contact_generic,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,/dummy_documents/generic_document.txt,Generic Q1 2024 Financial Projections for applicant.
+doc_gen_014,generic_id_scan_director_B.jpg,Director ID Scan,1,45333,applicant_contact_generic,image/jpeg,/dummy_documents/generic_document.txt,Generic ID Scan for a second applicant director.
+doc_gen_015,generic_proof_of_address_dir_B.pdf,Proof of Address,1,45333,applicant_contact_generic,application/pdf,/dummy_documents/generic_document.txt,Generic Proof of Address for a second applicant director.
+doc_gen_016,generic_aml_policy_v1.3.pdf,AML/CFT Policy,1.3,45442,applicant_contact_generic,application/pdf,/dummy_documents/generic_document.txt,Updated Generic AML/CFT Policy for applicant.
+doc_gen_017,generic_compliance_report_2024_H1.pdf,Compliance Report,1,45488,applicant_contact_generic,application/pdf,/dummy_documents/generic_document.txt,Generic semi-annual compliance report.
+doc_gen_018,generic_board_resolution.pdf,Board Resolution,1,45311,applicant_contact_generic,application/pdf,/dummy_documents/generic_document.txt,Generic board resolution document.
+doc_gen_019,generic_shareholder_register.csv,Shareholder Register,1,45311,applicant_contact_generic,text/csv,/dummy_documents/generic_document.txt,Generic shareholder register for applicant.
+doc_gen_020,generic_insurance_certificate.pdf,Proof of Insurance,1,45376,applicant_contact_generic,application/pdf,/dummy_documents/generic_document.txt,Generic proof of professional indemnity insurance.

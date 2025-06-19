@@ -1,0 +1,101 @@
+incident_id,entityId,incident_date,report_date,incident_type,severity,description,status,financial_impact,currency,data_loss_involved
+inc_gen_001,ent_001,2023-03-20T14:30:00Z,2023-03-21T09:00:00Z,Operational Risk,Medium,Payment processing delay due to unscheduled system maintenance.,Resolved,0,,FALSE
+inc_gen_002,ent_001,2024-08-05T10:15:00Z,2024-08-05T15:00:00Z,Operational Risk,Significant,Extended API outage impacting third-party integrations for 4 hours.,Resolved,15000,USD,FALSE
+inc_gen_003,ent_002,2024-07-10T11:00:00Z,2024-07-10T11:30:00Z,Security Breach,High,Ransomware attack detected on internal server. Customer data potentially accessed.,Under Investigation,0,,TRUE
+inc_gen_004,ent_002,2025-01-15T09:00:00Z,2025-01-15T10:00:00Z,Security Breach,Medium,Minor data leak from a test environment due to misconfigured S3 bucket. No PII.,Resolved,0,,TRUE
+inc_gen_005,ent_003,2023-11-05T16:00:00Z,2023-11-06T10:00:00Z,Suitability Rule Breach,Medium,Client complaint regarding high-risk investment not aligned with stated risk profile.,Reported,0,,FALSE
+inc_gen_006,ent_003,2024-05-12T10:30:00Z,2024-05-13T14:45:00Z,Market Conduct Violation,Low,Misleading advertisement identified on a social media campaign. Corrective action taken.,Action Taken,0,,FALSE
+inc_gen_007,ent_004,2024-02-10T14:20:00Z,2024-02-11T09:00:00Z,Operational Risk,Low,"Incorrect interest calculation for a small batch of loans, manually corrected.",Resolved,500,USD,FALSE
+inc_gen_008,ent_004,2025-03-01T11:00:00Z,2025-03-01T16:30:00Z,Operational Risk,Medium,Staff error led to temporary unavailability of online loan application portal.,Resolved,0,,FALSE
+inc_gen_009,ent_005,2023-06-22T09:00:00Z,2023-06-22T11:00:00Z,Data Consent Violation,Significant,AISP partner accessed transaction history beyond the 90-day consent window for 50 users.,Action Taken,0,,TRUE
+inc_gen_010,ent_005,2024-09-14T15:30:00Z,2024-09-15T10:00:00Z,Data Consent Violation,Medium,User complaint regarding data sharing with an unlisted third-party; internal review ongoing.,Under Investigation,0,,FALSE
+inc_gen_011,ent_006,2023-04-18T12:00:00Z,2023-04-18T16:30:00Z,Operational Risk,Low,Minor disruption to payment settlements due to correspondent bank delay.,Resolved,0,,FALSE
+inc_gen_012,ent_006,2024-10-20T08:00:00Z,2024-10-20T10:00:00Z,Operational Risk,Medium,Phishing attempt on employee successfully blocked; no system compromise.,Resolved,0,,FALSE
+inc_gen_013,ent_007,2023-08-25T13:15:00Z,2023-08-26T11:00:00Z,Suitability Rule Breach,Low,Automated system flagged potentially unsuitable trade for a client; manually overridden after review.,Resolved,0,,FALSE
+inc_gen_014,ent_007,2025-02-10T17:00:00Z,2025-02-11T09:30:00Z,Market Conduct Violation,Medium,Allegation of front-running by a trader; under internal investigation.,Under Investigation,0,,FALSE
+inc_gen_015,ent_008,2023-09-05T09:45:00Z,2023-09-05T14:00:00Z,Operational Risk,Significant,System-wide outage of payment gateway for 2 hours due to hardware failure.,Resolved,25000,USD,FALSE
+inc_gen_016,ent_008,2024-11-15T11:00:00Z,2024-11-15T11:30:00Z,Operational Risk,Low,"Incorrect fee applied to a batch of international transfers, rectified and customers refunded.",Action Taken,1200,USD,FALSE
+inc_gen_017,ent_009,2024-06-12T18:00:00Z,2024-06-13T10:00:00Z,Security Breach,High,Customer database exposed via SQL injection vulnerability on a marketing sub-domain. PII of 5000 users affected.,Under Investigation,50000,USD,TRUE
+inc_gen_018,ent_009,2025-03-20T10:00:00Z,2025-03-20T10:45:00Z,Security Breach,Medium,"Malware detected on an employee workstation. Isolated, no evidence of data exfiltration.",Resolved,0,,FALSE
+inc_gen_019,ent_010,2023-05-02T15:00:00Z,2023-05-03T09:00:00Z,Suitability Rule Breach,Medium,Failure to update client risk profile leading to recommendation of overly aggressive products.,Reported,0,,FALSE
+inc_gen_020,ent_010,2024-08-10T12:00:00Z,2024-08-10T17:00:00Z,Market Conduct Violation,High,Evidence of insider trading activity by a former employee. Reported to authorities.,Action Taken,0,,FALSE
+inc_gen_021,ent_011,2023-07-14T10:00:00Z,2023-07-14T16:30:00Z,Suitability Rule Breach,Low,"Client misclassified leading to slightly mismatched product offering, rectified upon discovery.",Resolved,0,,FALSE
+inc_gen_022,ent_011,2024-09-25T11:15:00Z,2024-09-26T09:00:00Z,Operational Risk,Medium,Crowdfunding platform experienced intermittent login issues for 6 hours.,Resolved,0,,FALSE
+inc_gen_023,ent_012,2023-12-01T09:30:00Z,2023-12-01T11:00:00Z,Operational Risk,Low,Error in loan statement generation for a small number of customers.,Resolved,0,,FALSE
+inc_gen_024,ent_012,2025-04-10T14:00:00Z,2025-04-11T10:00:00Z,Operational Risk,Medium,Data center cooling failure caused temporary service degradation for micro-loan approvals.,Resolved,1000,USD,FALSE
+inc_gen_025,ent_013,2024-10-05T00:30:00Z,2024-10-05T08:00:00Z,Security Breach,Significant,Unauthorized access to cold storage wallet infrastructure detected. Emergency protocols enacted. Some operational funds moved.,Under Investigation,100000,USD,TRUE
+inc_gen_026,ent_013,2025-05-01T13:00:00Z,2025-05-01T13:30:00Z,Security Breach,Low,Social engineering attempt on support staff via phone. No information disclosed.,Resolved,0,,FALSE
+inc_gen_027,ent_014,2023-06-15T10:00:00Z,2023-06-15T14:00:00Z,Operational Risk,Medium,Cross-border payment failure due to correspondent bank system update.,Resolved,0,,FALSE
+inc_gen_028,ent_014,2024-07-22T11:00:00Z,2024-07-22T15:30:00Z,Operational Risk,Significant,DDoS attack on payment gateway causing service disruption for 30 minutes.,Resolved,5000,USD,FALSE
+inc_gen_029,ent_015,2024-01-10T09:00:00Z,2024-01-10T09:30:00Z,Operational Risk,Low,Issue with e-money top-up service for a specific payment method. Quickly resolved.,Resolved,0,,FALSE
+inc_gen_030,ent_015,2025-02-20T16:00:00Z,2025-02-21T10:00:00Z,Operational Risk,Medium,Incorrect daily FX rate applied to a small batch of e-money conversions.,Action Taken,250,USD,FALSE
+inc_gen_031,ent_016,2023-08-01T14:00:00Z,2023-08-01T18:00:00Z,Operational Risk,Medium,High transaction volume caused temporary slowdown in payment processing.,Resolved,0,,FALSE
+inc_gen_032,ent_016,2024-12-05T10:00:00Z,2024-12-05T10:30:00Z,Operational Risk,Low,User interface bug in mobile app displaying incorrect balance temporarily for some users.,Resolved,0,,FALSE
+inc_gen_033,ent_017,2024-03-10T11:00:00Z,2024-03-10T12:00:00Z,Data Consent Violation,Medium,Consent revocation not processed within the 24-hour SLA for a few users.,Action Taken,0,,FALSE
+inc_gen_034,ent_017,2025-01-05T15:00:00Z,2025-01-06T09:00:00Z,Operational Risk,Low,"Scheduled maintenance overran by 1 hour, impacting AISP data refresh.",Resolved,0,,FALSE
+inc_gen_035,ent_018,2023-10-10T14:30:00Z,2023-10-11T09:00:00Z,Suitability Rule Breach,Significant,System error led to incorrect risk profiling for a batch of new clients. Re-assessment underway.,Under Investigation,0,,FALSE
+inc_gen_036,ent_018,2024-11-20T09:00:00Z,2024-11-20T10:30:00Z,Operational Risk,Low,Trading platform displayed stale market data for 5 minutes.,Resolved,0,,FALSE
+inc_gen_037,ent_019,2024-09-15T12:00:00Z,2024-09-15T18:00:00Z,Security Breach,High,Smart contract vulnerability exploited in a newly listed DeFi protocol pool. Emergency pause initiated.,Action Taken,75000,USD,TRUE
+inc_gen_038,ent_019,2025-04-05T17:00:00Z,2025-04-06T09:00:00Z,Security Breach,Medium,Attempted breach on company's crypto treasury wallet; attack thwarted by security measures.,Resolved,0,,FALSE
+inc_gen_039,ent_020,2024-06-01T10:00:00Z,2024-06-01T11:00:00Z,Security Breach,Significant,"Insider trading suspected involving delisting of a coin. Trading halted, investigation launched.",Under Investigation,0,,FALSE
+inc_gen_040,ent_020,2025-03-10T14:00:00Z,2025-03-10T14:30:00Z,Operational Risk,Low,Exchange matching engine experienced minor lag during peak volume.,Resolved,0,,FALSE
+inc_gen_041,ent_021,2023-07-01T10:00:00Z,2023-07-01T15:00:00Z,Data Consent Violation,Significant,Unauthorized API access by a terminated third-party AISP partner due to delayed credential revocation.,Action Taken,0,,TRUE
+inc_gen_042,ent_021,2024-08-22T16:00:00Z,2024-08-23T09:00:00Z,Operational Risk,Medium,Payment initiation service failing for payments to a specific bank due to API changes.,Resolved,0,,FALSE
+inc_gen_043,ent_022,2023-09-10T13:15:00Z,2023-09-10T17:00:00Z,Operational Risk,Significant,POS terminal software bug caused double charging for some customers. Refunds processed.,Action Taken,3200,USD,FALSE
+inc_gen_044,ent_022,2024-10-01T10:00:00Z,2024-10-01T10:30:00Z,Operational Risk,Low,Intermittent issues with merchant payout settlements.,Resolved,0,,FALSE
+inc_gen_045,ent_023,2024-02-15T11:00:00Z,2024-02-15T11:45:00Z,Operational Risk,Medium,Algo trading bot executed unintended trades due to a parameter error. Positions corrected with minor loss.,Resolved,1500,USD,FALSE
+inc_gen_046,ent_023,2025-05-20T14:00:00Z,2025-05-21T09:00:00Z,Suitability Rule Breach,Medium,Algorithmically managed portfolios showed unexpected deviation from client's chosen risk level.,Under Investigation,0,,FALSE
+inc_gen_047,ent_024,2024-12-01T08:00:00Z,2024-12-01T09:30:00Z,Security Breach,Medium,"DDoS attack against exchange website, causing intermittent access issues. No funds compromised.",Resolved,0,,FALSE
+inc_gen_048,ent_024,2025-06-01T02:00:00Z,2025-06-01T10:00:00Z,Security Breach,High,Compromise of an exchange hot wallet. Funds moved to secure storage. Extent of loss being assessed.,Under Investigation,250000,USD,TRUE
+inc_gen_049,ent_025,2023-10-20T16:30:00Z,2023-10-21T09:00:00Z,Operational Risk,Low,Latency in processing international payments to certain corridors.,Reported,0,,FALSE
+inc_gen_050,ent_025,2024-11-11T12:00:00Z,2024-11-11T12:30:00Z,Operational Risk,Medium,Novel fraud attempt detected and prevented by real-time risk engine.,Resolved,0,,FALSE
+inc_gen_051,ent_026,2024-04-10T10:00:00Z,2024-04-10T10:20:00Z,Operational Risk,Low,E-wallet app login issues for Android users after OS update.,Resolved,0,,FALSE
+inc_gen_052,ent_026,2025-01-20T15:00:00Z,2025-01-21T09:00:00Z,Operational Risk,Medium,Third-party KYC provider outage affected new user onboarding for 3 hours.,Resolved,0,,FALSE
+inc_gen_053,ent_027,2023-05-15T14:00:00Z,2023-05-15T14:30:00Z,Operational Risk,Low,Account aggregation failing for one specific bank connection.,Reported,0,,FALSE
+inc_gen_054,ent_027,2024-07-25T09:30:00Z,2024-07-25T11:00:00Z,Data Consent Violation,Medium,User data accessed for analytics without explicit opt-in for that specific purpose. Process updated.,Action Taken,0,,FALSE
+inc_gen_055,ent_028,2024-01-05T10:00:00Z,2024-01-05T11:00:00Z,Operational Risk,Low,Incorrect calculation of accrued interest on a few crypto-backed loans.,Resolved,200,USD,FALSE
+inc_gen_056,ent_028,2025-03-15T16:00:00Z,2025-03-16T09:00:00Z,Operational Risk,Medium,Liquidation engine for crypto loans triggered prematurely for a small set of accounts during high volatility.,Under Investigation,0,,FALSE
+inc_gen_057,ent_029,2023-08-01T11:00:00Z,2023-08-01T11:30:00Z,Operational Risk,Low,Quantum-resistant encryption library update caused temporary incompatibility with an internal reporting tool.,Resolved,0,,FALSE
+inc_gen_058,ent_029,2024-09-10T17:00:00Z,2024-09-11T09:00:00Z,Operational Risk,Significant,Failed deployment of new payment protocol led to 1-hour service interruption for all users.,Resolved,8000,USD,FALSE
+inc_gen_059,ent_030,2023-11-15T10:00:00Z,2023-11-15T10:30:00Z,Operational Risk,Medium,E-money wallet top-up failures for users of a specific mobile carrier.,Resolved,0,,FALSE
+inc_gen_060,ent_030,2024-12-01T14:00:00Z,2024-12-01T15:00:00Z,Operational Risk,Low,Display error in transaction history for a small subset of wallet users.,Action Taken,0,,FALSE
+inc_gen_061,ent_031,2024-03-20T09:00:00Z,2024-03-20T10:00:00Z,Operational Risk,Medium,Digital savings account opening process experiencing high error rates.,Reported,0,,FALSE
+inc_gen_062,ent_031,2025-04-05T13:00:00Z,2025-04-05T13:30:00Z,Operational Risk,Low,Incorrect marketing communication sent to a segment of savings account holders.,Action Taken,0,,FALSE
+inc_gen_063,ent_032,2023-06-10T10:00:00Z,2023-06-10T11:00:00Z,Market Conduct Violation,Low,"Marketing material for Green Bond found to have a minor factual inaccuracy, since corrected.",Resolved,0,,FALSE
+inc_gen_064,ent_032,2024-08-15T16:00:00Z,2024-08-16T09:00:00Z,Suitability Rule Breach,Medium,Automated rebalancing of ethical portfolios did not execute as expected for some clients.,Under Investigation,0,,FALSE
+inc_gen_065,ent_033,2024-05-01T12:30:00Z,2024-05-01T14:00:00Z,Operational Risk,Medium,Smart city payment kiosk network experienced a brief city-wide outage.,Resolved,12000,USD,FALSE
+inc_gen_066,ent_033,2025-02-15T09:00:00Z,2025-02-15T09:15:00Z,Operational Risk,Low,Authentication failure for a specific batch of NFC payment terminals.,Resolved,0,,FALSE
+inc_gen_067,ent_034,2024-07-01T10:00:00Z,2024-07-01T11:00:00Z,Security Breach,Significant,Unauthorized access to core banking system development environment. No production data impacted.,Resolved,0,,TRUE
+inc_gen_068,ent_034,2025-03-20T15:00:00Z,2025-03-21T09:00:00Z,Operational Risk,Medium,"Inter-branch settlement reconciliation discrepancy, requiring manual intervention.",Reported,0,,FALSE
+inc_gen_069,ent_035,2023-12-10T14:00:00Z,2023-12-11T09:00:00Z,Data Consent Violation,Low,Third-party e-commerce plugin requested excessive permissions during PISP setup for one merchant.,Action Taken,0,,FALSE
+inc_gen_070,ent_035,2024-10-18T10:00:00Z,2024-10-18T10:30:00Z,Operational Risk,Medium,PISP service unavailable for a specific bank due to unexpected API changes from the bank's side.,Resolved,0,,FALSE
+inc_gen_071,ent_036,2024-02-01T11:00:00Z,2024-02-01T11:20:00Z,Operational Risk,Low,Error in displaying loyalty points for e-money users. Corrected.,Resolved,0,,FALSE
+inc_gen_072,ent_036,2025-04-22T09:30:00Z,2025-04-22T10:00:00Z,Operational Risk,Significant,Safeguarding account reconciliation process failed automated checks; manual verification initiated.,Under Investigation,0,,FALSE
+inc_gen_073,ent_037,2023-09-01T15:00:00Z,2023-09-01T15:30:00Z,Operational Risk,Low,User reported issue with QR code payment at a specific merchant terminal.,Resolved,0,,FALSE
+inc_gen_074,ent_037,2024-11-12T10:00:00Z,2024-11-12T12:00:00Z,Operational Risk,Medium,Digital marketplace integration experienced data sync issues for 2 hours.,Resolved,0,,FALSE
+inc_gen_075,ent_038,2024-05-20T10:00:00Z,2024-05-20T10:15:00Z,Operational Risk,Medium,AI-powered financial analysis tool provided anomalous recommendations for a short period.,Resolved,0,,FALSE
+inc_gen_076,ent_038,2025-02-25T16:00:00Z,2025-02-26T09:00:00Z,Data Consent Violation,Low,"Account information service displayed data from an inadvertently linked, non-consented account for one user.",Action Taken,0,,FALSE
+inc_gen_077,ent_039,2024-08-10T09:00:00Z,2024-08-10T09:30:00Z,Security Breach,Significant,Attempted withdrawal of non-existent high-value NFTs from a user wallet; transaction blocked.,Resolved,0,,FALSE
+inc_gen_078,ent_039,2025-01-05T14:00:00Z,2025-01-05T18:00:00Z,Security Breach,High,"Key rotation failure for a secondary cold storage vault. Risk assessed as low, but procedure being revised.",Action Taken,0,,TRUE
+inc_gen_079,ent_040,2023-07-17T11:00:00Z,2023-07-17T11:30:00Z,Operational Risk,Low,"Minor discrepancy in digital cash float reconciliation, quickly resolved.",Resolved,0,,FALSE
+inc_gen_080,ent_040,2024-09-28T10:00:00Z,2024-09-28T14:00:00Z,Operational Risk,Medium,Service degradation for e-money top-ups via a specific bank transfer method.,Resolved,0,,FALSE
+inc_gen_081,ent_041,2024-04-15T10:00:00Z,2024-04-15T11:00:00Z,Market Conduct Violation,Medium,Research report on emerging tech fund contained unverified claims from a third-party source.,Action Taken,0,,FALSE
+inc_gen_082,ent_041,2025-03-03T09:00:00Z,2025-03-03T10:30:00Z,Operational Risk,Low,Client portal access issues reported by a small number of institutional investors.,Resolved,0,,FALSE
+inc_gen_083,ent_042,2024-06-10T14:00:00Z,2024-06-10T14:30:00Z,Operational Risk,Medium,MatrixPay Connect API rate limiting affected several large merchants.,Resolved,0,,FALSE
+inc_gen_084,ent_042,2025-02-12T11:00:00Z,2025-02-12T11:15:00Z,Data Consent Violation,Low,"User data access logs showed an anomaly for one AISP client; investigated, no breach.",Resolved,0,,FALSE
+inc_gen_085,ent_043,2023-08-20T10:00:00Z,2023-08-20T10:20:00Z,Operational Risk,Significant,Payment processing halted for 20 minutes due to critical database error. Rolled back.,Resolved,10000,USD,FALSE
+inc_gen_086,ent_043,2024-10-05T15:00:00Z,2024-10-05T15:30:00Z,Operational Risk,Low,Incorrect currency conversion applied to a handful of international payments. Corrected and refunded.,Action Taken,300,USD,FALSE
+inc_gen_087,ent_044,2024-11-01T14:00:00Z,2024-11-01T18:00:00Z,Security Breach,Medium,Brute-force login attempts detected and mitigated against several high-balance accounts.,Resolved,0,,FALSE
+inc_gen_088,ent_044,2025-05-15T09:30:00Z,2025-05-15T10:00:00Z,Security Breach,High,Social engineering attack on employee led to unauthorized access to an internal marketing tool. No financial data accessed.,Under Investigation,0,,TRUE
+inc_gen_089,ent_045,2023-09-20T10:00:00Z,2023-09-20T11:00:00Z,Suitability Rule Breach,Low,Inadequate documentation for a complex product sale to a retail client. Remedial training provided.,Action Taken,0,,FALSE
+inc_gen_090,ent_045,2024-12-10T16:00:00Z,2024-12-11T09:00:00Z,Market Conduct Violation,Medium,Internal investigation into potential conflict of interest in research analyst recommendations.,Under Investigation,0,,FALSE
+inc_gen_091,ent_046,2024-03-01T09:00:00Z,2024-03-01T10:00:00Z,Operational Risk,Low,E-credits redemption portal was temporarily unavailable for one region.,Resolved,0,,FALSE
+inc_gen_092,ent_046,2025-01-10T14:00:00Z,2025-01-10T14:45:00Z,Operational Risk,Medium,Discrepancy found in daily e-money float reconciliation; traced to manual error.,Resolved,0,,FALSE
+inc_gen_093,ent_047,2023-06-10T12:00:00Z,2023-06-10T12:30:00Z,Operational Risk,Medium,Temporal displacement of payment data caused minor reporting errors for 30 mins. Corrected.,Resolved,0,,FALSE
+inc_gen_094,ent_047,2024-08-15T17:00:00Z,2024-08-16T09:00:00Z,Operational Risk,Significant,Unforeseen interaction with a temporal anomaly led to duplicated transactions for a small user batch. All reversed.,Action Taken,0,,FALSE
+inc_gen_095,ent_048,2024-05-01T10:00:00Z,2024-05-01T10:15:00Z,Operational Risk,Low,Cloud credit allocation system experienced minor delays in provisioning new accounts.,Resolved,0,,FALSE
+inc_gen_096,ent_048,2025-03-25T15:00:00Z,2025-03-26T09:00:00Z,Operational Risk,Medium,Automated loan origination system flagged for review due to higher-than-expected approval rates in one segment.,Under Investigation,0,,FALSE
+inc_gen_097,ent_049,2023-10-05T14:00:00Z,2023-10-05T14:30:00Z,Operational Risk,Low,Pension fund account information refresh delayed for some users.,Resolved,0,,FALSE
+inc_gen_098,ent_049,2024-11-20T11:00:00Z,2024-11-20T11:20:00Z,Data Consent Violation,Medium,AISP widget on partner site inadvertently collected IP addresses without explicit itemization in consent form.,Action Taken,0,,TRUE
+inc_gen_099,ent_050,2024-07-30T10:00:00Z,2024-07-30T10:45:00Z,Security Breach,Medium,"Attempted exploit of stablecoin minting contract; no tokens minted illicitly, vulnerability patched.",Resolved,0,,FALSE
+inc_gen_100,ent_050,2025-04-01T16:00:00Z,2025-04-02T09:00:00Z,Security Breach,Significant,"Loss of private key for a development testnet wallet holding no real value, procedural review initiated.",Action Taken,0,,TRUE

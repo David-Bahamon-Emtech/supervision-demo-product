@@ -1,0 +1,27 @@
+licenseId,licenseNumber,productId,entityId,licenseType,issueDate,expiryDate,lastRenewalDate,nextRenewalDueDate,licenseStatus,statusReason,renewalStatus,renewalApplicationId,renewalSubmissionDate,renewalLastUpdated,renewalNotes,renewalDocumentIds,complianceHistoryReviewed
+LIC-2024-001,PAY-2024-00001,prod_001,ent_001,Payment Institution License,45361,45726,,45666,Expired,License period concluded.,,,,,,,FALSE
+LIC-2024-002,E-M-2024-00002,prod_002,ent_001,E-Money Institution License,45397,46127,,46067,Active,,Not Started,,,,[],[],FALSE
+LIC-2024-003,CRY-2024-00003,prod_003,ent_002,Crypto Asset Service Provider License,45432,46527,,46467,Active,,Not Started,,,,[],[],FALSE
+LIC-2024-004,INV-2024-00004,prod_004,ent_003,Investment Firm License,45347,45713,,45653,Expired,License period concluded.,,,,,,,FALSE
+LIC-2024-005,CRE-2024-00005,prod_005,ent_004,Credit Institution License,45444,45809,,45749,Suspended,Pending investigation into recent operational discrepancies.,Pending Submission,,45740,2025-06-04T21:01:40.858Z,[],[],TRUE
+LIC-2024-006,PIS-2024-00006,prod_006,ent_005,PISP/AISP License,45483,46213,45483,46153,Active,,Not Started,,,,[],[],FALSE
+LIC-2024-007,PAY-2024-00007,prod_007,ent_006,Payment Institution License,45519,46614,,46554,Active,,Submitted,,46545,2025-06-04T21:01:40.858Z,[],[],FALSE
+LIC-2024-008,INV-2024-00008,prod_008,ent_007,Investment Firm License,45555,45920,,45860,Active,,Not Started,,,,[],[],FALSE
+LIC-2024-009,PAY-2024-00009,prod_009,ent_008,Payment Institution License,45566,46296,,46236,Active,,Not Started,,,,[],[],FALSE
+LIC-2024-010,CRY-2024-00010,prod_010,ent_009,Crypto Asset Service Provider License,45601,46696,,46636,Active,,Not Started,,,,[],[],FALSE
+LIC-2024-011,INV-2024-00011,prod_011,ent_010,Investment Firm License,45636,46001,,45941,Active,,Not Started,,,,[],[],FALSE
+LIC-2025-012,INV-2025-00012,prod_012,ent_011,Investment Firm License,45672,46402,45672,46342,Active,,Pending Submission,,46333,2025-06-04T21:01:40.858Z,[],[],TRUE
+LIC-2024-013,CRE-2024-00013,prod_013,ent_012,Credit Institution License,45371,45736,,45676,Expired,License period concluded.,,,,,,,FALSE
+LIC-2024-014,CRY-2024-00014,prod_014,ent_013,Crypto Asset Service Provider License,45407,46137,,46077,Active,,Not Started,,,,[],[],FALSE
+LIC-2024-015,PAY-2024-00015,prod_015,ent_014,Payment Institution License,45442,46537,,46478,Active,,Submitted,,46469,2025-06-04T21:01:40.858Z,[],[],FALSE
+LIC-2024-016,E-M-2024-00016,prod_016,ent_015,E-Money Institution License,45448,45813,,45753,Pending Renewal,,Pending Submission,,,,[],[],FALSE
+LIC-2024-017,PAY-2024-00017,prod_017,ent_016,Payment Institution License,45485,46215,,46155,Active,,Not Started,,,,[],[],FALSE
+LIC-2024-018,PIS-2024-00018,prod_018,ent_017,PISP/AISP License,45522,46617,45522,46557,Active,,Not Started,,,,[],[],FALSE
+LIC-2024-019,INV-2024-00019,prod_019,ent_018,Investment Firm License,45557,45922,,45862,Active,,Not Started,,,,[],[],FALSE
+LIC-2024-020,CRY-2024-00020,prod_020,ent_019,Crypto Asset Service Provider License,45593,46323,,46263,Active,,Pending Submission,,46254,2025-06-04T21:01:40.858Z,[],[],TRUE
+LIC-2024-021,CRY-2024-00021,prod_021,ent_020,Crypto Asset Service Provider License,45599,46694,,46634,Active,,Submitted,,46625,2025-06-04T21:01:40.858Z,[],[],FALSE
+LIC-2024-022,PIS-2024-00022,prod_022,ent_021,PISP/AISP License,45634,45999,,45939,Active,,Not Started,,,,[],[],FALSE
+LIC-2025-023,PAY-2025-00023,prod_023,ent_022,Payment Institution License,45670,46400,45670,46340,Active,,Not Started,,,,[],[],FALSE
+LIC-2025-024,INV-2025-00024,prod_024,ent_023,Investment Firm License,45706,46071,,46011,Active,,Pending Submission,,46002,2025-06-04T21:01:40.858Z,[],[],TRUE
+LIC-2024-025,CRY-2024-00025,prod_025,ent_024,Crypto Asset Service Provider License,45376,45741,,45681,Expired,License period concluded.,,,,,,,FALSE
+LIC-2025-026,PAY-2025-00026,prod_026,ent_025,Payment Institution License,45717,46447,45717,46388,Active,,Not Started,,,,[],[],FALSE

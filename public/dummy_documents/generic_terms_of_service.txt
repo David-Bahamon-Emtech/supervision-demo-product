@@ -1,0 +1,84 @@
+=== DUMMY USER AGREEMENT / TERMS OF SERVICE DOCUMENT ===
+Representing a Word (DOCX) Document
+
+Document Title: User Agreement & Terms of Service
+Service Provider: [Applicant Company Name, e.g., EpsilonWallet Inc.] ("Company," "We," "Us," "Our")
+Service Name: [Product/Service Name, e.g., EpsilonWallet] ("Service")
+Effective Date: [Date, e.g., May 13, 2025]
+Last Updated: [Date, e.g., May 13, 2025]
+
+WELCOME TO [Product/Service Name]! PLEASE READ THIS USER AGREEMENT CAREFULLY. BY ACCESSING OR USING OUR SERVICE, YOU AGREE TO BE BOUND BY THESE TERMS AND CONDITIONS. IF YOU DO NOT AGREE TO ALL OF THESE TERMS, DO NOT USE THIS SERVICE.
+
+1.  ACCEPTANCE OF TERMS
+    1.1. This Agreement constitutes a legally binding agreement between you ("User," "You," "Your") and the Company.
+    1.2. We reserve the right to modify these Terms at any time. We will provide notice of significant changes (e.g., by email or through the Service). Your continued use of the Service after such modifications constitutes your acceptance of the new Terms.
+    1.3. You must be at least [e.g., 18] years old and capable of entering into a binding contract to use this Service.
+
+2.  DESCRIPTION OF SERVICE
+    2.1. [Product/Service Name] is a [brief description, e.g., "digital wallet and peer-to-peer payment platform that allows users to send, receive, and manage funds electronically"].
+    2.2. Features may include [list key features, e.g., "fund transfers, account balance inquiries, transaction history, automated savings tools"].
+    2.3. We reserve the right to modify, suspend, or discontinue any aspect of the Service at any time, with or without notice.
+
+3.  USER ACCOUNTS
+    3.1. Registration: To use certain features of the Service, you must register for an account. You agree to provide accurate, current, and complete information during the registration process and to update such information to keep it accurate.
+    3.2. Account Security: You are responsible for safeguarding your account password and for any activities or actions under your account. You agree to notify us immediately of any unauthorized use of your account.
+    3.3. Identity Verification (KYC/AML): You agree to comply with our identity verification procedures, which may include providing government-issued identification and other information, as required by law and our internal policies for Know Your Customer (KYC) and Anti-Money Laundering (AML) purposes.
+
+4.  USE OF SERVICE
+    4.1. Permitted Use: You agree to use the Service only for lawful purposes and in accordance with these Terms.
+    4.2. Prohibited Activities: You agree not to engage in any of the following prohibited activities:
+        a.  Illegal activities, including but not limited to money laundering, terrorist financing, fraud, or unlicensed gambling.
+        b.  Infringing on the intellectual property rights of the Company or any third party.
+        c.  Transmitting viruses, malware, or any other malicious code.
+        d.  Attempting to gain unauthorized access to our systems or user accounts.
+        e.  Harassing, abusing, or harming another person through the Service.
+        f.  Using the Service for any commercial solicitation unless expressly permitted by us.
+        g.  Violating any applicable local, state, national, or international law or regulation.
+
+5.  FEES AND PAYMENTS (If applicable)
+    5.1. Service Fees: Certain features of the Service may be subject to fees. A current schedule of fees is available at [Link to Fee Schedule / within the App - Placeholder] or will be disclosed to you before you incur such fees.
+    5.2. Payment Terms: You agree to pay all applicable fees in a timely manner. All fees are non-refundable except as expressly stated otherwise or required by law.
+    5.3. Changes to Fees: We reserve the right to change our fees upon reasonable notice.
+
+6.  PRIVACY
+    6.1. Our collection and use of personal information in connection with the Service is described in our Data Privacy Policy, available at [Link to Privacy Policy / within the App - Placeholder]. By using the Service, you consent to such collection and use.
+
+7.  INTELLECTUAL PROPERTY
+    7.1. Ownership: The Service and its original content (excluding content provided by users), features, and functionality are and will remain the exclusive property of [Applicant Company Name] and its licensors.
+    7.2. Limited License: We grant you a limited, non-exclusive, non-transferable, revocable license to access and use the Service for your personal, non-commercial use, subject to these Terms.
+
+8.  TERMINATION
+    8.1. By You: You may terminate your account at any time by following the instructions within the Service or contacting customer support.
+    8.2. By Us: We may suspend or terminate your access to the Service at our sole discretion, without prior notice or liability, for any reason, including but not limited to a breach of these Terms.
+    8.3. Effect of Termination: Upon termination, your right to use the Service will immediately cease. Certain provisions of these Terms will survive termination, including ownership provisions, warranty disclaimers, indemnity, and limitations of liability.
+
+9.  DISCLAIMER OF WARRANTIES
+    9.1. THE SERVICE IS PROVIDED ON AN "AS IS" AND "AS AVAILABLE" BASIS. TO THE FULLEST EXTENT PERMITTED BY APPLICABLE LAW, THE COMPANY DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT.
+    9.2. WE DO NOT WARRANT THAT THE SERVICE WILL BE UNINTERRUPTED, SECURE, ERROR-FREE, OR THAT DEFECTS WILL BE CORRECTED.
+
+10. LIMITATION OF LIABILITY
+    10.1. TO THE FULLEST EXTENT PERMITTED BY APPLICABLE LAW, IN NO EVENT SHALL THE COMPANY, ITS AFFILIATES, DIRECTORS, EMPLOYEES, OR AGENTS BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES (INCLUDING, WITHOUT LIMITATION, DAMAGES FOR LOSS OF PROFITS, DATA, USE, GOODWILL, OR OTHER INTANGIBLE LOSSES) ARISING OUT OF OR RELATING TO YOUR ACCESS TO OR USE OF, OR INABILITY TO ACCESS OR USE, THE SERVICE.
+    10.2. OUR TOTAL LIABILITY TO YOU FOR ALL CLAIMS ARISING OUT OF OR RELATING TO THE SERVICE SHALL NOT EXCEED [A NOMINAL AMOUNT, e.g., ONE HUNDRED U.S. DOLLARS ($100.00) OR THE AMOUNT OF FEES PAID BY YOU TO US IN THE PRECEDING SIX MONTHS, WHICHEVER IS GREATER].
+
+11. INDEMNIFICATION
+    You agree to defend, indemnify, and hold harmless the Company and its licensee and licensors, and their employees, contractors, agents, officers, and directors, from and against any and all claims, damages, obligations, losses, liabilities, costs or debt, and expenses (including but not limited to attorney's fees), resulting from or arising out of a) your use and access of the Service, or b) a breach of these Terms.
+
+12. GOVERNING LAW AND DISPUTE RESOLUTION
+    12.1. Governing Law: These Terms shall be governed and construed in accordance with the laws of [Jurisdiction, e.g., the State of Delaware, United States], without regard to its conflict of law provisions.
+    12.2. Dispute Resolution: [Outline dispute resolution process, e.g., "Any disputes arising from these Terms will be resolved through binding arbitration in [City, State], except that you may assert claims in small claims court if your claims qualify."].
+
+13. GENERAL PROVISIONS
+    13.1. Entire Agreement: These Terms constitute the entire agreement between you and the Company regarding our Service and supersede all prior agreements.
+    13.2. Severability: If any provision of these Terms is held to be invalid or unenforceable, the remaining provisions will remain in effect.
+    13.3. No Waiver: Our failure to enforce any right or provision of these Terms will not be considered a waiver of those rights.
+    13.4. Assignment: You may not assign this Agreement without our prior written consent. We may assign this Agreement without restriction.
+    13.5. Notices: Any notices or other communications provided by us under these Terms will be given: (i) via email; or (ii) by posting to the Service.
+
+14. CONTACT INFORMATION
+    If you have any questions about these Terms, please contact us at:
+    [Applicant Company Name]
+    [Company Address]
+    Email: [support@applicantcompany.demo or legal@applicantcompany.demo]
+
+This is a placeholder document for demonstration purposes.
+[End of Document]

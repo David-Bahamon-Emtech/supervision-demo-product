@@ -1,0 +1,88 @@
+=== DUMMY INCIDENT RESPONSE PLAN DOCUMENT ===
+
+Document Title: Information Security Incident Response Plan
+Company: [Applicant Company Name, e.g., DeltaSecure Solutions]
+Product/Service: [Product/Service Name, e.g., SecureCloud Platform]
+Version: 1.1 (Demo Version)
+Effective Date: [Date, e.g., 2024-04-01]
+Last Reviewed: [Date, e.g., 2025-03-15]
+
+SECTION 1: PURPOSE AND OBJECTIVES
+1.1 Purpose: This Incident Response Plan (IRP) provides a framework for [Applicant Company Name] to respond to and manage information security incidents effectively, minimizing impact, and restoring services promptly.
+1.2 Objectives:
+    - To define what constitutes an information security incident.
+    - To establish clear roles, responsibilities, and communication channels for incident response.
+    - To outline procedures for incident detection, analysis, containment, eradication, recovery, and post-incident review.
+    - To ensure timely and appropriate communication with internal stakeholders, customers, and regulatory bodies as required.
+    - To facilitate continuous improvement of incident response capabilities.
+
+SECTION 2: SCOPE
+This plan applies to all information systems, data, and networks owned, managed, or utilized by [Applicant Company Name], and to all employees, contractors, and third-party vendors with access to these resources.
+
+SECTION 3: ROLES AND RESPONSIBILITIES
+3.1 Incident Response Team (IRT): A dedicated IRT is established, comprising representatives from:
+    - IT/Security (Lead) - [Dummy IRT Lead Name, e.g., Mr. Alex Secure]
+    - Management - [Dummy Management Rep Name]
+    - Legal/Compliance - [Dummy Legal Rep Name]
+    - Public Relations/Communications (as needed) - [Dummy PR Rep Name]
+    - Relevant Business Units (as needed)
+3.2 Responsibilities of IRT Lead: Overall coordination of incident response activities, decision-making during an incident, and reporting to senior management.
+3.3 Responsibilities of IRT Members: Executing tasks as defined in this plan, providing expertise, and supporting containment and recovery efforts.
+3.4 All Employees: Responsible for identifying and reporting potential security incidents immediately to their manager or the IT/Security department.
+
+SECTION 4: INCIDENT RESPONSE PHASES
+The incident response process follows these key phases:
+
+4.1 Preparation:
+    - Maintaining and updating this IRP.
+    - Regular training and awareness programs for employees and IRT members.
+    - Maintaining necessary tools and resources (e.g., forensic software, communication channels, access to logs).
+    - Conducting drills and simulations.
+
+4.2 Identification:
+    - Detecting and reporting security events through various means (e.g., IDS/IPS alerts, user reports, log analysis, antivirus alerts, third-party notifications).
+    - Initial assessment to determine if an event constitutes an incident.
+    - Documenting initial findings: date/time, source of alert, description of event, affected systems/data.
+
+4.3 Containment:
+    - Taking immediate steps to limit the scope and impact of the incident.
+    - Strategies may include isolating affected systems, blocking malicious IP addresses, disabling compromised accounts, or disconnecting from the network.
+    - Differentiating between short-term and long-term containment.
+    - Preserving evidence for forensic analysis.
+
+4.4 Eradication:
+    - Identifying and eliminating the root cause of the incident.
+    - Removing malware, closing vulnerabilities, and ensuring affected systems are clean.
+    - Validating that the threat has been fully removed.
+
+4.5 Recovery:
+    - Restoring affected systems and services to normal operation in a secure manner.
+    - Restoring data from backups if necessary.
+    - Verifying system functionality and security.
+    - Monitoring systems closely post-recovery for any signs of recurrence.
+
+4.6 Post-Incident Activities (Lessons Learned):
+    - Conducting a post-incident review meeting within [e.g., two weeks] of incident closure.
+    - Analyzing the incident and the response: what happened, what worked well, what could be improved, and the actual impact.
+    - Updating the IRP, security policies, and controls based on lessons learned.
+    - Documenting the incident and response for audit and compliance purposes.
+
+SECTION 5: INCIDENT CLASSIFICATION AND PRIORITIZATION
+(Example Severity Levels - a real plan would have detailed criteria)
+    - Critical (High Impact): Significant data breach, prolonged service outage affecting many users, major financial loss, regulatory breach. Requires immediate IRT activation.
+    - Major (Medium Impact): Localized service disruption, minor data exposure, limited financial impact. Requires IRT assessment.
+    - Minor (Low Impact): Isolated malware infection, unsuccessful intrusion attempt, policy violation with no data loss. Handled by IT/Security with IRT awareness.
+
+SECTION 6: COMMUNICATION PLAN
+6.1 Internal Communication: Procedures for alerting IRT members, IT staff, and relevant management.
+6.2 External Communication:
+    - Regulatory Bodies: Reporting incidents as required by applicable laws and regulations (e.g., data breaches to Data Protection Authorities).
+    - Customers/Users: Communicating service disruptions or data breaches to affected parties in a timely and transparent manner, as advised by Legal and PR.
+    - Law Enforcement: Engaging law enforcement agencies if criminal activity is suspected.
+    - Third Parties: Notifying affected vendors or partners.
+
+SECTION 7: PLAN TESTING AND MAINTENANCE
+This IRP will be reviewed and updated at least annually, or as significant changes occur in the IT environment or threat landscape. Tabletop exercises and/or simulations will be conducted [e.g., semi-annually] to test the plan's effectiveness.
+
+This is a placeholder document for demonstration purposes.
+[End of Document]

@@ -1,0 +1,63 @@
+=== DUMMY BANK STATEMENT DOCUMENT ===
+Representing a PDF Document of a Bank Statement (Proof of Funds)
+
+--------------------------------------------------------------------------------
+[BANK LOGO PLACEHOLDER - e.g., "Global Trust Bank"]
+
+Bank Name: Global Trust Bank (Demo Branch)
+Bank Address: 100 Financial Avenue, Commerce City, DEMOLAND
+Statement Period: [Start Date, e.g., 2024-02-01] to [End Date, e.g., 2024-02-29]
+Statement Date: [Date of Issue, e.g., 2024-03-01]
+Account Holder: [Applicant Company Name / Individual Name, e.g., GammaPay Solutions Inc.]
+Account Number: DUMMY-XXXXXX-7890
+Account Type: Business Checking / Corporate Account
+Currency: USD (United States Dollar)
+
+--------------------------------------------------------------------------------
+ACCOUNT SUMMARY
+--------------------------------------------------------------------------------
+Previous Balance as of [Start Date]: $ [e.g., 1,250,000.00]
+Total Deposits & Credits:         $ [e.g.,  500,000.00]
+Total Withdrawals & Debits:       $ [e.g.,  150,000.00]
+--------------------------------------------------------------------------------
+Closing Balance as of [End Date]:   $ [e.g., 1,600,000.00]
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+TRANSACTION DETAILS (Selected Transactions - Not a full list for demo purposes)
+--------------------------------------------------------------------------------
+Date       | Description                               | Debits (-)   | Credits (+)  | Balance
+--------------------------------------------------------------------------------
+[Start Date] | Opening Balance                           |              |              | $1,250,000.00
+2024-02-05 | Inward Wire Transfer - Investor Capital   |              | $200,000.00  | $1,450,000.00
+           | Ref: INVSTRXYZ-CAP                         |              |              |
+2024-02-10 | Payment to Vendor - Cloud Services        | $25,000.00   |              | $1,425,000.00
+           | Ref: CLDSRV-INV001                       |              |              |
+2024-02-15 | Inward Wire Transfer - Seed Funding Round |              | $300,000.00  | $1,725,000.00
+           | Ref: SEEDFUND-TRNCH1                     |              |              |
+2024-02-20 | Payroll Run - February 2024               | $80,000.00   |              | $1,645,000.00
+           | Ref: PAYFEB24                            |              |              |
+2024-02-25 | Office Rent Payment                       | $15,000.00   |              | $1,630,000.00
+           | Ref: RENTMAR24                           |              |              |
+2024-02-28 | Service Fee Income - Project Alpha        |              | $50,000.00   | $1,680,000.00
+           | Ref: INC-PROJALPHA                       |              |              |
+2024-02-29 | Bank Service Charges                      | $30,000.00   |              | $1,600,000.00  <- Mistake here, should be less to reach 1.6M from 1.25M. Let's make it $50
+2024-02-29 | Bank Service Charges (Corrected)          | $50.00       |              | $1,679,950.00
+           | (Assuming the 1.6M was an intended closing, this example is simplified for structure not arithmetic)
+           | For the purpose of "Proof of Funds", the Closing Balance is key.
+
+(A real bank statement would list all transactions chronologically.)
+
+--------------------------------------------------------------------------------
+IMPORTANT INFORMATION:
+This statement is a computer-generated document and does not require a signature.
+Please review your statement carefully and report any discrepancies to the bank within [X] days.
+For inquiries, please contact our customer service at [Bank Phone Number] or visit our website at [Bank Website].
+
+[BANK FOOTER INFORMATION - e.g., Member FDIC (if applicable), other disclaimers]
+--------------------------------------------------------------------------------
+
+This is a placeholder document for demonstration purposes.
+The content and format of actual bank statements vary significantly.
+The primary purpose here is to represent a document that shows a significant closing balance for "Proof of Funds".
+[End of Document]

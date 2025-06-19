@@ -1,0 +1,34 @@
+=== DUMMY ID SCAN DOCUMENT ===
+Representing a JPEG Image File of a Scanned Identification Document
+
+--------------------------------------------------------------------------------
+[IMAGE PLACEHOLDER - TOP HALF OF A PASSPORT OR ID CARD]
+
+Document Type: PASSPORT / NATIONAL ID CARD (Dummy Representation)
+Issuing Country: REPUBLIC OF DEMOLAND / STATE OF EXAMPLELAND
+Document Number: X123456789 / IDE987654321
+
+[PHOTO PLACEHOLDER - A rectangular box representing where the ID photo would be]
+  - Dimensions: Approx. 35mm x 45mm
+  - Content: Greyscale or color headshot of an individual.
+  - Background: Plain, light-colored.
+
+Surname: [DUMMY_SURNAME, e.g., SMITH / DOE / PATEL]
+Given Names: [DUMMY_GIVEN_NAMES, e.g., JOHNATHAN MICHAEL / JANE ALICE]
+Sex: M / F / X
+Nationality: DEMOLANDIAN / EXAMPLELANDIAN
+Date of Birth: [YYYY-MM-DD, e.g., 1980-06-15]
+Place of Birth: [CITY, COUNTRY, e.g., CAPITAL CITY, REPUBLIC OF DEMOLAND]
+
+Date of Issue: [YYYY-MM-DD, e.g., 2020-03-10]
+Date of Expiry: [YYYY-MM-DD, e.g., 2030-03-09]
+Issuing Authority: PASSPORT OFFICE, CAPITAL CITY / MINISTRY OF INTERIOR
+
+[SIGNATURE PLACEHOLDER - A scrawled line representing where the holder's signature would be]
+Holder's Signature
+
+--------------------------------------------------------------------------------
+[MACHINE READABLE ZONE (MRZ) PLACEHOLDER - Bottom part of the ID scan]
+
+P<DMO<[DUMMY_SURNAME]<<[DUMMY_GIVEN_NAMES]< < < < < < < < < < < < < < < < < < < <
+X123456789<6DMO8

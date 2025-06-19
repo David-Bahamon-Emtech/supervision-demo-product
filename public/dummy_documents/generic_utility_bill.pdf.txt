@@ -1,0 +1,82 @@
+=== DUMMY UTILITY BILL DOCUMENT ===
+Representing a PDF Document of a Utility Bill (Proof of Address)
+
+--------------------------------------------------------------------------------
+[UTILITY COMPANY LOGO PLACEHOLDER - e.g., "City Power & Light"]
+
+Utility Company: City Power & Light (Demo Services)
+Company Address: 789 Energy Plaza, Metropolis, DEMOLAND
+Customer Service: 1-800-555-UTLY (8859)
+Website: www.citypowerandlight.demo
+
+--------------------------------------------------------------------------------
+BILLING STATEMENT
+--------------------------------------------------------------------------------
+Account Number:      CPNL-987654321-B
+Bill Date:           [Date, e.g., 2024-03-05]
+Billing Period:      [Start Date, e.g., 2024-02-01] to [End Date, e.g., 2024-02-29]
+
+CUSTOMER INFORMATION:
+Name:                [DUMMY INDIVIDUAL'S NAME, e.g., MS. EMILY R JONES]
+Service Address:     [DUMMY RESIDENTIAL ADDRESS, e.g., 456 OAK LANE, APT 7B, SPRINGFIELD, DEMOLAND, 67890]
+Mailing Address:     (If different, otherwise same as Service Address)
+
+--------------------------------------------------------------------------------
+ACCOUNT SUMMARY
+--------------------------------------------------------------------------------
+Previous Balance:              $ [e.g., 25.50]
+Payments Received (Thank You!): $ [e.g., -25.50] (Usually on [Date])
+Balance Forward:               $ 0.00
+
+New Charges for this Period:
+  Electricity Charges:         $ [e.g., 75.20]
+  Gas Charges (if applicable): $ [e.g., 40.10]
+  Water Charges (if applicable):$ [e.g., 30.00]
+  Taxes & Surcharges:          $ [e.g., 8.75]
+--------------------------------------------------------------------------------
+Total New Charges:             $ [e.g., 154.05]
+Amount Due:                    $ [e.g., 154.05]
+Payment Due Date:              [Date, e.g., 2024-03-25]
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+USAGE DETAILS (Example for Electricity)
+--------------------------------------------------------------------------------
+Meter Number: ELEC-MTR-0012345
+Previous Reading ([Date]):   [e.g., 15000 kWh]
+Current Reading ([Date]):    [e.g., 15650 kWh]
+Total Usage:                 [e.g., 650 kWh]
+
+Rate Plan: Standard Residential
+  Basic Service Charge:      $ [e.g., 10.00]
+  Energy Charge ([Usage] kWh @ $[Rate]/kWh): $ [e.g., 65.20] (650 kWh @ $0.100308/kWh)
+--------------------------------------------------------------------------------
+Total Electricity Charges:   $ [e.g., 75.20]
+--------------------------------------------------------------------------------
+(Similar sections would detail Gas or Water usage if applicable)
+
+--------------------------------------------------------------------------------
+MESSAGES & ANNOUNCEMENTS
+--------------------------------------------------------------------------------
+-   Thank you for your continued patronage!
+-   Tips for saving energy this spring can be found on our website.
+-   Consider enrolling in paperless billing and auto-pay for convenience.
+
+--------------------------------------------------------------------------------
+PAYMENT OPTIONS
+--------------------------------------------------------------------------------
+-   Online at www.citypowerandlight.demo/pay
+-   By Mail: Send check or money order to P.O. Box 123, Metropolis, DEMOLAND
+-   In Person: At authorized payment centers (list on website)
+-   By Phone: Call 1-800-555-UTLY (Service fee may apply)
+
+Please include your account number [CPNL-987654321-B] on all payments.
+If you have already paid, please disregard this notice.
+
+[Bar Code Placeholder]
+--------------------------------------------------------------------------------
+
+This is a placeholder document for demonstration purposes.
+The content and format of actual utility bills vary significantly.
+The key elements for "Proof of Address" are the Name, Service Address, and a recent Bill Date.
+[End of Document]

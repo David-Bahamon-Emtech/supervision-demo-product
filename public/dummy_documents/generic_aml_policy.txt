@@ -1,0 +1,51 @@
+=== DUMMY AML/CFT POLICY DOCUMENT ===
+
+DOCUMENT TITLE: Anti-Money Laundering (AML) and Counter-Financing of Terrorism (CFT) Policy
+COMPANY: [Applicant Company Name]
+PRODUCT/SERVICE: [Product/Service Name]
+POLICY VERSION: 1.0 (Generic Demo Version)
+EFFECTIVE DATE: [Date, e.g., 2024-01-01]
+
+SECTION 1: INTRODUCTION AND POLICY STATEMENT
+1.1 Purpose: This AML/CFT Policy outlines the commitment and procedures of [Applicant Company Name] ("the Company") to prevent, detect, and report money laundering and terrorist financing activities associated with the provision of [Product/Service Name].
+1.2 Policy Statement: The Company is fully committed to complying with all applicable AML/CFT laws and regulations in [Jurisdiction]. We maintain a zero-tolerance approach to money laundering and terrorist financing.
+1.3 Scope: This policy applies to all employees, directors, officers, and relevant third-party agents of the Company.
+
+SECTION 2: GOVERNANCE AND OVERSIGHT
+2.1 Money Laundering Reporting Officer (MLRO): The Company has appointed [Dummy MLRO Name] as the MLRO. The MLRO has overall responsibility for the implementation and oversight of this AML/CFT policy and procedures. Contact: [Dummy MLRO Email]
+2.2 Board of Directors Responsibility: The Board of Directors (or equivalent governing body) is responsible for approving this policy and ensuring adequate resources are allocated for its effective implementation.
+2.3 Employee Training: All relevant employees will receive comprehensive AML/CFT training upon hiring and on an ongoing basis (at least annually). Training records will be maintained.
+
+SECTION 3: CUSTOMER DUE DILIGENCE (CDD) / KNOW YOUR CUSTOMER (KYC)
+3.1 Risk-Based Approach: The Company will apply a risk-based approach to CDD, meaning that the extent of due diligence measures will be determined by the assessed risk profile of the customer and transaction.
+3.2 Customer Identification and Verification Program (CIP):
+    3.2.1 Individual Customers: For individual customers, the Company will collect and verify, at a minimum: Full Name, Date of Birth, Residential Address, Nationality, and a valid government-issued identification document (e.g., Passport, National ID).
+    3.2.2 Corporate Customers: For corporate customers, the Company will collect and verify information including but not limited to: Legal Name, Registered Address, Registration Number, Articles of Incorporation, and identification of Ultimate Beneficial Owners (UBOs) and key controllers.
+3.3 Simplified Due Diligence (SDD): SDD measures may be applied in specific low-risk scenarios, as permitted by regulation.
+3.4 Enhanced Due Diligence (EDD): EDD measures will be applied to higher-risk customers, including Politically Exposed Persons (PEPs), customers from high-risk jurisdictions, and those involved in high-risk activities or transaction patterns. EDD will involve obtaining additional information and more frequent monitoring.
+3.5 Ongoing Monitoring: Customer information and transaction activity will be monitored on an ongoing basis to detect suspicious activity and ensure CDD information remains current.
+
+SECTION 4: SANCTION SCREENING
+4.1 Screening Process: All customers, and where relevant, associated parties and UBOs, will be screened against applicable sanction lists (e.g., OFAC, UN, EU, local lists) at onboarding and periodically thereafter.
+4.2 Match Handling: Procedures are in place to investigate and manage potential matches from sanction list screening, including escalation to the MLRO.
+
+SECTION 5: TRANSACTION MONITORING
+5.1 Monitoring Systems: The Company will implement (or simulate for demo purposes) transaction monitoring systems and processes designed to detect unusual or suspicious transaction patterns that may indicate money laundering or terrorist financing.
+5.2 Red Flags: Employees will be trained to identify red flags indicative of suspicious activity (e.g., large unexplained transactions, structuring, transactions with high-risk jurisdictions without clear economic sense).
+
+SECTION 6: REPORTING OF SUSPICIOUS ACTIVITY/TRANSACTIONS
+6.1 Internal Reporting: Employees must promptly report any knowledge or suspicion of money laundering or terrorist financing activity to the MLRO.
+6.2 External Reporting: The MLRO is responsible for evaluating internal reports and, where appropriate, filing Suspicious Activity Reports (SARs) or Suspicious Transaction Reports (STRs) with the relevant Financial Intelligence Unit (FIU) or other competent authorities in accordance with applicable regulations.
+6.3 Confidentiality (Tipping Off): Employees are prohibited from "tipping off" any customer or third party that a SAR/STR has been or may be filed, or that an AML/CFT investigation is underway.
+
+SECTION 7: RECORD KEEPING
+7.1 CDD Records: All CDD information, identification documents, and verification records will be maintained for at least [X, e.g., five] years after the end of the customer relationship, or longer if required by law.
+7.2 Transaction Records: Transaction records will be maintained for at least [X, e.g., five] years from the date of the transaction, or longer if required by law.
+7.3 SAR/STR Records: Copies of internal and external suspicious activity reports and related documentation will be securely maintained.
+
+SECTION 8: POLICY REVIEW AND AUDIT
+8.1 Policy Review: This AML/CFT Policy will be reviewed and updated at least annually, or more frequently if there are significant changes to regulations, business operations, or risk exposure.
+8.2 Independent Audit: The Company's AML/CFT program will be subject to periodic independent audit to assess its effectiveness and compliance with regulatory requirements.
+
+This is a placeholder document for demonstration purposes.
+[End of Document]

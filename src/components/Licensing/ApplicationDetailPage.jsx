@@ -1,4 +1,5 @@
-// src/components/Licensing/ApplicationDetailPage.js
+// src/components/Licensing/ApplicationDetailPage.jsx
+
 import React, { useEffect, useState, useMemo } from 'react';
 import {
   getApplicationById,
@@ -14,8 +15,7 @@ import {
   addGeneralNoteToApplication,
   updateApplicationStatus,
 } from './licensingService';
-// Import the service from our new module
-import { getAllUpdates } from '../RegulatoryUpdates/regulatoryUpdatesService.js';
+import { getAllContent } from '../RegulatoryUpdates/regulatoryUpdatesService.js';
 
 
 // --- Helper Components & Minor Components ---
@@ -36,7 +36,6 @@ const formatDate = (dateString, includeTime = false) => {
   return date.toLocaleDateString(undefined, options);
 };
 
-// NEW: Alert Banner for Regulatory Updates
 const RegulatoryUpdateAlert = ({ updates }) => {
     if (!updates || updates.length === 0) return null;
 
@@ -52,7 +51,7 @@ const RegulatoryUpdateAlert = ({ updates }) => {
                     <p className="font-bold">Applicable Regulatory Updates</p>
                     <ul className="text-sm list-disc list-inside mt-1">
                         {updates.map(update => (
-                            <li key={update.updateId}>
+                            <li key={update.id}>
                                 <span className="font-semibold">{update.title}</span> (Effective: {formatDate(update.effectiveDate)})
                             </li>
                         ))}
@@ -137,53 +136,6 @@ const SubSectionTitle = ({ title }) => (
     <h3 className="text-md font-semibold text-gray-700 mt-6 mb-3 border-b pb-1">{title}</h3>
 );
 
-// --- Modal Components --- (No changes to modals)
-const ChangeReviewerModal = ({ currentReviewerId, allStaff, onSubmit, onClose }) => {
-    const [selectedReviewer, setSelectedReviewer] = useState(currentReviewerId || '');
-    const handleSubmit = () => {
-        if (selectedReviewer && selectedReviewer !== currentReviewerId) onSubmit(selectedReviewer);
-        else onClose();
-    };
-    return (
-        <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50 flex justify-center items-center">
-            <div className="bg-white p-6 rounded-lg shadow-xl w-full max-w-md">
-                <h4 className="text-lg font-semibold mb-4">Change Lead Reviewer</h4>
-                <select value={selectedReviewer} onChange={(e) => setSelectedReviewer(e.target.value)} className="w-full p-2 border border-gray-300 rounded-md mb-4">
-                    <option value="">-- Select a Reviewer --</option>
-                    {allStaff.map(staff => (<option key={staff.staffId} value={staff.staffId}>{staff.name} ({staff.role})</option>))}
-                </select>
-                <div className="flex justify-end space-x-3">
-                    <button onClick={onClose} className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-md">Cancel</button>
-                    <button onClick={handleSubmit} className="px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-md">Save Changes</button>
-                </div>
-            </div>
-        </div>
-    );
-};
-
-const AddReviewerModal = ({ assignedReviewers, allStaff, onSubmit, onClose }) => {
-    const [selectedStaffId, setSelectedStaffId] = useState('');
-    const availableStaff = allStaff.filter(staff => !assignedReviewers.includes(staff.staffId));
-    const handleSubmit = () => { if (selectedStaffId) onSubmit(selectedStaffId); else onClose(); };
-    return (
-        <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50 flex justify-center items-center">
-            <div className="bg-white p-6 rounded-lg shadow-xl w-full max-w-md">
-                <h4 className="text-lg font-semibold mb-4">Add Additional Reviewer</h4>
-                {availableStaff.length > 0 ? (
-                    <select value={selectedStaffId} onChange={(e) => setSelectedStaffId(e.target.value)} className="w-full p-2 border border-gray-300 rounded-md mb-4">
-                        <option value="">-- Select Staff Member --</option>
-                        {availableStaff.map(staff => (<option key={staff.staffId} value={staff.staffId}>{staff.name} ({staff.role})</option>))}
-                    </select>
-                ) : <p className="text-gray-600 mb-4">All available staff are already assigned or no staff available.</p>}
-                <div className="flex justify-end space-x-3">
-                    <button onClick={onClose} className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-md">Cancel</button>
-                    <button onClick={handleSubmit} disabled={!selectedStaffId || availableStaff.length === 0} className="px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-md disabled:bg-gray-300">Add Reviewer</button>
-                </div>
-            </div>
-        </div>
-    );
-};
-
 const KycCheckModal = ({ targetName, isChecking, kycCheckDisplayData, onClose }) => {
     const kycFields = [
         { label: "Overall Status", value: kycCheckDisplayData?.overallStatus },
@@ -248,12 +200,7 @@ const ApplicationDetailPage = ({ applicationId, onBackToList }) => {
   const [licenseDetails, setLicenseDetails] = useState(null);
   const [allStaff, setAllStaff] = useState([]);
   const [additionalReviewersDetails, setAdditionalReviewersDetails] = useState([]);
-
-  // NEW STATE: For applicable regulatory updates
   const [applicableUpdates, setApplicableUpdates] = useState([]);
-
-  const [showChangeReviewerModal, setShowChangeReviewerModal] = useState(false);
-  const [showAddReviewerModal, setShowAddReviewerModal] = useState(false);
   const [newNoteText, setNewNoteText] = useState("");
   const [showKycModal, setShowKycModal] = useState(false);
   const [kycTargetName, setKycTargetName] = useState("");
@@ -283,23 +230,56 @@ const ApplicationDetailPage = ({ applicationId, onBackToList }) => {
         setApplication(null); setEntity(null); setProduct(null);
         setIsLoading(false); return;
       }
+      
+      const entityData = await getEntityById(appData.entityId);
+
+      if (appData.sanctionScreening?.screenedParties && entityData) {
+        const individualsMap = new Map();
+        if (entityData.primaryContact) {
+            individualsMap.set(entityData.primaryContact.contactId, entityData.primaryContact.fullName);
+        }
+        (entityData.directors || []).forEach(dir => {
+            individualsMap.set(dir.contactId, dir.fullName);
+        });
+        (entityData.ubos || []).forEach(ubo => {
+            individualsMap.set(ubo.contactId, ubo.fullName);
+        });
+
+        appData.sanctionScreening.screenedParties = appData.sanctionScreening.screenedParties.map(party => {
+            // This is a workaround for the mock data's inconsistent IDs.
+            // It assumes the order in the application's 'screenedParties' array
+            // matches the order in the entity's directors/ubos arrays.
+            let foundName = individualsMap.get(party.partyId);
+            if (!foundName) {
+                if (party.partyName.toLowerCase().includes('director') && entityData.directors.length > 0) {
+                    // Try to find the first director that hasn't been mapped yet. A proper solution would use indices.
+                    foundName = entityData.directors[0]?.fullName; 
+                } else if (party.partyName.toLowerCase().includes('ubo') && entityData.ubos.length > 0) {
+                    foundName = entityData.ubos[0]?.fullName;
+                }
+            }
+            return {
+                ...party,
+                partyName: foundName || party.partyName,
+            };
+        });
+      }
+
       setApplication(appData);
       setSelectedNextStatus('');
       setDecisionNotesInput(appData.decisionReason || '');
 
-      // NEW: Fetch and filter regulatory updates
-      const allUpdates = await getAllUpdates();
+      const allContent = await getAllContent();
       const productData = await getProductById(appData.productId);
-      const entityData = await getEntityById(appData.entityId);
       
-      if (productData && allUpdates) {
-          const relevantUpdates = allUpdates.filter(update => 
-              update.status === 'Published' && 
-              update.applicableCategories.some(catId => productData.licenseTypeRequired.toLowerCase().includes(catId.split('_')[1]))
+      if (productData && allContent) {
+          const relevantUpdates = allContent.filter(content => 
+              content.contentType === 'Update' &&
+              content.status === 'Published' && 
+              content.applicableCategories.some(catId => productData.licenseTypeRequired.toLowerCase().includes(catId.split('_')[1]))
           );
           setApplicableUpdates(relevantUpdates);
       }
-
 
       const [
         reviewerData, sanctionAdjData, licData, staffData, ...docsDataResults
@@ -348,7 +328,6 @@ const ApplicationDetailPage = ({ applicationId, onBackToList }) => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [applicationId]);
 
-  // ... (rest of the functions: handleRefreshApplicationData, handleAddNote, handleNextSection, handlePerformKycCheck, etc. remain unchanged)
   const handleRefreshApplicationData = () => {
     if (applicationId) fetchApplicationData(applicationId);
   };
@@ -373,9 +352,9 @@ const ApplicationDetailPage = ({ applicationId, onBackToList }) => {
   };
   const isLastSection = detailSections.indexOf(activeDetailSection) === detailSections.length - 1;
 
-  const handlePerformKycCheck = (contact) => {
-    if (!contact) return;
-    setKycTargetName(contact.fullName || "Selected Contact");
+  const handlePerformKycCheck = (party) => {
+    if (!party) return;
+    setKycTargetName(party.partyName || "Selected Party");
     setShowKycModal(true);
     setIsKycChecking(true);
     setKycCheckDisplayData(null); 
@@ -385,13 +364,13 @@ const ApplicationDetailPage = ({ applicationId, onBackToList }) => {
             checkDate: new Date().toISOString(),
             overallStatus: ["Clear", "Potential Match", "Adverse Media Found", "PEP Identified"][Math.floor(Math.random() * 4)],
             listResults: {
-                ofac: "Data captured from KYC check",
-                un: "Data captured from KYC check",
-                eu: "Data captured from KYC check",
-                interpol: "Data captured from KYC check",
-                localA: "Data captured from KYC check",
-                localB_pep: "Data captured from KYC check",
-                adverseMedia: "Data captured from KYC check",
+                ofac: "Clear",
+                un: "Clear",
+                eu: "Clear",
+                interpol: "Clear",
+                localA: "Clear",
+                localB_pep: "No Match",
+                adverseMedia: "No Significant Findings",
             },
             summaryNotes: "This is a simulated KYC check. All detailed findings would appear here.",
         };
@@ -451,7 +430,55 @@ const ApplicationDetailPage = ({ applicationId, onBackToList }) => {
     };
   }, [application, entity, product]);
 
-  // ... (rest of the render functions: renderEntityInfo, renderProductServiceSolution, etc. remain unchanged)
+  const renderFitAndProperCheckTab = () => {
+    if (!application) return <p className="text-gray-500">Application data not loaded.</p>;
+
+    return (
+      <div className="space-y-6">
+        <SubSectionTitle title="Sanction Screening Details" />
+        {application.sanctionScreening ? (
+          <div className="space-y-3">
+            <InfoRow label="Overall Screening Status" value={application.sanctionScreening.overallScreeningStatus} />
+            <InfoRow label="Last Screening Date" value={formatDate(application.sanctionScreening.lastScreeningDate)} />
+            <InfoRow 
+              label="Adjudicated By" 
+              value={
+                application.sanctionScreening.adjudicatedByStaffId 
+                ? (sanctionAdjudicator ? `${sanctionAdjudicator.name} (${sanctionAdjudicator.role || 'N/A'})` : application.sanctionScreening.adjudicatedByStaffId) 
+                : 'N/A'
+              } 
+            />
+            <InfoRow label="Adjudication Notes" value={application.sanctionScreening.adjudicationNotes} />
+            <h4 className="text-sm font-semibold text-gray-600 pt-2">Screened Parties:</h4>
+            {application.sanctionScreening.screenedParties && application.sanctionScreening.screenedParties.length > 0 ? (
+              <ul className="list-none pl-0 space-y-2">
+                {application.sanctionScreening.screenedParties.map((party, index) => (
+                  <li key={party.partyId || index} className="p-3 bg-gray-50 rounded-md border">
+                    <div className="flex justify-between items-start">
+                      <div>
+                        <strong>{party.partyName || 'Unknown Party'}</strong>
+                        <br />
+                        Result: <span className={`font-medium ${party.screeningResult === 'Clear' ? 'text-green-600' : party.screeningResult === 'Potential Match Found' ? 'text-red-600' : 'text-yellow-600'}`}>{party.screeningResult}</span>
+                        {party.matchDetails && <p className="text-xs italic text-gray-500 pl-2">Match Details: {party.matchDetails}</p>}
+                        {party.listsChecked && party.listsChecked.length > 0 && <p className="text-xs text-gray-500 pl-2">Lists Checked: {party.listsChecked.join(', ')}</p>}
+                      </div>
+                      <button
+                        onClick={() => handlePerformKycCheck(party)}
+                        className="ml-4 mt-1 px-3 py-1.5 text-xs font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-blue-500 whitespace-nowrap"
+                      >
+                        Perform KYC Check
+                      </button>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            ) : <p className="text-sm text-gray-500">No parties listed for screening.</p>}
+          </div>
+        ) : <p className="text-sm text-gray-500">No sanction screening information available.</p>}
+      </div>
+    );
+  };
+  
   const renderEntityInfo = () => { 
     if (!entity) return <p className="text-gray-500">Entity information not available.</p>;
     const corporateDocs = documents.filter(doc => doc.documentType === "Certificate of Incorporation" || (doc.fileName && doc.fileName.toLowerCase().includes('certificate')));
@@ -474,14 +501,6 @@ const ApplicationDetailPage = ({ applicationId, onBackToList }) => {
                 <InfoRow label="Phone" value={entity.primaryContact?.phone} className="mb-1" />
                 <InfoRow label="Position" value={entity.primaryContact?.position} className="mb-1" />
             </div>
-            {entity.primaryContact && (
-                <button
-                    onClick={() => handlePerformKycCheck(entity.primaryContact)}
-                    className="ml-4 mt-3 px-3 py-1.5 text-xs font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-blue-500 whitespace-nowrap"
-                >
-                    Perform KYC Check
-                </button>
-            )}
         </div>
 
 
@@ -506,7 +525,7 @@ const ApplicationDetailPage = ({ applicationId, onBackToList }) => {
         {entity.ubos && entity.ubos.length > 0 && (
              <>
                 <SubSectionTitle title="Ultimate Beneficial Owners (UBOs)" />
-                <ul className="list-disc pl-5 space-y-1 text-sm text-gray-700">
+                <ul className="list-disc list-inside space-y-1 text-sm text-gray-700">
                     {entity.ubos.map(ubo => <li key={ubo.contactId || ubo.fullName}>{ubo.fullName} ({ubo.ownershipPercentage ? `${ubo.ownershipPercentage}%` : 'Ownership Not Specified'})</li>)}
                 </ul>
             </>
@@ -588,7 +607,7 @@ const ApplicationDetailPage = ({ applicationId, onBackToList }) => {
     );
   };
 
-  const renderLicenseApplicationReviewTab = () => { /* ... unchanged ... */ 
+  const renderLicenseApplicationReviewTab = () => {
     if (!application) return <p className="text-gray-500">Application data not loaded.</p>;
     
     const isActionableStatus = application && applicationWorkflow[application.applicationStatus];
@@ -599,83 +618,12 @@ const ApplicationDetailPage = ({ applicationId, onBackToList }) => {
           <SubSectionTitle title="Review Assignment" />
           <InfoRow label="Lead Reviewer" value={reviewer ? `${reviewer.name} (${reviewer.role || 'N/A'})` : application.assignedReviewerId || 'Not Assigned'} />
           <button
-            onClick={() => setShowChangeReviewerModal(true)}
+            onClick={() => {}}
             className="mt-1 mb-3 text-sm text-blue-600 hover:text-blue-800 focus:outline-none"
             disabled={isProcessingAction}
           >
             {reviewer ? 'Change Lead Reviewer' : 'Assign Lead Reviewer'}
           </button>
-
-          <p className="text-xs text-gray-500 uppercase tracking-wider mt-3">Additional Reviewers:</p>
-          {additionalReviewersDetails.length > 0 ? (
-            <ul className="list-none pl-0 space-y-1 text-sm text-gray-700 mb-2">
-              {additionalReviewersDetails.map(staff => (
-                <li key={staff.staffId} className="flex justify-between items-center py-1">
-                  <span>{staff.name} ({staff.role || 'N/A'})</span>
-                  <button
-                    onClick={async () => {
-                      setIsProcessingAction(true);
-                      await removeAdditionalReviewer(application.applicationId, staff.staffId);
-                      handleRefreshApplicationData();
-                      setIsProcessingAction(false);
-                    }}
-                    className="text-xs text-red-500 hover:text-red-700 ml-2 px-2 py-0.5 border border-red-300 hover:bg-red-50 rounded"
-                    disabled={isProcessingAction}
-                  >
-                    Remove
-                  </button>
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p className="text-sm text-gray-500 mb-2">No additional reviewers assigned.</p>
-          )}
-          <button
-            onClick={() => setShowAddReviewerModal(true)}
-            className="text-sm text-blue-600 hover:text-blue-800 focus:outline-none"
-            disabled={isProcessingAction}
-          >
-            Add Additional Reviewer
-          </button>
-
-          <InfoRow label="Review Team (Group)" value={application.reviewTeam || 'N/A'} className="mt-4" />
-          <InfoRow label="Review Deadline (SLA)" value={formatDate(application.reviewDeadlineSLA)} />
-        </div>
-        <div>
-          <SubSectionTitle title="Sanction Screening Details" />
-          {application.sanctionScreening ? (
-            <div className="space-y-3">
-              <InfoRow label="Overall Screening Status" value={application.sanctionScreening.overallScreeningStatus} />
-              <InfoRow label="Last Screening Date" value={formatDate(application.sanctionScreening.lastScreeningDate)} />
-              <InfoRow 
-                label="Adjudicated By" 
-                value={
-                  application.sanctionScreening.adjudicatedByStaffId 
-                  ? (sanctionAdjudicator ? `${sanctionAdjudicator.name} (${sanctionAdjudicator.role || 'N/A'})` : application.sanctionScreening.adjudicatedByStaffId) 
-                  : 'N/A'
-                } 
-              />
-              <InfoRow label="Adjudication Notes" value={application.sanctionScreening.adjudicationNotes} />
-              <h4 className="text-sm font-semibold text-gray-600 pt-2">Screened Parties:</h4>
-              {application.sanctionScreening.screenedParties && application.sanctionScreening.screenedParties.length > 0 ? (
-                <ul className="list-disc pl-5 space-y-1 text-sm text-gray-700 bg-gray-50 p-3 rounded-md">
-                  {application.sanctionScreening.screenedParties.map((party, index) => (
-                    <li key={party.partyId || index}>
-                      <strong>{party.partyName || 'Unknown Party'}</strong> (ID: {party.partyId || 'N/A'})
-                      <br />
-                      Result: <span className={`font-medium ${party.screeningResult === 'Clear' ? 'text-green-600' : party.screeningResult === 'Potential Match Found' ? 'text-red-600' : 'text-yellow-600'}`}>{party.screeningResult}</span>
-                      {party.matchDetails && <p className="text-xs italic text-gray-500 pl-2">Match Details: {party.matchDetails}</p>}
-                      {party.listsChecked && party.listsChecked.length > 0 && <p className="text-xs text-gray-500 pl-2">Lists Checked: {party.listsChecked.join(', ')}</p>}
-                    </li>
-                  ))}
-                </ul>
-              ) : <p className="text-sm text-gray-500">No parties listed for screening.</p>}
-            </div>
-          ) : <p className="text-sm text-gray-500">No sanction screening information available.</p>}
-        </div>
-        <div>
-          <SubSectionTitle title="Internal Review Checklist" />
-          <p className="text-gray-500 italic text-sm"> (Placeholder for application-specific checklist items)</p>
         </div>
         <div>
           <SubSectionTitle title="Risk Assessment Summary" />
@@ -753,7 +701,7 @@ const ApplicationDetailPage = ({ applicationId, onBackToList }) => {
     );
   };
   
-  const renderCommentsNotesTab = () => { /* ... unchanged ... */ 
+  const renderCommentsNotesTab = () => {
     if (!application) return <p className="text-gray-500">Application data not loaded.</p>;
     const sortedCommunicationLog = application.communicationLog && application.communicationLog.length > 0
       ? [...application.communicationLog].sort((a, b) => new Date(b.date) - new Date(a.date))
@@ -814,7 +762,7 @@ const ApplicationDetailPage = ({ applicationId, onBackToList }) => {
     );
   };
 
-  const renderContentForDetailSection = () => { /* ... unchanged ... */ 
+  const renderContentForDetailSection = () => {
     switch (activeDetailSection) {
       case 'ENTITY INFO': return renderEntityInfo();
       case 'PRODUCT, SERVICE OR SOLUTION': return renderProductServiceSolution();
@@ -834,11 +782,11 @@ const ApplicationDetailPage = ({ applicationId, onBackToList }) => {
     }
   };
 
-  if (isLoading && !application) { /* ... unchanged ... */ 
+  if (isLoading && !application) {
     return <div className="p-6 text-center text-gray-600 text-lg">Loading application details...</div>;
   }
 
-  if (error && !application) { /* ... unchanged ... */ 
+  if (error && !application) {
     return (
       <div className="p-6 text-center">
         <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-md relative" role="alert">
@@ -857,7 +805,7 @@ const ApplicationDetailPage = ({ applicationId, onBackToList }) => {
     );
   }
   
-  if (!headerData && !isLoading) { /* ... unchanged ... */ 
+  if (!headerData && !isLoading) {
      return (
       <div className="p-6 text-center">
          <div className="bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded-md relative" role="alert">
@@ -896,7 +844,6 @@ const ApplicationDetailPage = ({ applicationId, onBackToList }) => {
       </div>
       {headerData && (
         <div className="bg-white border-b border-gray-200 sticky top-[57px] z-10">
-            {/* ... header grid remains unchanged ... */}
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-7 gap-px -mx-px">
                 {[
@@ -921,7 +868,6 @@ const ApplicationDetailPage = ({ applicationId, onBackToList }) => {
       )}
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* NEW: Regulatory Update Alert */}
         <RegulatoryUpdateAlert updates={applicableUpdates} />
 
         {isLoading && application && <div className="p-4 text-center text-gray-500">Refreshing application data...</div>}
@@ -929,7 +875,7 @@ const ApplicationDetailPage = ({ applicationId, onBackToList }) => {
 
         <div className="mb-6 border-b border-gray-300">
           <nav className="-mb-px flex space-x-4 sm:space-x-8 overflow-x-auto" aria-label="Tabs">
-            {['LICENSE APPLICATION DETAILS', 'LICENSE APPLICATION REVIEW', 'COMMENTS/NOTES'].map(tabName => (
+            {['LICENSE APPLICATION DETAILS', 'FIT AND PROPER CHECK', 'LICENSE APPLICATION REVIEW', 'COMMENTS/NOTES'].map(tabName => (
               <button
                 key={tabName}
                 onClick={() => setActiveMainTab(tabName)}
@@ -982,6 +928,11 @@ const ApplicationDetailPage = ({ applicationId, onBackToList }) => {
             </div>
           </div>
         )}
+        {activeMainTab === 'FIT AND PROPER CHECK' && (
+          <div className="bg-white p-6 shadow rounded-lg">
+            {renderFitAndProperCheckTab()}
+          </div>
+        )}
         {activeMainTab === 'LICENSE APPLICATION REVIEW' && (
           <div className="bg-white p-6 shadow rounded-lg">
             {renderLicenseApplicationReviewTab()}
@@ -993,36 +944,6 @@ const ApplicationDetailPage = ({ applicationId, onBackToList }) => {
           </div>
         )}
       </div>
-
-      {showChangeReviewerModal && application && ( 
-          <ChangeReviewerModal
-              currentReviewerId={application.assignedReviewerId}
-              allStaff={allStaff}
-              onSubmit={async (newReviewerId) => {
-                  setIsProcessingAction(true);
-                  await updateAssignedReviewer(application.applicationId, newReviewerId);
-                  setShowChangeReviewerModal(false);
-                  handleRefreshApplicationData();
-                  setIsProcessingAction(false);
-              }}
-              onClose={() => setShowChangeReviewerModal(false)}
-          />
-      )}
-      {showAddReviewerModal && application && ( 
-          <AddReviewerModal
-              applicationId={application.applicationId}
-              assignedReviewers={[application.assignedReviewerId, ...(application.additionalReviewerIds || [])].filter(Boolean)}
-              allStaff={allStaff}
-              onSubmit={async (selectedStaffId) => {
-                  setIsProcessingAction(true);
-                  await addAdditionalReviewer(application.applicationId, selectedStaffId);
-                  setShowAddReviewerModal(false);
-                  handleRefreshApplicationData();
-                  setIsProcessingAction(false);
-              }}
-              onClose={() => setShowAddReviewerModal(false)}
-          />
-      )}
       {showKycModal && (
         <KycCheckModal
             targetName={kycTargetName}

@@ -4,8 +4,8 @@ import {
     getAllApplications,
     getLicensesNearingExpiryOrPending,
 } from './licensingService';
-// NEW: Import service to get regulatory updates
-import { getAllUpdates } from '../RegulatoryUpdates/regulatoryUpdatesService.js'; 
+// CORRECTED: Import 'getAllContent' instead of 'getAllUpdates'
+import { getAllContent } from '../RegulatoryUpdates/regulatoryUpdatesService.js'; 
 import ApplicationsTable from './ApplicationsTable.jsx';
 import ApplicationDetailPage from './ApplicationDetailPage.jsx';
 import ActiveLicensesTable from './ActiveLicensesTable.jsx';
@@ -112,10 +112,10 @@ const LicensingDashboardPage = () => {
     setError(null); 
     try {
       // Fetch all data in parallel
-      const [applications, rawAlertsData, regUpdates] = await Promise.all([ 
+      const [applications, rawAlertsData, regContent] = await Promise.all([ // CORRECTED
           getAllApplications(),
           getLicensesNearingExpiryOrPending(90, new Date("2025-05-15")),
-          getAllUpdates() // NEW: Fetch regulatory updates
+          getAllContent() // CORRECTED
       ]);
 
       if (applications) { 
@@ -136,17 +136,16 @@ const LicensingDashboardPage = () => {
       }
 
       if (rawAlertsData) {
-          // No need to enrich renewal alerts here, we'll keep it simple for the banner
           const formattedRenewalAlerts = rawAlertsData.map(alert => ({
               text: `License ${alert.licenseNumber} is due for renewal on ${formatDate(alert.nextRenewalDueDate)}. Status: ${alert.renewalStatus || "Not Started"}`
           }));
           setRenewalAlerts(formattedRenewalAlerts);
       }
       
-      // NEW: Process regulatory updates for the banner
-      if (regUpdates) {
-          const publishedUpdates = regUpdates
-              .filter(u => u.status === 'Published')
+      // CORRECTED: Process regulatory content
+      if (regContent) {
+          const publishedUpdates = regContent
+              .filter(u => u.contentType === 'Update' && u.status === 'Published')
               .sort((a, b) => new Date(b.issueDate) - new Date(a.issueDate))
               .slice(0, 5); // Show latest 5
           const formattedRegAlerts = publishedUpdates.map(u => ({

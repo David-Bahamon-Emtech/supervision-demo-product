@@ -1,5 +1,5 @@
 // src/components/RegulatoryUpdates/regulatoryUpdatesService.js
-import regulatoryUpdatesData from '../../data/regulatoryUpdates.js';
+import regulatoryContentData from '../../data/regulatoryUpdates.js'; // Updated import
 import licenseCategoriesData from '../../data/licenseCategories.js';
 import { getDocumentById, getStaffById } from '../Licensing/licensingService.js';
 
@@ -13,50 +13,55 @@ const simulateApiCall = (dataFunction) => {
   });
 };
 
-export const getAllUpdates = async () => {
-  return simulateApiCall(() => regulatoryUpdatesData);
+// Renamed from getAllUpdates to be more generic
+export const getAllContent = async () => {
+  return simulateApiCall(() => regulatoryContentData);
 };
 
-export const getUpdateById = async (updateId) => {
-  return simulateApiCall(() => regulatoryUpdatesData.find(u => u.updateId === updateId) || null);
+// Renamed from getUpdateById
+export const getContentById = async (contentId) => {
+  return simulateApiCall(() => regulatoryContentData.find(c => c.id === contentId) || null);
 };
 
-export const addOrUpdateRegulatoryUpdate = async (updateData) => {
+// Renamed from addOrUpdateRegulatoryUpdate
+export const addOrUpdateContent = async (contentData) => {
   return simulateApiCall(() => {
-    if (updateData.updateId) {
+    if (contentData.id) {
       // Update
-      const index = regulatoryUpdatesData.findIndex(u => u.updateId === updateData.updateId);
+      const index = regulatoryContentData.findIndex(c => c.id === contentData.id);
       if (index !== -1) {
-        regulatoryUpdatesData[index] = { ...regulatoryUpdatesData[index], ...updateData, lastUpdated: new Date().toISOString() };
-        return regulatoryUpdatesData[index];
+        regulatoryContentData[index] = { ...regulatoryContentData[index], ...contentData, lastUpdated: new Date().toISOString() };
+        return regulatoryContentData[index];
       }
     } else {
       // Create
-      const newUpdate = {
-        ...updateData,
-        updateId: `RU-${new Date().getFullYear()}-${String(regulatoryUpdatesData.length + 1).padStart(3, '0')}`,
+      const prefix = contentData.contentType === 'Publication' ? 'PUB' : 'RU';
+      const newContent = {
+        ...contentData,
+        id: `${prefix}-${new Date().getFullYear()}-${String(regulatoryContentData.length + 1).padStart(3, '0')}`,
         createdAt: new Date().toISOString(),
         lastUpdated: new Date().toISOString(),
-        acknowledgments: [],
+        acknowledgments: contentData.contentType === 'Update' ? [] : undefined,
       };
-      regulatoryUpdatesData.push(newUpdate);
-      return newUpdate;
+      regulatoryContentData.push(newContent);
+      return newContent;
     }
   });
 };
 
-export const getFullUpdateDetails = async (updateId) => {
-    const update = await getUpdateById(updateId);
-    if (!update) return null;
+// Renamed from getFullUpdateDetails
+export const getFullContentDetails = async (contentId) => {
+    const content = await getContentById(contentId);
+    if (!content) return null;
 
     const [document, creator, categories] = await Promise.all([
-        getDocumentById(update.documentId),
-        getStaffById(update.createdByStaffId),
-        Promise.all(update.applicableCategories.map(catId => licenseCategoriesData.find(c => c.id === catId)))
+        content.documentId ? getDocumentById(content.documentId) : Promise.resolve(null),
+        getStaffById(content.createdByStaffId),
+        content.applicableCategories ? Promise.all(content.applicableCategories.map(catId => licenseCategoriesData.find(c => c.id === catId))) : Promise.resolve([])
     ]);
 
     return {
-        ...update,
+        ...content,
         documentDetails: document,
         creatorDetails: creator,
         categoryDetails: categories.filter(c => c)

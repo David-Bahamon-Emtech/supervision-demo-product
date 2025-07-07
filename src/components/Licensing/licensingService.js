@@ -203,7 +203,6 @@ export const createApplication = async (applicationData) => {
             entityStatus: "Applicant", 
         };
 
-        // MODIFICATION START: Process Director and UBO details
         if (applicationData.entityData.directorFullName && applicationData.entityData.directorEmail) {
             const directorContactId = generateNewPersonContactId();
             newEntity.directors.push({
@@ -215,7 +214,7 @@ export const createApplication = async (applicationData) => {
                 nationality: applicationData.entityData.directorNationality || '',
                 residentialAddress: applicationData.entityData.directorResidentialAddress || '',
                 idDocumentType: '', idDocumentNumber: '', idDocumentExpiry: '', 
-                isPEP: false, // Default, can be updated later
+                isPEP: false,
                 role: 'Director', 
             });
         }
@@ -231,11 +230,10 @@ export const createApplication = async (applicationData) => {
                 nationality: applicationData.entityData.uboNationality || '',
                 residentialAddress: applicationData.entityData.uboResidentialAddress || '',
                 idDocumentType: '', idDocumentNumber: '', idDocumentExpiry: '',
-                isPEP: false, // Default
+                isPEP: false,
                 ownershipPercentage: parseFloat(applicationData.entityData.uboOwnershipPercentage) || 0,
             });
         }
-        // MODIFICATION END
 
         entitiesData.push(newEntity);
         console.log("Created New Entity (within createApplication):", newEntity);
@@ -281,17 +279,16 @@ export const createApplication = async (applicationData) => {
             screeningResult: "Clear", 
             listsChecked: ["OFAC", "UN", "EU"] 
           },
-          // MODIFICATION: Add director and UBO to dummy sanction screening if they exist
           ...(createdEntityForApp.directors.map(dir => ({
             partyId: dir.contactId,
             partyName: dir.fullName,
-            screeningResult: "Clear", // Dummy
+            screeningResult: "Clear",
             listsChecked: ["OFAC", "UN"]
           }))),
           ...(createdEntityForApp.ubos.map(ubo => ({
             partyId: ubo.contactId,
             partyName: ubo.fullName,
-            screeningResult: "Clear", // Dummy
+            screeningResult: "Clear",
             listsChecked: ["OFAC", "UN"]
           }))),
         ],
@@ -399,7 +396,6 @@ export const updateApplicationStatus = async (applicationId, newStatus, decision
   });
 };
 
-// ... (rest of the update functions: updateAssignedReviewer, addAdditionalReviewer, etc. remain unchanged) ...
 export const updateAssignedReviewer = async (applicationId, newReviewerId) => {
   return simulateApiCall(() => {
     const appIndex = licenseApplicationsData.findIndex(app => app.applicationId === applicationId);
@@ -460,8 +456,6 @@ export const addGeneralNoteToApplication = async (applicationId, noteText) => {
   });
 };
 
-// --- LICENSE RENEWAL FUNCTIONS ---
-// (These remain unchanged)
 export const getLicensesNearingExpiryOrPending = async (daysOut = 90, currentDate = new Date("2025-05-15")) => {
     return simulateApiCall(() => {
         const thresholdDate = new Date(currentDate);
@@ -559,7 +553,6 @@ export const processLicenseRenewalDecision = async (licenseId, decision, newExpi
     });
 };
 
-// --- UPDATE FUNCTIONS (LICENSES - General Status) ---
 export const updateLicenseStatus = async (licenseId, newStatus, statusReason = "") => {
   return simulateApiCall(() => {
     const licIndex = licensesData.findIndex(lic => lic.licenseId === licenseId);
@@ -575,7 +568,6 @@ export const updateLicenseStatus = async (licenseId, newStatus, statusReason = "
   });
 };
 
-// --- LICENSE ACTION WORKFLOW FUNCTIONS ---
 export const createLicenseAction = async (actionData) => {
   return simulateApiCall(() => {
     if (!actionData.licenseId || !actionData.actionType || !actionData.initiatingStaffId) {
@@ -618,4 +610,27 @@ export const updateLicenseAction = async (actionId, updatedData) => {
     }
     throw new Error(`License action with ID ${actionId} not found for update.`);
   });
+};
+
+// --- NEW FUNCTION FOR SUBMISSION PAGE ---
+export const getLicensedEntities = async () => {
+    return simulateApiCall(() => {
+        const activeLicenseIds = new Set(licensesData.filter(l => l.licenseStatus === 'Active').map(l => l.entityId));
+        
+        const licensedEntities = entitiesData
+            .filter(e => activeLicenseIds.has(e.entityId))
+            .map(entity => {
+                // Find the first active license for this entity to display its number
+                const license = licensesData.find(l => l.entityId === entity.entityId && l.licenseStatus === 'Active');
+                return {
+                    entityId: entity.entityId,
+                    companyName: entity.companyName,
+                    licenseNumber: license ? license.licenseNumber : 'N/A',
+                    reportingOfficer: entity.primaryContact.fullName,
+                    officerEmail: entity.primaryContact.email,
+                    officerPhone: entity.primaryContact.phone,
+                };
+            });
+        return licensedEntities;
+    });
 };

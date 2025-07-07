@@ -1,3 +1,5 @@
+// src/data/documents.js
+
 /**
  * @typedef {Object} DocumentMetadata
  * @property {string} documentId - Unique identifier for the document (e.g., "doc_001").
@@ -11,10 +13,8 @@
  * @property {string} description - Optional brief description of the document.
  */
 
-/**
- * @type {DocumentMetadata[]}
- */
-const documents = [
+// --- Original Documents ---
+const originalDocuments = [
   {
     documentId: "doc_001",
     fileName: "AlphaCorp_Business_Plan_v2.1.pdf",
@@ -170,5 +170,103 @@ const documents = [
     description: "Guidance for investment firms on the use of AI in providing financial advice.",
   }
 ];
+
+// --- Helper function to generate new documents from submission history ---
+const generatedDocuments = [];
+const submissions = []; // In a real scenario, this would be imported from complianceSubmissions.js
+
+// This is a simplified recreation of the logic from the previous step to get submission details
+let subCounter = 1;
+const licenses = [
+  { licenseId: 'LIC-2024-001', entityId: 'ent_001', licenseType: 'Payment Institution License' },
+  { licenseId: 'LIC-2024-002', entityId: 'ent_001', licenseType: 'Payment Institution License' },
+  { licenseId: 'LIC-2024-003', entityId: 'ent_002', licenseType: 'E-Money Institution License' },
+  { licenseId: 'LIC-2024-004', entityId: 'ent_003', licenseType: 'E-Money Institution License' },
+  { licenseId: 'LIC-2024-005', entityId: 'ent_004', licenseType: 'Crypto Asset Service Provider License' },
+  { licenseId: 'LIC-2024-006', entityId: 'ent_005', licenseType: 'Crypto Asset Service Provider License' },
+  { licenseId: 'LIC-2024-007', entityId: 'ent_006', licenseType: 'Investment Firm License' },
+  { licenseId: 'LIC-2024-008', entityId: 'ent_007', licenseType: 'Investment Firm License' },
+  { licenseId: 'LIC-2024-009', entityId: 'ent_008', licenseType: 'Credit Institution License' },
+  { licenseId: 'LIC-2024-010', entityId: 'ent_009', licenseType: 'Credit Institution License' },
+  { licenseId: 'LIC-2024-011', entityId: 'ent_010', licenseType: 'PISP/AISP License' },
+  { licenseId: 'LIC-2025-012', entityId: 'ent_011', licenseType: 'PISP/AISP License' }
+];
+
+const licenseCategories = {
+    'Payment Institution License': ['PI_FinancialStatement_Annual', 'PI_TransactionMonitoring_Quarterly'],
+    'E-Money Institution License': ['EMI_Safeguarding_Arrangements_Quarterly', 'EMI_CapitalRequirements_SemiAnnual'],
+    'Crypto Asset Service Provider License': ['CASP_WalletSecurity_Audit_Annual', 'CASP_ProofOfReserves_Quarterly'],
+    'Investment Firm License': ['IF_ClientAsset_Protection_Quarterly', 'IF_BestExecution_Annual'],
+    'Credit Institution License': ['CI_CapitalAdequacy_Quarterly', 'CI_LoanPortfolio_Quality_Monthly'],
+    'PISP/AISP License': ['AISP_DataSecurity_Report_Annual', 'PISP_FraudReporting_Quarterly']
+};
+const today = new Date('2025-06-25');
+
+
+licenses.forEach(license => {
+    const relevantReports = licenseCategories[license.licenseType] || [];
+    relevantReports.forEach(reportType => {
+        const isAnnual = reportType.toLowerCase().includes('annual');
+        const periods = isAnnual ? 2 : 2;
+        for (let i = 0; i < periods; i++) {
+            const year = today.getFullYear() - 1 - i;
+            const period = isAnnual ? `${year}` : `${year}-Q4`;
+            const mainDocId = `doc_gen_${subCounter}_main.pdf`;
+            const attachmentId = `doc_gen_${subCounter}_attachment.pdf`;
+            
+            generatedDocuments.push({
+                 documentId: mainDocId,
+                 fileName: `${license.entityId}_${reportType}_${period}_main.pdf`,
+                 documentType: "Submitted Report",
+                 version: "1.0",
+                 uploadDate: new Date(year, 11, 20).toISOString().split('T')[0],
+                 uploadedBy: license.entityId,
+                 mimeType: "application/pdf",
+                 dummyFileContentLink: "/dummy_documents/generic_text_document.txt",
+                 description: `Main submission document for ${reportType} covering ${period} for ${license.entityId}.`
+            });
+             generatedDocuments.push({
+                 documentId: attachmentId,
+                 fileName: `${license.entityId}_${reportType}_${period}_supporting_evidence.zip`,
+                 documentType: "Supporting Evidence",
+                 version: "1.0",
+                 uploadDate: new Date(year, 11, 20).toISOString().split('T')[0],
+                 uploadedBy: license.entityId,
+                 mimeType: "application/zip",
+                 dummyFileContentLink: "/dummy_documents/generic_archive.zip.txt",
+                 description: `Supporting evidence for section of ${reportType} covering ${period} for ${license.entityId}.`
+            });
+            subCounter++;
+        }
+    });
+
+    const dataFeedTypes = ['TRANSACTION_DATA_MONTHLY', 'KYC_DATA_MONTHLY'];
+    dataFeedTypes.forEach(reportType => {
+        for (let i = 0; i < 12; i++) {
+            let monthDate = new Date(today.getFullYear(), today.getMonth() - i, 1);
+            const year = monthDate.getFullYear();
+            const month = monthDate.getMonth() + 1;
+            const period = `${year}-${String(month).padStart(2, '0')}`;
+            const docId = `doc_gen_${subCounter}_${reportType.toLowerCase()}_${period}.csv.zip`;
+
+             generatedDocuments.push({
+                 documentId: docId,
+                 fileName: `${license.entityId}_${reportType}_${period}.csv.zip`,
+                 documentType: "Data Feed",
+                 version: "1.0",
+                 uploadDate: new Date(year, month, 3).toISOString().split('T')[0],
+                 uploadedBy: license.entityId,
+                 mimeType: "application/zip",
+                 dummyFileContentLink: "/dummy_documents/generic_csv.csv.txt",
+                 description: `Monthly ${reportType.replace(/_/g, ' ')} data feed for ${period} from ${license.entityId}.`
+            });
+            subCounter++;
+        }
+    });
+});
+
+
+/** @type {DocumentMetadata[]} */
+const documents = [...originalDocuments, ...generatedDocuments];
 
 export default documents;

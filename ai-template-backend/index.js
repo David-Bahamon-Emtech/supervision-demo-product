@@ -12,7 +12,8 @@ const { Document, Packer, Paragraph, TextRun, HeadingLevel } = require('docx');
 const fs = require('fs'); // For file system access
 const csv = require('csv-parser'); // For parsing CSV files
 const path = require('path'); // For path manipulation
-// REMOVED: const { PythonShell } = require('python-shell'); 
+const multer = require('multer'); // For handling file uploads
+const pdf = require('pdf-parse'); // For extracting text from PDF files
 
 dotenv.config();
 const app = express();
@@ -29,21 +30,23 @@ app.use(express.json());
 const PORT = process.env.PORT || 3001;
 const geminiApiKey = process.env.GEMINI_API_KEY;
 
+// Centralized AI Model Configuration
+const GEMINI_MODEL_NAME = 'gemini-2.5-flash';
+
 if (!geminiApiKey) {
     console.error("FATAL ERROR: GEMINI_API_KEY is not defined in .env file. Please ensure it is set.");
 } else {
-    console.log("Gemini API Key loaded successfully.");
+    console.log(`Gemini API Key loaded successfully. Using model: ${GEMINI_MODEL_NAME}`);
 }
 
-// REMOVED: Python script path constants
-// const PYTHON_SCRIPTS_DIRECTORY = path.join(__dirname, 'scripts');
-// const PYTHON_ANALYTICS_SCRIPT = 'analytics_engine.py';
+// Setup for file uploads
+const upload = multer({ storage: multer.memoryStorage() });
+
 
 // ========================================================================
 // 2. DATA LOADING & CACHING FOR ANALYTICS AGENT (for general AI queries)
 // ========================================================================
 const dataCache = {};
-// filePaths still points to CSVs inside the 'scripts' folder as general AI uses this data
 const SCRIPTS_DATA_DIRECTORY = path.join(__dirname, 'scripts'); // Define for clarity
 const filePaths = {
     applications: path.join(SCRIPTS_DATA_DIRECTORY, 'applications.csv'),
@@ -66,7 +69,7 @@ async function loadData() {
         await new Promise((resolve, reject) => {
             if (!fs.existsSync(filePath)) {
                 console.error(`\nERROR: The data file "${filePath}" for general AI analytics was not found in the scripts directory.`);
-                return resolve(); 
+                return resolve();
             }
             fs.createReadStream(filePath)
                 .pipe(csv())
@@ -78,7 +81,7 @@ async function loadData() {
                 })
                 .on('error', (err) => {
                     console.error(`Error loading ${filePath} for general AI:`, err)
-                    resolve(); 
+                    resolve();
                 });
         });
     }
@@ -86,7 +89,7 @@ async function loadData() {
 }
 
 // ========================================================================
-// 3. ORIGINAL: AI TEMPLATE GENERATION & MANAGEMENT ENDPOINTS (UNALTERED)
+// 3. AI TEMPLATE GENERATION & MANAGEMENT ENDPOINTS
 // ========================================================================
 const aiGeneratedTemplates = [];
 let nextTemplateIdCounter = 1;
@@ -111,7 +114,7 @@ app.post('/api/templates/generate-ai', async (req, res) => {
     res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
     res.flushHeaders();
 
-    const modelName = 'gemini-2.0-flash-exp';
+    const modelName = GEMINI_MODEL_NAME;
     const geminiApiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:streamGenerateContent?key=${geminiApiKey}&alt=sse`;
 
     let contextualInstruction = '';
@@ -139,12 +142,12 @@ app.post('/api/templates/generate-ai', async (req, res) => {
     try {
         console.log(`SSE: Connecting to Gemini stream for model: ${modelName}`);
         const source = axios.CancelToken.source();
-        
+
         const geminiResponseStream = await axios.post(geminiApiUrl, requestPayload, {
             responseType: 'stream',
             headers: { 'Content-Type': 'application/json' },
             cancelToken: source.token,
-            timeout: 60000 
+            timeout: 60000
         });
 
         req.on('close', () => {
@@ -201,8 +204,8 @@ app.post('/api/templates/generate-ai', async (req, res) => {
                                         const text = jsonData.candidates[0].content.parts[0].text;
                                         res.write(`data: ${JSON.stringify({ textChunk: text })}\n\n`);
                                     }
-                                } catch(e) { 
-                                    console.warn("SSE: Error parsing final buffer content:", e.message, "Data:", jsonDataString); 
+                                } catch(e) {
+                                    console.warn("SSE: Error parsing final buffer content:", e.message, "Data:", jsonDataString);
                                 }
                             }
                         }
@@ -253,7 +256,7 @@ app.post('/api/templates/save-ai-generated', (req, res) => {
         textContent: textContent,
         generatedBy: generatedBy || "AI Assistant",
         promptUsed: promptUsed || "N/A",
-        description: `AI-generated template for ${templateName}`, 
+        description: `AI-generated template for ${templateName}`,
         fileObject: null,
         originalFileName: null,
         contentLink: null,
@@ -305,7 +308,7 @@ app.post('/api/templates/download-pdf', async (req, res) => {
                 } else if (trimmedLine) {
                     doc.font('Helvetica-Bold').text(trimmedLine, { lineGap: 6 }).font('Helvetica');
                 } else {
-                    doc.moveDown(0.5); 
+                    doc.moveDown(0.5);
                 }
             });
         } else {
@@ -315,8 +318,8 @@ app.post('/api/templates/download-pdf', async (req, res) => {
             const pageCount = doc.bufferedPageRange().count;
             for (let i = 0; i < pageCount; i++) {
                 doc.switchToPage(i);
-                doc.fontSize(8).fillColor('#555').text(`Page ${i + 1} of ${pageCount}  |  Generated: ${new Date().toLocaleDateString()}`, 
-                    doc.page.margins.left, doc.page.height - 40, 
+                doc.fontSize(8).fillColor('#555').text(`Page ${i + 1} of ${pageCount}  |  Generated: ${new Date().toLocaleDateString()}`,
+                    doc.page.margins.left, doc.page.height - 40,
                     { align: 'center', width: doc.page.width - doc.page.margins.left - doc.page.margins.right }
                 );
             }
@@ -373,7 +376,7 @@ app.post('/api/templates/download-docx', async (req, res) => {
 });
 
 // ========================================================================
-// 4. AI ANALYTICS AGENT ENDPOINT (PROMPT UPDATED FOR CHARTS)
+// 4. AI ANALYTICS AGENT ENDPOINT
 // ========================================================================
 app.post('/api/analytics/query', async (req, res) => {
     const { query } = req.body;
@@ -382,7 +385,7 @@ app.post('/api/analytics/query', async (req, res) => {
     if (!query) {
         return res.status(400).json({ error: "No query provided." });
     }
-    if (Object.keys(dataCache).length === 0) { 
+    if (Object.keys(dataCache).length === 0) {
         console.warn("Data for general AI analytics has not been fully loaded yet. Query might be incomplete.");
     }
 
@@ -395,7 +398,7 @@ app.post('/api/analytics/query', async (req, res) => {
         }
     }
 
-    const modelName = 'gemini-1.5-flash-latest';
+    const modelName = GEMINI_MODEL_NAME;
     const geminiApiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${geminiApiKey}`;
 
     const metaPrompt = `
@@ -415,18 +418,18 @@ app.post('/api/analytics/query', async (req, res) => {
         {
           "displayType": "chart",
           "data": {
-            "chartType": "bar", 
-            "labels": ["Label A", "Label B", "Label C"], 
+            "chartType": "bar",
+            "labels": ["Label A", "Label B", "Label C"],
             "datasets": [
               {
-                "label": "Dataset Name", 
-                "data": [10, 20, 30],    
+                "label": "Dataset Name",
+                "data": [10, 20, 30],
                 "backgroundColor": ["rgba(255, 99, 132, 0.6)", "rgba(54, 162, 235, 0.6)", "rgba(255, 206, 86, 0.6)"],
                 "borderColor": ["rgba(255, 99, 132, 1)", "rgba(54, 162, 235, 1)", "rgba(255, 206, 86, 1)"],
                 "borderWidth": 1
               }
             ],
-            "options": { 
+            "options": {
               "responsive": true,
               "plugins": {
                 "legend": { "position": "top" },
@@ -461,14 +464,314 @@ app.post('/api/analytics/query', async (req, res) => {
 });
 
 // ========================================================================
-// 5. SERVER STARTUP
+// 5. HELPER FUNCTION FOR TEXT EXTRACTION
+// ========================================================================
+async function extractTextFromFile(file) {
+    let extractedText = '';
+    try {
+        if (file.mimetype === 'application/pdf') {
+            const data = await pdf(file.buffer);
+            extractedText = data.text;
+        } else if (file.mimetype === 'text/plain') {
+            extractedText = file.buffer.toString('utf8');
+        } else if (file.mimetype === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' || 
+                   file.mimetype === 'application/msword') {
+            // For Word documents, we'll treat them as text for now
+            // In production, you might want to use a proper Word parser like mammoth
+            extractedText = file.buffer.toString('utf8');
+        } else {
+            // Try to treat as text for other file types
+            extractedText = file.buffer.toString('utf8');
+        }
+    } catch (error) {
+        console.warn(`Failed to extract text from file ${file.originalname}:`, error.message);
+        extractedText = `[Could not extract text from ${file.originalname}]`;
+    }
+    return extractedText;
+}
+
+// ========================================================================
+// 6. ENHANCED AI REPORTING ENDPOINT WITH DOCUMENT ANALYSIS
+// ========================================================================
+app.post('/api/reporting/generate-ai-report', upload.array('documents'), async (req, res) => {
+    console.log("Received request for /api/reporting/generate-ai-report with potential document uploads");
+    
+    // Parse JSON data from form fields (when files are uploaded, JSON comes as form fields)
+    let submissionId, submissionData, entityData;
+    
+    if (req.files && req.files.length > 0) {
+        // If files are uploaded, JSON data comes as form fields
+        try {
+            submissionId = req.body.submissionId;
+            submissionData = JSON.parse(req.body.submissionData || '{}');
+            entityData = JSON.parse(req.body.entityData || '{}');
+        } catch (error) {
+            return res.status(400).json({ error: "Invalid JSON data in form fields." });
+        }
+    } else {
+        // No files uploaded, expect JSON in request body
+        submissionId = req.body.submissionId;
+        submissionData = req.body.submissionData;
+        entityData = req.body.entityData;
+    }
+
+    if (!submissionId || !submissionData || !entityData) {
+        return res.status(400).json({ error: "Missing required data for report generation." });
+    }
+    if (!geminiApiKey) {
+        return res.status(500).json({ error: "AI service configuration error." });
+    }
+
+    // Extract text from uploaded documents
+    let documentsContent = '';
+    if (req.files && req.files.length > 0) {
+        console.log(`Processing ${req.files.length} uploaded documents for AI analysis`);
+        for (const file of req.files) {
+            const text = await extractTextFromFile(file);
+            documentsContent += `\n--- Content from ${file.originalname} ---\n${text}\n`;
+        }
+    }
+
+    const modelName = GEMINI_MODEL_NAME;
+    const geminiApiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${geminiApiKey}`;
+
+    // Enhanced prompt that includes both metadata and document content analysis
+    const reportPrompt = `
+      You are an AI assistant for a financial regulator tasked with analyzing a compliance submission.
+      Based on the provided data and uploaded documents, generate a comprehensive compliance assessment.
+
+      **Entity Information:**
+      ${JSON.stringify(entityData, null, 2)}
+
+      **Submission Details:**
+      ${JSON.stringify(submissionData, null, 2)}
+
+      ${documentsContent ? `**Uploaded Documents Content:**
+      ${documentsContent}` : '**Note:** No document content was provided for analysis.'}
+
+      **Instructions:**
+      1.  **Document Summary:** ${documentsContent ? 'Provide a two-paragraph summary of the most important aspects found in the uploaded documents, focusing on key financial metrics, compliance issues, and notable business developments.' : 'Note that no documents were uploaded for content analysis.'}
+      2.  **Submission Analysis:** Analyze the submission metadata including report type, period, and any form data provided.
+      3.  **Key Findings:** Identify any compliance concerns, inconsistencies, or areas requiring attention. ${documentsContent ? 'Cross-reference information between the form data and document content.' : ''}
+      4.  **Compliance Score:** Provide a score between 0-100 based on completeness, accuracy, and compliance indicators.
+      5.  **Recommended Actions:** Suggest specific next steps for the regulatory officer.
+
+      **Required Output Format:**
+      Respond with a single, valid JSON object with the following structure:
+      {
+        "reportTitle": "AI Compliance Assessment for [Entity Name]",
+        "submissionId": "${submissionId}",
+        "summary": "Your comprehensive summary including document analysis if available.",
+        "documentsSummary": "${documentsContent ? 'Two-paragraph summary of uploaded documents content.' : 'No documents were uploaded for analysis.'}",
+        "complianceScore": <your_calculated_score>,
+        "keyFindings": [
+          {
+            "sectionName": "Name of the section or document",
+            "status": "Non-Compliant/Partially Compliant/Compliant",
+            "details": "Specific details about the finding."
+          }
+        ],
+        "recommendedActions": [
+          "First recommended action.",
+          "Second recommended action."
+        ]
+      }
+    `;
+
+    try {
+        const response = await axios.post(geminiApiUrl, {
+            contents: [{ parts: [{ text: reportPrompt }] }],
+            generationConfig: {
+                response_mime_type: "application/json",
+            }
+        });
+        console.log("Received valid JSON response from Gemini API for enhanced AI report.");
+        const responseData = response.data.candidates[0].content.parts[0].text;
+        res.json(JSON.parse(responseData));
+
+    } catch (error) {
+        console.error("Error calling Gemini API for enhanced AI report:", error.response ? (error.response.data.error ? error.response.data.error.message : error.response.data) : error.message);
+        res.status(500).json({ error: "Failed to get response from AI service for the enhanced report." });
+    }
+});
+
+
+// ========================================================================
+// 7. AI REGULATORY UPDATE ANALYSIS ENDPOINTS
+// ========================================================================
+
+// NEW ENDPOINT for analyzing uploaded regulatory documents
+app.post('/api/updates/upload-and-analyze', upload.single('document'), async (req, res) => {
+    console.log("Received request for /api/updates/upload-and-analyze");
+    if (!req.file) {
+        return res.status(400).json({ error: 'No document uploaded.' });
+    }
+    if (!geminiApiKey) {
+        return res.status(500).json({ error: "AI service configuration error." });
+    }
+
+    const extractedText = await extractTextFromFile(req.file);
+    
+    if (!extractedText.trim() || extractedText.includes('[Could not extract text')) {
+        return res.status(400).json({ error: 'Could not extract any text from the document.' });
+    }
+
+    const modelName = GEMINI_MODEL_NAME;
+    const geminiApiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${geminiApiKey}`;
+
+    // For suggesting categories, we'll provide the model with our existing license categories.
+    // In a real app, this might come from a database, but here we'll just read our mock data file.
+    let licenseCategoriesContext = '';
+    try {
+        // NOTE: This uses a synchronous read for simplicity in this context.
+        // In a high-traffic production server, consider async or caching.
+        const categoriesRaw = fs.readFileSync(path.join(__dirname, '..', 'src', 'data', 'licenseCategories.js'), 'utf8');
+        // A simple regex to pull out the objects from the JS file. Might need to be more robust.
+        const categoryMatches = categoriesRaw.match(/\{[^}]+\}/g);
+        if(categoryMatches) {
+            licenseCategoriesContext = categoryMatches.join(',\n');
+        }
+    } catch (e) {
+        console.warn("Could not load licenseCategories.js for AI context. Category suggestions may be impaired.");
+    }
+
+
+    const analysisPrompt = `
+      You are an AI assistant for a financial regulator. You are analyzing the text of a new regulatory document.
+
+      **Document Text:**
+      """
+      ${extractedText}
+      """
+
+      **Your Tasks:**
+      1.  **Summarize:** Create a concise, one-paragraph summary of the document's main purpose and impact.
+      2.  **Suggest Categories:** Based on the document's content, suggest which license categories are most likely affected. Use the provided list of available categories. Analyze keywords like "crypto", "payment", "investment", "credit", "e-money", etc.
+
+      **Available License Categories (for suggestions):**
+      [
+        ${licenseCategoriesContext}
+      ]
+
+      **Required Output Format:**
+      Respond with a single, valid JSON object and nothing else.
+      {
+        "summary": "Your generated summary.",
+        "suggestedCategoryIds": ["id_of_suggested_category_1", "id_of_suggested_category_2"],
+        "extractedText": """The full extracted text of the document should be placed here."""
+      }
+      Do not escape the extracted text content in the final JSON. It should be a valid JSON string.
+    `;
+
+    try {
+        const response = await axios.post(geminiApiUrl, {
+            contents: [{ parts: [{ text: analysisPrompt }] }],
+            generationConfig: {
+                response_mime_type: "application/json",
+            }
+        });
+
+        const responseDataString = response.data.candidates[0].content.parts[0].text;
+
+        // Add the original extracted text back into the JSON object received from Gemini
+        const responseObject = JSON.parse(responseDataString);
+        responseObject.extractedText = extractedText;
+
+        console.log("Received and processed AI analysis for regulatory document.");
+        res.json(responseObject);
+
+    } catch (error) {
+        console.error("Error calling Gemini API for document analysis:", error.response ? (error.response.data.error ? error.response.data.error.message : error.response.data) : error.message);
+        res.status(500).json({ error: "Failed to get analysis from AI service." });
+    }
+});
+
+
+// ========================================================================
+// 8. AI RISK ANALYSIS FROM UNSTRUCTURED DOCUMENT
+// ========================================================================
+app.post('/api/risk/analyze-document', upload.single('document'), async (req, res) => {
+    console.log("Received request for /api/risk/analyze-document");
+    if (!req.file) {
+        return res.status(400).json({ error: 'No document uploaded.' });
+    }
+    if (!geminiApiKey) {
+        return res.status(500).json({ error: "AI service configuration error." });
+    }
+
+    const extractedText = await extractTextFromFile(req.file);
+    
+    if (!extractedText.trim() || extractedText.includes('[Could not extract text')) {
+        return res.status(400).json({ error: 'Could not extract any text from the document.' });
+    }
+
+    const modelName = GEMINI_MODEL_NAME;
+    const geminiApiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${geminiApiKey}`;
+
+    const riskAnalysisPrompt = `
+      You are a professional financial risk analyst working for a central bank.
+      Your task is to thoroughly analyze the following text from a financial report (such as an annual report or prospectus)
+      and identify the top 10 most significant risks to the entity's stability, compliance, and reputation.
+
+      **Document Text:**
+      """
+      ${extractedText}
+      """
+
+      **Instructions:**
+      1.  Read the entire document carefully.
+      2.  Identify potential risks. Look for keywords like "risk," "challenge," "volatility," "uncertainty," "downturn," "competition," "regulatory changes," "litigation," "cybersecurity," "default," "concentration," and "dependency." Also, infer risks from discussions about financial performance, strategy, and market conditions.
+      3.  From your list of identified risks, select the top 10 most critical ones.
+      4.  For each of the top 10 risks, you must:
+          a.  Assign a clear 'category' from this specific list: "Credit Risk", "Market Risk", "Operational Risk", "Liquidity Risk", "Compliance Risk", "Strategic Risk", "Reputational Risk".
+          b.  Write a concise, one-sentence 'description' that explains the risk, ideally referencing the specific context from the report.
+          c.  Assign a 'rank' from 1 to 10, with 1 being the most significant risk.
+
+      **Required Output Format:**
+      You MUST respond with a single, valid JSON object and nothing else. Your response must follow this exact structure:
+      {
+        "risks": [
+          {
+            "rank": 1,
+            "category": "Example: Credit Risk",
+            "description": "Example: The report notes a significant concentration of loans in the volatile commercial real estate sector, increasing default risk."
+          },
+          {
+            "rank": 2,
+            "category": "Example: Operational Risk",
+            "description": "Example: The document mentions a dependency on a single third-party provider for critical payment processing infrastructure."
+          }
+        ]
+      }
+    `;
+
+    try {
+        const response = await axios.post(geminiApiUrl, {
+            contents: [{ parts: [{ text: riskAnalysisPrompt }] }],
+            generationConfig: {
+                response_mime_type: "application/json",
+            }
+        });
+        console.log("Received valid JSON response from Gemini API for risk analysis.");
+        const responseData = response.data.candidates[0].content.parts[0].text;
+        res.json(JSON.parse(responseData));
+
+    } catch (error) {
+        console.error("Error calling Gemini API for risk analysis:", error.response ? (error.response.data.error ? error.response.data.error.message : error.response.data) : error.message);
+        res.status(500).json({ error: "Failed to get risk analysis from AI service." });
+    }
+});
+
+
+// ========================================================================
+// 9. SERVER STARTUP
 // ========================================================================
 app.get('/', (req, res) => {
-  res.send('AI Backend Server is running! Both template and analytics endpoints are active.');
+  res.send('AI Backend Server is running! Endpoints are active.');
 });
 
 app.listen(PORT, () => {
-  loadData().catch(err => { 
+  loadData().catch(err => {
       console.error("FATAL: Failed to load data on startup for general AI. The general analytics agent might not work as expected.", err);
   });
   console.log(`AI Backend Server is listening on http://localhost:${PORT}`);

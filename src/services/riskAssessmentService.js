@@ -6,6 +6,17 @@ import complianceSubmissionsData from '../data/complianceSubmissions.js';
 import licenseApplicationsData from '../data/licenseApplications.js';
 import productsData from '../data/products.js';
 import documentsData from '../data/documents.js';
+import { stressTestData } from '../data/dummyStressTestData.js';
+import { advancedStressTestData } from '../data/advancedStressTestData.js';
+
+// Import all new services
+import * as baselIIIService from './baselIIIService.js';
+import * as supervisionService from './supervisionService.js';
+import * as riskMonitoringService from './riskMonitoringService.js';
+import * as marketRiskService from './marketRiskService.js';
+import * as defiRiskService from './defiRiskService.js';
+import * as riskReportingService from './riskReportingService.js';
+
 
 // --- Deterministic "Random" Number Generator ---
 // Creates a consistent number from a string (e.g., entityId) to avoid Math.random().
@@ -234,4 +245,120 @@ export const getSectorRiskTrends = (allEntitiesWithScores) => {
         avgRiskScore: (sectorRisks[sector] / sectorCounts[sector]).toFixed(1),
         trend: trends[deterministicNumber(sector, 3)], // Deterministic trend for the sector
     }));
+};
+
+export const runStressTestForEntity = (entityId, scenario) => {
+  const baseData = stressTestData[entityId];
+  if (!baseData) {
+    throw new Error("No stress test data available for this entity.");
+  }
+
+  // Calculate pre-stress metrics
+  const preStress = {
+    car: (baseData.tier1Capital / baseData.riskWeightedAssets) * 100,
+    nplAmount: baseData.loanPortfolio.reduce((acc, loan) => acc + (loan.amount * loan.nplRate), 0),
+    profitability: baseData.totalAssets * baseData.netInterestMargin,
+  };
+  preStress.nplRatio = (preStress.nplAmount / baseData.loanPortfolio.reduce((acc, loan) => acc + loan.amount, 0)) * 100;
+
+  const postStress = { ...preStress };
+  let impactSummary = "";
+
+  // Apply the selected shock
+  switch (scenario.type) {
+    case 'INTEREST_RATE_SHOCK': {
+      const marginReduction = baseData.netInterestMargin * scenario.shockValue;
+      postStress.profitability = baseData.totalAssets * (baseData.netInterestMargin - marginReduction);
+      impactSummary = `A ${scenario.shockValue * 100}% reduction in Net Interest Margin decreases profitability.`;
+      break;
+    }
+    case 'CREDIT_DEFAULT_SHOCK': {
+      let newNplAmount = 0;
+      baseData.loanPortfolio.forEach(loan => {
+        const isAffected = loan.sector === scenario.sector;
+        const newNplRate = isAffected ? loan.nplRate + (loan.nplRate * scenario.shockValue) : loan.nplRate;
+        newNplAmount += loan.amount * newNplRate;
+      });
+      const creditLoss = newNplAmount - preStress.nplAmount;
+      const postStressCapital = baseData.tier1Capital - creditLoss;
+      postStress.car = (postStressCapital / baseData.riskWeightedAssets) * 100;
+      postStress.nplAmount = newNplAmount;
+      postStress.nplRatio = (newNplAmount / baseData.loanPortfolio.reduce((acc, loan) => acc + loan.amount, 0)) * 100;
+      impactSummary = `A ${scenario.shockValue * 100}% NPL increase in ${scenario.sector} resulted in a credit loss of ${creditLoss.toLocaleString()}.`;
+      break;
+    }
+    default:
+      throw new Error("Unknown stress test scenario.");
+  }
+
+  return { preStress, postStress, impactSummary };
+};
+
+export const runMacroStressTest = (entityId, scenario) => {
+  // This is a mock implementation. A real one would be much more complex.
+  const baseData = stressTestData[entityId];
+  if (!baseData) {
+    throw new Error("No stress test data available for this entity.");
+  }
+  // ... more complex logic here
+  return { preStress: {}, postStress: {}, impactSummary: "Macro stress test completed." };
+};
+
+export const runSystemWideStressTest = (scenario) => {
+  // This is a mock implementation.
+  return { impactSummary: "System-wide stress test completed." };
+};
+
+export const runReverseStressTest = (entityId, failureThreshold) => {
+  // This is a mock implementation.
+  return { scenario: "A 25% drop in real estate prices would breach the capital threshold.", impactSummary: "Reverse stress test completed." };
+};
+
+export const calculateStressTestCorrelations = () => {
+  // This is a mock implementation.
+  return advancedStressTestData.systemWideParameters.sectorCorrelations;
+};
+
+
+// --- NEW: Unified Risk Assessment Function ---
+export const getComprehensiveRiskAssessment = async (entityId) => {
+    // This function aggregates data from various new services for a single entity.
+    const alerts = await riskMonitoringService.generateRiskAlerts();
+    const allSupervisoryActions = await supervisionService.getSupervisoryActions(entityId);
+
+    const [
+        basicRisk,
+        baselIII,
+        icaapStatus,
+        liquidityRatios,
+        earlyWarning,
+        marketRisk,
+        reportingStatus,
+        defiRisk, // Not entity-specific, but we can include it
+    ] = await Promise.all([
+        calculateAllEntityRisks().find(e => e.entityId === entityId),
+        baselIIIService.calculateCapitalAdequacyRatio(entityId),
+        supervisionService.getICAAPStatus(entityId),
+        baselIIIService.getLiquidityRatios(entityId),
+        riskMonitoringService.getEarlyWarningIndicators(entityId),
+        marketRiskService.generateMarketRiskReport(entityId),
+        riskReportingService.checkReportingCompliance(entityId),
+        defiRiskService.generateDeFiRiskReport(), // This is system-wide
+    ]);
+
+    return {
+        basicRisk: basicRisk || null,
+        baselIII: baselIII || null,
+        supervision: {
+          icaap: icaapStatus,
+          actions: allSupervisoryActions
+        },
+        monitoring: {
+          alerts: alerts.filter(a => a.entityId === entityId),
+          warnings: earlyWarning,
+        },
+        marketRisk: marketRisk || null,
+        defiRisk: defiRisk || null, // Included for context, but not specific to the entity
+        reporting: reportingStatus || null,
+    };
 };

@@ -1,11 +1,20 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { ChartBarIcon, FireIcon, BeakerIcon, ScaleIcon, ShieldCheckIcon, DocumentMagnifyingGlassIcon, ArrowTrendingUpIcon, WalletIcon, LinkIcon, XMarkIcon, DocumentArrowUpIcon, SparklesIcon } from '@heroicons/react/24/outline';
-import { calculateAllEntityRisks, getAggregatedSystemicRisk, getSectorRiskTrends } from '../../services/riskAssessmentService.js';
+import { ChartBarIcon, FireIcon, BeakerIcon, ScaleIcon, ShieldCheckIcon, DocumentMagnifyingGlassIcon, ArrowTrendingUpIcon, WalletIcon, LinkIcon, XMarkIcon, DocumentArrowUpIcon, SparklesIcon, BuildingLibraryIcon, ClockIcon, FolderIcon } from '@heroicons/react/24/outline';
+import { calculateAllEntityRisks, getAggregatedSystemicRisk, getSectorRiskTrends, runStressTestForEntity } from '../../services/riskAssessmentService.js';
 import { mockDeFiData } from '../MacroSupervision/MacroSupervisionPage.jsx';
 import licensesData from '../../data/licenses.js';
 import regulatorStaffData from '../../data/regulatorStaff.js';
 import complianceSubmissionsData from '../../data/complianceSubmissions.js';
 import axios from 'axios';
+
+// Import all new dashboard components
+import BaselIIIDashboard from './BaselIIIDashboard.jsx';
+import SupervisionFramework from './SupervisionFramework.jsx';
+import RiskMonitoringDashboard from './RiskMonitoringDashboard.jsx';
+import AdvancedStressTesting from './AdvancedStressTesting.jsx';
+import MarketRiskDashboard from './MarketRiskDashboard.jsx';
+import DeFiRiskDashboard from './DeFiRiskDashboard.jsx';
+import RiskReportingDashboard from './RiskReportingDashboard.jsx';
 
 
 // --- Helper Components ---
@@ -29,7 +38,7 @@ const RiskScore = ({ score, size = 'large' }) => {
 };
 
 const DashboardCard = ({ title, children, icon }) => (
-    <div className="bg-white p-4 rounded-lg shadow-md">
+    <div className="bg-white p-4 rounded-lg shadow-md h-full">
         <div className="flex items-center text-lg font-semibold text-gray-700 mb-2">
             {React.cloneElement(icon, { className: 'w-6 h-6 mr-2 text-gray-500' })}
             {title}
@@ -39,7 +48,7 @@ const DashboardCard = ({ title, children, icon }) => (
 );
 
 // --- MODAL COMPONENT for Risk Profile ---
-const RiskProfileModal = ({ entity, onClose, onMitigationAction, onOverrideChange, onSaveOverride, manualOverrideState }) => {
+const RiskProfileModal = ({ entity, onClose, onMitigationAction, onOverrideChange, onSaveOverride, manualOverrideState, onRunStressTest, isStressing, stressTestResults, onFileChange, onAnalyzeDocument, isAnalyzing, analysisResult, analysisError, selectedFile }) => {
     if (!entity) return null;
 
     const [manualOverride, setManualOverride] = manualOverrideState;
@@ -86,6 +95,59 @@ const RiskProfileModal = ({ entity, onClose, onMitigationAction, onOverrideChang
                                 </div>
                                 {entity.lastActionTaken && <p className="text-xs text-gray-500 mt-2 italic">Last action taken (this session): {entity.lastActionTaken}</p>}
                             </div>
+                            <div>
+                                <h3 className="font-semibold text-gray-700 mb-2">Individual Stress Testing</h3>
+                                <p className="text-xs text-gray-500 mb-2">Run simulations based on specific risk scenarios.</p>
+                                <div className="flex flex-wrap gap-2">
+                                    <button onClick={() => onRunStressTest({ type: 'INTEREST_RATE_SHOCK', shockValue: 0.25 })} className="text-sm p-2 bg-red-100 text-red-800 rounded hover:bg-red-200">25% NIM Reduction</button>
+                                    <button onClick={() => onRunStressTest({ type: 'CREDIT_DEFAULT_SHOCK', sector: 'Commercial Real Estate', shockValue: 0.50 })} className="text-sm p-2 bg-red-100 text-red-800 rounded hover:bg-red-200">+50% NPL in Real Estate</button>
+                                </div>
+                                {isStressing && <p className="text-sm italic text-gray-500 mt-2">Running simulation...</p>}
+                                {stressTestResults && (
+                                    <div className="mt-4 p-3 bg-gray-100 rounded-md">
+                                        <h4 className="font-semibold text-sm mb-2">Stress Test Results</h4>
+                                        <p className="text-xs italic mb-2">{stressTestResults.impactSummary}</p>
+                                        <table className="w-full text-xs">
+                                            <thead><tr className="border-b"><th className="text-left">Metric</th><th className="text-right">Pre-Stress</th><th className="text-right">Post-Stress</th></tr></thead>
+                                            <tbody>
+                                                <tr><td>CAR</td><td className="text-right">{stressTestResults.preStress.car.toFixed(2)}%</td><td className="text-right font-bold">{stressTestResults.postStress.car.toFixed(2)}%</td></tr>
+                                                <tr><td>NPL Ratio</td><td className="text-right">{stressTestResults.preStress.nplRatio.toFixed(2)}%</td><td className="text-right font-bold">{stressTestResults.postStress.nplRatio.toFixed(2)}%</td></tr>
+                                                <tr><td>Profitability</td><td className="text-right">${stressTestResults.preStress.profitability.toLocaleString()}</td><td className="text-right font-bold">${stressTestResults.postStress.profitability.toLocaleString()}</td></tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                )}
+                            </div>
+                            {/* --- Unstructured Document Analysis --*/}
+                            <div>
+                                <h3 className="font-semibold text-gray-700 mb-2">Unstructured Document Analysis</h3>
+                                 <div className="p-4 bg-gray-50 rounded-lg">
+                                     <label htmlFor="risk-doc-upload-modal" className="block text-sm font-medium text-gray-700 mb-2">Upload a document for this entity:</label>
+                                     <div className="flex items-center space-x-3">
+                                         <input id="risk-doc-upload-modal" type="file" onChange={onFileChange} accept=".pdf,.txt" className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"/>
+                                         <button onClick={onAnalyzeDocument} disabled={isAnalyzing || !selectedFile} className="px-4 py-2 bg-purple-600 text-white font-semibold rounded-md shadow-sm hover:bg-purple-700 disabled:opacity-50 flex items-center flex-shrink-0">
+                                            <SparklesIcon className="w-5 h-5 mr-2"/>
+                                            {isAnalyzing ? 'Analyzing...' : 'Analyze'}
+                                         </button>
+                                     </div>
+                                     {selectedFile && <p className="text-xs text-gray-500 mt-2">Selected: {selectedFile.name}</p>}
+                                     {isAnalyzing && <p className="text-center text-gray-500 italic mt-2">AI is processing the document...</p>}
+                                     {analysisError && <div className="text-red-600 text-sm mt-2">{analysisError}</div>}
+                                     {analysisResult && (
+                                         <div className="mt-4">
+                                             <h4 className="font-semibold text-sm mb-2">Analysis Results:</h4>
+                                             <ol className="list-decimal list-inside space-y-2 text-sm">
+                                                 {analysisResult.map(risk => (
+                                                     <li key={risk.rank}>
+                                                         <span className="font-semibold text-gray-800">{risk.category}:</span>
+                                                         <span className="text-gray-600 ml-1">{risk.description}</span>
+                                                     </li>
+                                                 ))}
+                                             </ol>
+                                         </div>
+                                     )}
+                                 </div>
+                            </div>
                         </div>
                         
                         {/* Right Side: Manual Override Form */}
@@ -127,6 +189,8 @@ const RiskAssessmentPage = () => {
     const [sectorTrends, setSectorTrends] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [manualOverride, setManualOverride] = useState({});
+    const [stressTestResults, setStressTestResults] = useState(null);
+    const [isStressing, setIsStressing] = useState(false);
 
     // New State for Unstructured Data Analysis
     const [selectedFile, setSelectedFile] = useState(null);
@@ -134,6 +198,8 @@ const RiskAssessmentPage = () => {
     const [isAnalyzing, setIsAnalyzing] = useState(false);
     const [analysisError, setAnalysisError] = useState(null);
 
+    // New state for tab navigation
+    const [activeTab, setActiveTab] = useState('Overview');
 
     useEffect(() => {
         setIsLoading(true);
@@ -172,16 +238,33 @@ const RiskAssessmentPage = () => {
             compositeScore: Object.values(manualOverride.pillarScores).reduce((a, b) => a + b, 0) / Object.values(manualOverride.pillarScores).length,
             isOverridden: true 
         };
-        setEntitiesWithScores(prev => prev.map(e => e.id === updatedEntity.id ? updatedEntity : e));
+        setEntitiesWithScores(prev => prev.map(e => e.entityId === updatedEntity.entityId ? updatedEntity : e));
         setSelectedEntity(updatedEntity);
-        alert(`Overrides saved for ${selectedEntity.name}. This is a temporary change for this session and will reset on page reload.`);
+        alert(`Overrides saved for ${selectedEntity.companyName}. This is a temporary change for this session and will reset on page reload.`);
     };
 
     const handleMitigationAction = (action) => {
-        alert(`Initiating action: ${action} for ${selectedEntity.name}\n\nThis would trigger a workflow and create a task for the assigned supervisor.`);
+        alert(`Initiating action: ${action} for ${selectedEntity.companyName}\n\nThis would trigger a workflow and create a task for the assigned supervisor.`);
         const updatedEntity = { ...selectedEntity, lastActionTaken: action };
-        setEntitiesWithScores(prev => prev.map(e => e.id === updatedEntity.id ? updatedEntity : e));
+        setEntitiesWithScores(prev => prev.map(e => e.entityId === updatedEntity.entityId ? updatedEntity : e));
         setSelectedEntity(updatedEntity);
+    };
+
+    const handleRunStressTest = (scenario) => {
+        if (!selectedEntity) return;
+        setIsStressing(true);
+        setStressTestResults(null);
+        setTimeout(() => { // Simulate network delay
+            try {
+                const results = runStressTestForEntity(selectedEntity.entityId, scenario);
+                setStressTestResults(results);
+            } catch (error) {
+                console.error(error);
+                alert(error.message);
+            } finally {
+                setIsStressing(false);
+            }
+        }, 1000);
     };
 
     // --- NEW: Function to handle unstructured file analysis ---
@@ -217,16 +300,10 @@ const RiskAssessmentPage = () => {
             setIsAnalyzing(false);
         }
     };
-    
-     if (isLoading) {
-        return <div className="p-6 text-center">Loading Risk Assessment Data...</div>;
-    }
 
-    return (
-        <div className="p-4 md:p-6 bg-gray-100 min-h-screen">
-            <h1 className="text-3xl font-bold text-gray-800 mb-6">Risk Assessment Dashboard</h1>
-
-            {/* --- Dashboard cards --- */}
+    const renderOverviewTab = () => (
+        <>
+            {/* --- Dashboard cards --*/}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
                 <DashboardCard title="Systemic Risk Heatmap" icon={<FireIcon />}>
                    <div className="grid grid-cols-2 gap-4">
@@ -247,41 +324,8 @@ const RiskAssessmentPage = () => {
                     </div>
                </DashboardCard>
             </div>
-
-            {/* --- NEW: Unstructured Document Analysis Card --- */}
-            <div className="bg-white p-6 rounded-lg shadow-lg mb-8">
-                 <h2 className="text-xl font-semibold text-gray-800 mb-4 flex items-center"><SparklesIcon className="w-6 h-6 mr-2 text-purple-500" />Unstructured Document Risk Analysis</h2>
-                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
-                     <div>
-                         <label htmlFor="risk-doc-upload" className="block text-sm font-medium text-gray-700 mb-2">Upload an annual report or financial statement (PDF/TXT):</label>
-                         <div className="flex items-center space-x-3">
-                             <input id="risk-doc-upload" type="file" onChange={handleFileChange} accept=".pdf,.txt" className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"/>
-                             <button onClick={handleAnalyzeDocument} disabled={isAnalyzing || !selectedFile} className="px-4 py-2 bg-purple-600 text-white font-semibold rounded-md shadow-sm hover:bg-purple-700 disabled:opacity-50 flex items-center flex-shrink-0">
-                                <DocumentArrowUpIcon className="w-5 h-5 mr-2"/>
-                                {isAnalyzing ? 'Analyzing...' : 'Analyze for Risks'}
-                             </button>
-                         </div>
-                         {selectedFile && <p className="text-xs text-gray-500 mt-2">Selected: {selectedFile.name}</p>}
-                     </div>
-                     <div className="bg-gray-50 p-4 rounded-lg min-h-[150px]">
-                         <h3 className="font-semibold text-gray-700 mb-2">Top 10 Identified Risks:</h3>
-                         {isAnalyzing && <p className="text-center text-gray-500 italic">AI is processing the document...</p>}
-                         {analysisError && <div className="text-red-600 text-sm">{analysisError}</div>}
-                         {analysisResult && (
-                             <ol className="list-decimal list-inside space-y-2 text-sm">
-                                 {analysisResult.map(risk => (
-                                     <li key={risk.rank}>
-                                         <span className="font-semibold text-gray-800">{risk.category}:</span>
-                                         <span className="text-gray-600 ml-1">{risk.description}</span>
-                                     </li>
-                                 ))}
-                             </ol>
-                         )}
-                     </div>
-                 </div>
-             </div>
             
-            {/* --- Entity Risk Overview Table --- */}
+            {/* --- Entity Risk Overview Table --*/}
             <div className="bg-white p-6 rounded-lg shadow-lg mb-8">
                 <h2 className="text-xl font-semibold text-gray-800 mb-4">Entity Risk Overview</h2>
                 <div className="overflow-x-auto">
@@ -296,7 +340,7 @@ const RiskAssessmentPage = () => {
                         </thead>
                         <tbody className="bg-white divide-y divide-gray-200">
                             {entitiesWithScores.map(entity => (
-                                <tr key={entity.entityId} onClick={() => handleSelectEntity(entity)} className={`hover:bg-gray-100 cursor-pointer ${selectedEntity?.id === entity.id ? 'bg-blue-50' : ''} ${entity.trend === 'down' ? 'bg-red-50 hover:bg-red-100' : ''}`}>
+                                <tr key={entity.entityId} onClick={() => handleSelectEntity(entity)} className={`hover:bg-gray-100 cursor-pointer ${selectedEntity?.entityId === entity.entityId ? 'bg-blue-50' : ''} ${entity.trend === 'down' ? 'bg-red-50 hover:bg-red-100' : ''}`}>
                                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{entity.companyName}</td>
                                     <td className="px-6 py-4 whitespace-nowrap"><RiskScore score={entity.compositeScore} /></td>
                                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 capitalize">{entity.trend}</td>
@@ -307,16 +351,84 @@ const RiskAssessmentPage = () => {
                     </table>
                 </div>
             </div>
+        </>
+    );
 
-            {/* --- Modal Rendering --- */}
+    const renderContent = () => {
+        switch (activeTab) {
+            case 'Overview':
+                return renderOverviewTab();
+            case 'Basel III Compliance':
+                return <BaselIIIDashboard />;
+            case 'Supervision Framework':
+                return <SupervisionFramework />;
+            case 'Real-time Monitoring':
+                return <RiskMonitoringDashboard />;
+            case 'Advanced Stress Testing':
+                return <AdvancedStressTesting />;
+            case 'Market Risk':
+                return <MarketRiskDashboard />;
+            case 'DeFi Risk':
+                return <DeFiRiskDashboard />;
+            case 'Reporting':
+                return <RiskReportingDashboard />;
+            default:
+                return renderOverviewTab();
+        }
+    };
+    
+     if (isLoading) {
+        return <div className="p-6 text-center">Loading Risk Assessment Data...</div>;
+    }
+
+    return (
+        <div className="p-4 md:p-6 bg-gray-100 min-h-screen">
+            <h1 className="text-3xl font-bold text-gray-800 mb-6">Risk Assessment</h1>
+
+            <div className="mb-6 border-b border-gray-300">
+                <nav className="-mb-px flex space-x-6 overflow-x-auto" aria-label="Tabs">
+                    {[
+                        'Overview', 'Basel III Compliance', 'Supervision Framework', 
+                        'Real-time Monitoring', 'Advanced Stress Testing', 'Market Risk', 
+                        'DeFi Risk', 'Reporting'
+                    ].map(tab => (
+                        <button
+                            key={tab}
+                            onClick={() => setActiveTab(tab)}
+                            className={`${activeTab === tab ? 'border-blue-500 text-blue-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'} whitespace-nowrap py-3 px-1 border-b-2 font-medium text-sm`}
+                        >
+                            {tab}
+                        </button>
+                    ))}
+                </nav>
+            </div>
+            
+            {renderContent()}
+
+            {/* --- Modal Rendering --*/}
             {selectedEntity && (
                 <RiskProfileModal 
                     entity={selectedEntity}
-                    onClose={() => setSelectedEntity(null)}
+                    onClose={() => {
+                        setSelectedEntity(null);
+                        setStressTestResults(null);
+                        setAnalysisResult(null);
+                        setSelectedFile(null);
+                        setAnalysisError(null);
+                    }}
                     onMitigationAction={handleMitigationAction}
                     onOverrideChange={handleOverrideChange}
                     onSaveOverride={handleSaveOverride}
                     manualOverrideState={[manualOverride, setManualOverride]}
+                    onRunStressTest={handleRunStressTest}
+                    isStressing={isStressing}
+                    stressTestResults={stressTestResults}
+                    onFileChange={handleFileChange}
+                    onAnalyzeDocument={handleAnalyzeDocument}
+                    isAnalyzing={isAnalyzing}
+                    analysisResult={analysisResult}
+                    analysisError={analysisError}
+                    selectedFile={selectedFile}
                 />
             )}
         </div>

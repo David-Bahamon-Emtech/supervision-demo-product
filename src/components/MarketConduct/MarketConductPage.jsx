@@ -78,9 +78,9 @@ const MarketConductPage = () => {
                     <div className="h-48 overflow-y-auto space-y-3 pr-2">
                         <p className="text-sm text-center text-theme-text-secondary mb-2">Watchlist (Recent Ad Violations)</p>
                          {mockMarketConductData.adWatchlist.map(item => (
-                            <div key={item.id} className="p-3 bg-red-900 bg-opacity-30 rounded-md text-xs border-l-4 border-red-500">
-                                <p className="font-bold text-red-300">{item.institution}</p>
-                                <p className="text-red-400 mt-1">{item.reason}</p>
+                            <div key={item.id} className="p-3 bg-theme-error-bg rounded-md text-xs border-l-4 border-theme-error-border">
+                                <p className="font-bold text-theme-error-text">{item.institution}</p>
+                                <p className="text-theme-error-text mt-1">{item.reason}</p>
                             </div>
                         ))}
                     </div>
@@ -88,9 +88,9 @@ const MarketConductPage = () => {
                 <DashboardCard title="Active Interventions" icon={<LightBulbIcon />}>
                      <div className="h-48 overflow-y-auto space-y-3 pr-2">
                          {mockMarketConductData.interventions.map(item => (
-                            <div key={item.id} className="p-3 bg-blue-900 bg-opacity-30 rounded-md text-xs">
-                                <p className="font-bold text-blue-300">{item.institution}</p>
-                                <p className="text-blue-400 mt-1">{item.type}: {item.subject} <span className="italic">({item.status})</span></p>
+                            <div key={item.id} className="p-3 bg-theme-info-bg border border-theme-info-border rounded-md text-xs">
+                                <p className="font-bold text-theme-info-text">{item.institution}</p>
+                                <p className="text-theme-info-text mt-1">{item.type}: {item.subject} <span className="italic">({item.status})</span></p>
                             </div>
                         ))}
                     </div>

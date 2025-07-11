@@ -2,6 +2,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, Title } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
+import { getChartColors } from '../../utils/chartColors.js';
 
 // --- MOCK SERVICE FUNCTIONS FOR NEW DASHBOARD ---
 // In a real implementation, these functions would be in './reportingService.js'
@@ -18,16 +19,16 @@ ChartJS.register(ArcElement, Tooltip, Legend, Title);
 
 const EntityRow = ({ entity, onEntitySelect, supervisorName }) => {
   // Determine color for the 'Current Standing' marker
-  let statusColor = 'bg-gray-700 text-gray-200'; // Default for On-Time
+  let statusColor = 'bg-theme-bg-secondary text-theme-text-secondary border border-theme-border'; // Default
   switch (entity.complianceStanding) {
     case 'Overdue':
-      statusColor = 'bg-red-900 bg-opacity-50 text-red-300';
+      statusColor = 'bg-theme-error-bg text-theme-error-text border border-theme-error-border';
       break;
     case 'Deficient':
-      statusColor = 'bg-yellow-900 bg-opacity-50 text-yellow-300';
+      statusColor = 'bg-theme-warning-bg text-theme-warning-text border border-theme-warning-border';
       break;
     case 'On-Time':
-      statusColor = 'bg-green-900 bg-opacity-50 text-green-300';
+      statusColor = 'bg-theme-success-bg text-theme-success-text border border-theme-success-border';
       break;
     default:
         // Keep default
@@ -119,14 +120,14 @@ const LicenseCategoryReportsPage = ({ categoryId, onBack, onSelectEntity }) => {
           healthData?.highRisk || 0,
         ],
         backgroundColor: [
-          'rgba(16, 185, 129, 0.6)', // Emerald 500
-          'rgba(245, 158, 11, 0.6)', // Amber 500
-          'rgba(220, 38, 38, 0.6)',   // Red 600
+          getChartColors().colors[3], // Green for low risk
+          getChartColors().colors[2], // Yellow/amber for medium risk
+          getChartColors().colors[0], // Red for high risk
         ],
         borderColor: [
-          '#059669', // Emerald 600
-          '#D97706', // Amber 600
-          '#B91C1C',   // Red 700
+          getChartColors().colors[3].replace('0.8', '1'), // Solid green
+          getChartColors().colors[2].replace('0.8', '1'), // Solid yellow
+          getChartColors().colors[0].replace('0.8', '1'), // Solid red
         ],
         borderWidth: 1,
       },
@@ -140,7 +141,7 @@ const LicenseCategoryReportsPage = ({ categoryId, onBack, onSelectEntity }) => {
       legend: {
         position: 'right',
         labels: {
-            color: '#ADB5BD' // theme-text-secondary
+            color: getChartColors().textColor
         }
       },
       title: {
@@ -149,7 +150,7 @@ const LicenseCategoryReportsPage = ({ categoryId, onBack, onSelectEntity }) => {
         font: {
             size: 16
         },
-        color: '#E9ECEF' // theme-text-primary
+        color: getChartColors().titleColor
       },
     },
   };

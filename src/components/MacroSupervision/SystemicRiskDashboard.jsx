@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, LineElement, PointElement, ArcElement, Title, Tooltip, Legend } from 'chart.js';
 import { Bar, Doughnut, Line } from 'react-chartjs-2';
 import * as macroSupervisionService from '../../services/macroSupervisionService.js';
+import { getChartColors, getChartOptions } from '../../utils/chartColors.js';
 
 // Register Chart.js components
 ChartJS.register(
@@ -22,28 +23,28 @@ const IndicatorCard = ({ indicator }) => {
   switch (indicator.trend) {
     case 'up':
       trendIcon = '▲';
-      trendColor = indicator.status === 'warning' || indicator.status === 'critical' ? 'text-red-400' : 'text-green-400';
+      trendColor = indicator.status === 'warning' || indicator.status === 'critical' ? 'text-theme-error-text' : 'text-theme-success-text';
       break;
     case 'down':
       trendIcon = '▼';
-      trendColor = indicator.status === 'warning' || indicator.status === 'critical' ? 'text-green-400' : 'text-red-400';
+      trendColor = indicator.status === 'warning' || indicator.status === 'critical' ? 'text-theme-success-text' : 'text-theme-error-text';
       break;
     default:
       trendIcon = '●';
-      trendColor = 'text-gray-400';
+      trendColor = 'text-theme-text-secondary';
       break;
   }
 
   let statusColor;
   switch (indicator.status) {
     case 'critical':
-      statusColor = 'bg-red-900 bg-opacity-30 border-red-500';
+      statusColor = 'bg-theme-error-bg border-theme-error-border';
       break;
     case 'warning':
-      statusColor = 'bg-yellow-900 bg-opacity-30 border-yellow-500';
+      statusColor = 'bg-theme-warning-bg border-theme-warning-border';
       break;
     default:
-      statusColor = 'bg-green-900 bg-opacity-30 border-green-500';
+      statusColor = 'bg-theme-success-bg border-theme-success-border';
   }
 
   return (
@@ -63,55 +64,61 @@ const SystemicRiskDashboard = () => {
   const [concentrationData, setConcentrationData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Chart options that are compatible with a dark theme
-  const chartOptions = (titleText) => ({
-    maintainAspectRatio: false,
-    plugins: {
-      legend: {
-        labels: {
-          color: '#ADB5BD' // theme-text-secondary
+  // Chart options that are compatible with both light and dark themes
+  const chartOptions = (titleText) => {
+    const colors = getChartColors();
+    return {
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          labels: {
+            color: colors.textColor
+          }
+        },
+        title: {
+          display: true,
+          text: titleText,
+          color: colors.titleColor,
+          font: {
+            size: 16
+          }
         }
       },
-      title: {
-        display: true,
-        text: titleText,
-        color: '#E9ECEF', // theme-text-primary
-        font: {
-          size: 16
+      scales: {
+        y: {
+          ticks: { color: colors.textColor },
+          grid: { color: colors.gridColor }
+        },
+        x: {
+          ticks: { color: colors.textColor },
+          grid: { color: colors.gridColor }
         }
       }
-    },
-    scales: {
-      y: {
-        ticks: { color: '#ADB5BD' },
-        grid: { color: '#495057' } // theme-border
-      },
-      x: {
-        ticks: { color: '#ADB5BD' },
-        grid: { color: '#495057' } // theme-border
-      }
-    }
-  });
+    };
+  };
   
-  const doughnutChartOptions = (titleText) => ({
+  const doughnutChartOptions = (titleText) => {
+    const colors = getChartColors();
+    return {
       maintainAspectRatio: false,
       plugins: {
           legend: {
               position: 'right',
               labels: {
-                  color: '#ADB5BD' // theme-text-secondary
+                  color: colors.textColor
               }
           },
           title: {
               display: true,
               text: titleText,
-              color: '#E9ECEF', // theme-text-primary
+              color: colors.titleColor,
               font: {
                 size: 16
               }
           }
       }
-  });
+    };
+  };
 
 
   useEffect(() => {
@@ -128,21 +135,14 @@ const SystemicRiskDashboard = () => {
         setAlerts(alertData.slice(0, 5)); // Take top 5 alerts
         
         // Prepare data for the concentration chart
+        const colors = getChartColors();
         setConcentrationData({
           labels: sectorData.map(d => d.sector),
           datasets: [{
             label: 'Credit Concentration',
             data: sectorData.map(d => d.percentage),
-            backgroundColor: [
-              'rgba(255, 99, 132, 0.8)',
-              'rgba(54, 162, 235, 0.8)',
-              'rgba(255, 206, 86, 0.8)',
-              'rgba(75, 192, 192, 0.8)',
-              'rgba(153, 102, 255, 0.8)',
-              'rgba(255, 159, 64, 0.8)',
-              'rgba(99, 255, 132, 0.8)',
-            ],
-            borderColor: '#2A2F34', // theme-bg-secondary
+            backgroundColor: colors.colors,
+            borderColor: colors.gridColor,
             borderWidth: 2,
           }],
         });
@@ -166,8 +166,8 @@ const SystemicRiskDashboard = () => {
       datasets: [{
           label: 'Value (%)',
           data: riskData['Asset Quality']?.map(d => parseFloat(d.value)),
-          backgroundColor: 'rgba(239, 68, 68, 0.7)',
-          borderColor: 'rgba(239, 68, 68, 1)',
+          backgroundColor: getChartColors().colors[0],
+          borderColor: getChartColors().colors[0].replace('0.8', '1'),
           borderWidth: 1,
       }]
   };
@@ -178,13 +178,13 @@ const SystemicRiskDashboard = () => {
       label: 'System-wide CAR Trend',
       data: [15.1, 15.0, 14.8, 14.6],
       fill: false,
-      borderColor: 'rgb(54, 162, 235)',
+      borderColor: getChartColors().colors[1].replace('0.8', '1'),
       tension: 0.1
     }, {
       label: 'System-wide NPL Trend',
       data: [3.5, 3.6, 3.9, 4.1],
       fill: false,
-      borderColor: 'rgb(255, 99, 132)',
+      borderColor: getChartColors().colors[0].replace('0.8', '1'),
       tension: 0.1
     }]
   };
@@ -220,8 +220,8 @@ const SystemicRiskDashboard = () => {
             <h4 className="font-semibold text-theme-text-primary mb-2">Top Systemic Alerts</h4>
             <div className="space-y-3">
                 {alerts.map(alert => (
-                     <div key={alert.id} className={`p-3 border-l-4 ${alert.severity === 'High' ? 'border-red-500 bg-red-900 bg-opacity-30' : 'border-yellow-500 bg-yellow-900 bg-opacity-30'}`}>
-                        <p className={`font-bold text-sm ${alert.severity === 'High' ? 'text-red-300' : 'text-yellow-300'}`}>{alert.title}</p>
+                     <div key={alert.id} className={`p-3 border-l-4 ${alert.severity === 'High' ? 'border-theme-error-border bg-theme-error-bg' : 'border-theme-warning-border bg-theme-warning-bg'}`}>
+                        <p className={`font-bold text-sm ${alert.severity === 'High' ? 'text-theme-error-text' : 'text-theme-warning-text'}`}>{alert.title}</p>
                         <p className="text-xs text-theme-text-secondary">{alert.description}</p>
                     </div>
                 ))}

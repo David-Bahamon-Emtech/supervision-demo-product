@@ -20,6 +20,20 @@ export default {
         'theme-text-secondary': 'var(--theme-text-secondary)',
         'theme-border': 'var(--theme-border)',
         'theme-accent': 'var(--theme-accent)',
+        
+        // --- Theme-aware Status Colors ---
+        'theme-success-bg': 'var(--theme-success-bg)',
+        'theme-success-text': 'var(--theme-success-text)',
+        'theme-success-border': 'var(--theme-success-border)',
+        'theme-warning-bg': 'var(--theme-warning-bg)',
+        'theme-warning-text': 'var(--theme-warning-text)',
+        'theme-warning-border': 'var(--theme-warning-border)',
+        'theme-error-bg': 'var(--theme-error-bg)',
+        'theme-error-text': 'var(--theme-error-text)',
+        'theme-error-border': 'var(--theme-error-border)',
+        'theme-info-bg': 'var(--theme-info-bg)',
+        'theme-info-text': 'var(--theme-info-text)',
+        'theme-info-border': 'var(--theme-info-border)',
       },
       width: {
         '64': '16rem',

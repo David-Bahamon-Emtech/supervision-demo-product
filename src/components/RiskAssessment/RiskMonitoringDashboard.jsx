@@ -10,13 +10,13 @@ import entitiesData from '../../data/entities.js';
 // --- Reusable Components ---
 
 const AlertCard = ({ alert, entityName }) => {
-    let severityClasses = 'bg-theme-bg border-gray-600 text-theme-text-secondary';
+    let severityClasses = 'bg-theme-bg border-theme-border text-theme-text-secondary';
     if (alert.severity === 'High') {
-        severityClasses = 'bg-red-900 bg-opacity-20 border-red-500 text-red-300';
+        severityClasses = 'bg-theme-error-bg border-theme-error-border text-theme-error-text';
     } else if (alert.severity === 'Medium') {
-        severityClasses = 'bg-orange-900 bg-opacity-20 border-orange-500 text-orange-300';
+        severityClasses = 'bg-theme-warning-bg border-theme-warning-border text-theme-warning-text';
     } else if (alert.severity === 'Warning') {
-        severityClasses = 'bg-yellow-900 bg-opacity-20 border-yellow-500 text-yellow-300';
+        severityClasses = 'bg-theme-warning-bg border-theme-warning-border text-theme-warning-text';
     }
 
     return (

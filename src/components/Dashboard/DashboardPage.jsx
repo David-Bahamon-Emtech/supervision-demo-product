@@ -86,12 +86,12 @@ const DashboardPage = () => {
                 {/* Top Row, Middle Column */}
                 <DashboardWidget title="Institutional Risk Radar" icon={<ShieldCheckIcon />}>
                     <h3 className="text-md font-semibold text-theme-text-secondary mb-2">High-Risk Watchlist</h3>
-                    <div className="p-4 bg-red-900 bg-opacity-20 border border-red-500 border-opacity-30 rounded-lg">
+                    <div className="p-4 bg-theme-error-bg border border-theme-error-border rounded-lg">
                         <ul className="space-y-2">
                             {mockDashboardData.highRiskWatchlist.map(entity => (
                                  <li key={entity.id} className="flex justify-between items-center">
-                                     <span className="font-medium text-red-300">{entity.name}</span>
-                                     <span className="text-sm text-red-400">Score: {entity.riskScore} ({entity.primaryDriver})</span>
+                                     <span className="font-medium text-theme-error-text">{entity.name}</span>
+                                     <span className="text-sm text-theme-error-text">Score: {entity.riskScore} ({entity.primaryDriver})</span>
                                  </li>
                             ))}
                         </ul>
@@ -102,9 +102,9 @@ const DashboardPage = () => {
                 <DashboardWidget title="Systemic Health Indicators" icon={<BuildingLibraryIcon />}>
                     <div className="grid grid-cols-2 gap-4 text-center">
                         {Object.entries(mockDashboardData.systemicRisk).map(([key, data]) => (
-                            <div key={key} className={`p-2 rounded-lg ${data.status === 'Warning' ? 'bg-orange-900 bg-opacity-30' : 'bg-green-900 bg-opacity-20'}`}>
+                            <div key={key} className={`p-2 rounded-lg ${data.status === 'Warning' ? 'bg-theme-warning-bg border border-theme-warning-border' : 'bg-theme-success-bg border border-theme-success-border'}`}>
                                 <p className="text-xs font-medium text-theme-text-secondary capitalize">{key.replace(/([A-Z])/g, ' $1')}</p>
-                                <p className={`text-xl font-bold ${data.status === 'Warning' ? 'text-orange-300' : 'text-green-300'}`}>{data.value}</p>
+                                <p className={`text-xl font-bold ${data.status === 'Warning' ? 'text-theme-warning-text' : 'text-theme-success-text'}`}>{data.value}</p>
                             </div>
                         ))}
                     </div>
@@ -115,7 +115,7 @@ const DashboardPage = () => {
                      <ul className="space-y-3">
                          {mockDashboardData.recentActivity.map(activity => (
                              <li key={activity.id} className="flex items-start text-sm">
-                                 <div className="flex-shrink-0 w-5 h-5 bg-blue-900 bg-opacity-30 text-blue-300 rounded-full flex items-center justify-center mr-3 mt-1">
+                                 <div className="flex-shrink-0 w-5 h-5 bg-theme-info-bg border border-theme-info-border text-theme-info-text rounded-full flex items-center justify-center mr-3 mt-1">
                                      <ExclamationCircleIcon className="w-4 h-4" />
                                  </div>
                                  <div>

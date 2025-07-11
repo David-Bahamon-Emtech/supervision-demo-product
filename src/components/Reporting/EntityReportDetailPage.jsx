@@ -51,15 +51,15 @@ const FileLink = ({ documentId }) => {
 };
 
 const SectionStatusBadge = ({ status }) => {
-  let bgColorClass = 'bg-gray-700 text-gray-200';
+  let colorClass = 'bg-theme-bg-secondary text-theme-text-secondary border border-theme-border';
   switch (status) {
-    case 'Compliant': bgColorClass = 'bg-green-900 bg-opacity-50 text-green-300'; break;
-    case 'Non-Compliant': bgColorClass = 'bg-red-900 bg-opacity-50 text-red-300'; break;
-    case 'Partially Compliant': bgColorClass = 'bg-yellow-900 bg-opacity-50 text-yellow-300'; break;
-    case 'Under Review': bgColorClass = 'bg-blue-900 bg-opacity-50 text-blue-300'; break;
-    case 'Pending Review': bgColorClass = 'bg-indigo-900 bg-opacity-50 text-indigo-300'; break;
+    case 'Compliant': colorClass = 'bg-theme-success-bg text-theme-success-text border border-theme-success-border'; break;
+    case 'Non-Compliant': colorClass = 'bg-theme-error-bg text-theme-error-text border border-theme-error-border'; break;
+    case 'Partially Compliant': colorClass = 'bg-theme-warning-bg text-theme-warning-text border border-theme-warning-border'; break;
+    case 'Under Review': colorClass = 'bg-theme-info-bg text-theme-info-text border border-theme-info-border'; break;
+    case 'Pending Review': colorClass = 'bg-theme-info-bg text-theme-info-text border border-theme-info-border'; break;
   }
-  return <span className={`px-2 py-0.5 text-xs font-semibold rounded-full ${bgColorClass}`}>{status}</span>;
+  return <span className={`px-2 py-0.5 text-xs font-semibold rounded-full ${colorClass}`}>{status}</span>;
 };
 
 const AIAssessmentResult = ({ assessment, isLoading, error }) => {
@@ -83,7 +83,7 @@ const AIAssessmentResult = ({ assessment, isLoading, error }) => {
         return <p className="text-center text-xs text-theme-text-secondary p-4 italic">Click 'Assess with AI' to analyze submission content.</p>
     }
 
-    const scoreColor = assessment.complianceScore >= 85 ? 'text-green-400' : assessment.complianceScore >= 60 ? 'text-yellow-400' : 'text-red-400';
+    const scoreColor = assessment.complianceScore >= 85 ? 'text-theme-success-text' : assessment.complianceScore >= 60 ? 'text-theme-warning-text' : 'text-theme-error-text';
 
     return (
         <div>

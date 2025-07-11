@@ -129,7 +129,7 @@ const AIMacroAnalytics = () => {
         </form>
         <div className="mt-4 pt-4 border-t border-theme-border">
           {isQuerying && <p className="text-center text-theme-text-secondary">AI is thinking...</p>}
-          {queryError && <div className="p-3 bg-red-900 bg-opacity-30 text-red-300 rounded-md">{queryError}</div>}
+          {queryError && <div className="p-3 bg-theme-error-bg text-theme-error-text border border-theme-error-border rounded-md">{queryError}</div>}
           {queryResult && renderQueryResult()}
         </div>
       </div>
@@ -155,7 +155,7 @@ const AIMacroAnalytics = () => {
         </div>
         <div className="mt-4 pt-4 border-t border-theme-border">
             {isAnalyzingDoc && <p className="text-center text-theme-text-secondary">AI is processing the document...</p>}
-            {docAnalysisError && <div className="p-3 bg-red-900 bg-opacity-30 text-red-300 rounded-md">{docAnalysisError}</div>}
+            {docAnalysisError && <div className="p-3 bg-theme-error-bg text-theme-error-text border border-theme-error-border rounded-md">{docAnalysisError}</div>}
             {docAnalysisResult && (
                 <div className="space-y-3 text-sm">
                     <h5 className="font-bold text-theme-text-primary">Analysis Summary:</h5>

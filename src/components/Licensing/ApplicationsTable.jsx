@@ -11,18 +11,17 @@ const formatDate = (dateString) => {
 
 // Component to display a status badge
 const StatusBadge = ({ status }) => {
-  let bgColorClass = 'bg-gray-200';
-  let textColorClass = 'text-gray-800';
+  let colorClasses = 'bg-theme-bg-secondary text-theme-text-secondary border border-theme-border';
   switch (status) {
-    case 'Approved': bgColorClass = 'bg-green-100'; textColorClass = 'text-green-800'; break;
-    case 'Denied': bgColorClass = 'bg-red-100'; textColorClass = 'text-red-800'; break;
+    case 'Approved': colorClasses = 'bg-theme-success-bg text-theme-success-text border border-theme-success-border'; break;
+    case 'Denied': colorClasses = 'bg-theme-error-bg text-theme-error-text border border-theme-error-border'; break;
     case 'In Review': case 'Initial Review': case 'Detailed Review': case 'Awaiting Decision':
-      bgColorClass = 'bg-yellow-100'; textColorClass = 'text-yellow-700'; break;
-    case 'Submitted': bgColorClass = 'bg-blue-100'; textColorClass = 'text-blue-700'; break;
+      colorClasses = 'bg-theme-warning-bg text-theme-warning-text border border-theme-warning-border'; break;
+    case 'Submitted': colorClasses = 'bg-theme-info-bg text-theme-info-text border border-theme-info-border'; break;
     default: break;
   }
   return (
-    <span className={`px-3 py-1 text-xs font-semibold rounded-full ${bgColorClass} ${textColorClass}`}>
+    <span className={`px-3 py-1 text-xs font-semibold rounded-full ${colorClasses}`}>
       {status}
     </span>
   );

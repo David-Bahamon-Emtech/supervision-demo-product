@@ -9,13 +9,82 @@
   --sidebar-highlight-text: #FFFFFF;
   --emtech-gold: #C9A14F;
 
-  /* --- NEW: Dark Theme Content Colors --- */
+  /* --- Light Theme Content Colors (Default) --- */
+  --theme-bg: #F8F9FA;                  /* Light gray background instead of pure white */
+  --theme-bg-secondary: #FFFFFF;        /* Pure white for cards/tables for contrast */
+  --theme-text-primary: #1A1A1A;        /* Darker text for better readability */
+  --theme-text-secondary: #495057;      /* Darker secondary text */
+  --theme-border: #CED4DA;              /* More visible border */
+  --theme-accent: var(--emtech-gold);   /* Use gold as the primary accent */
+  
+  /* Status and Alert Colors - Light Theme (Default) */
+  --theme-success-bg: rgba(16, 185, 129, 0.1);
+  --theme-success-text: #047857;
+  --theme-success-border: #10B981;
+  --theme-warning-bg: rgba(245, 158, 11, 0.1);
+  --theme-warning-text: #92400E;
+  --theme-warning-border: #F59E0B;
+  --theme-error-bg: rgba(239, 68, 68, 0.1);
+  --theme-error-text: #B91C1C;
+  --theme-error-border: #EF4444;
+  --theme-info-bg: rgba(59, 130, 246, 0.1);
+  --theme-info-text: #1E40AF;
+  --theme-info-border: #3B82F6;
+  
+  /* Chart Colors - Light Theme (Default) */
+  --chart-color-1: rgba(220, 38, 38, 0.8);
+  --chart-color-2: rgba(37, 99, 235, 0.8);
+  --chart-color-3: rgba(202, 138, 4, 0.8);
+  --chart-color-4: rgba(5, 150, 105, 0.8);
+  --chart-color-5: rgba(124, 58, 237, 0.8);
+  --chart-color-6: rgba(234, 88, 12, 0.8);
+  --chart-color-7: rgba(34, 197, 94, 0.8);
+  --chart-grid-color: #D1D5DB;
+  --chart-text-color: #374151;
+  --chart-title-color: #1F2937;
+}
+
+/* Dark theme variables (when dark mode is selected) */
+:root.dark-theme {
+  /* Keep sidebar dark in both themes for consistency */
+  /* --sidebar-bg: #1C2024; (inherited from :root) */
+  /* --sidebar-text: #FFFFFF; (inherited from :root) */
+  /* --sidebar-highlight-bg: #4A5568; (inherited from :root) */
+  /* --sidebar-highlight-text: #FFFFFF; (inherited from :root) */
+
+  /* Dark Theme Content Colors */
   --theme-bg: #212529;                  /* Primary background for content area */
   --theme-bg-secondary: #2A2F34;        /* Background for cards, tables */
   --theme-text-primary: #E9ECEF;        /* Main text color */
   --theme-text-secondary: #ADB5BD;      /* Lighter text for subtitles, placeholders */
   --theme-border: #495057;              /* Border color */
   --theme-accent: var(--emtech-gold);   /* Use gold as the primary accent */
+  
+  /* Status and Alert Colors - Dark Theme */
+  --theme-success-bg: rgba(16, 185, 129, 0.2);
+  --theme-success-text: #10B981;
+  --theme-success-border: #10B981;
+  --theme-warning-bg: rgba(245, 158, 11, 0.2);
+  --theme-warning-text: #F59E0B;
+  --theme-warning-border: #F59E0B;
+  --theme-error-bg: rgba(239, 68, 68, 0.2);
+  --theme-error-text: #EF4444;
+  --theme-error-border: #EF4444;
+  --theme-info-bg: rgba(59, 130, 246, 0.2);
+  --theme-info-text: #3B82F6;
+  --theme-info-border: #3B82F6;
+  
+  /* Chart Colors - Dark Theme */
+  --chart-color-1: rgba(255, 99, 132, 0.8);
+  --chart-color-2: rgba(54, 162, 235, 0.8);
+  --chart-color-3: rgba(255, 206, 86, 0.8);
+  --chart-color-4: rgba(75, 192, 192, 0.8);
+  --chart-color-5: rgba(153, 102, 255, 0.8);
+  --chart-color-6: rgba(255, 159, 64, 0.8);
+  --chart-color-7: rgba(99, 255, 132, 0.8);
+  --chart-grid-color: #495057;
+  --chart-text-color: #ADB5BD;
+  --chart-title-color: #E9ECEF;
 }
 
 body {

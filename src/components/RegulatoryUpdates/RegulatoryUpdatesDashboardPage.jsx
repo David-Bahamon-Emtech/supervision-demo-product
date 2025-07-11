@@ -33,11 +33,11 @@ const SummaryCard = ({ title, count, icon }) => {
 const ContentRow = ({ item, onSelectContent }) => {
     const getStatusClass = (status) => {
         switch (status) {
-            case 'Published': return 'bg-green-100 text-green-800';
-            case 'Draft': return 'bg-yellow-100 text-yellow-800';
-            case 'Archived': case 'Superseded': return 'bg-gray-200 text-gray-700';
-            case 'Scheduled': return 'bg-blue-100 text-blue-800';
-            default: return 'bg-gray-100 text-gray-700';
+            case 'Published': return 'bg-theme-success-bg text-theme-success-text border border-theme-success-border';
+            case 'Draft': return 'bg-theme-warning-bg text-theme-warning-text border border-theme-warning-border';
+            case 'Archived': case 'Superseded': return 'bg-theme-bg-secondary text-theme-text-secondary border border-theme-border';
+            case 'Scheduled': return 'bg-theme-info-bg text-theme-info-text border border-theme-info-border';
+            default: return 'bg-theme-bg-secondary text-theme-text-secondary border border-theme-border';
         }
     };
     const formatDate = (dateString) => {

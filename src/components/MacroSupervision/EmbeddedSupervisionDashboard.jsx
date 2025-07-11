@@ -15,8 +15,8 @@ const Pill = ({ text, colorClass = 'bg-gray-700 text-gray-200' }) => (
 );
 
 const AlertItem = ({ alert }) => {
-  let severityColor = 'border-yellow-500 bg-yellow-900 bg-opacity-30 text-yellow-300';
-  if (alert.severity === 'High') severityColor = 'border-red-500 bg-red-900 bg-opacity-30 text-red-300';
+  let severityColor = 'border-theme-warning-border bg-theme-warning-bg text-theme-warning-text';
+  if (alert.severity === 'High') severityColor = 'border-theme-error-border bg-theme-error-bg text-theme-error-text';
   
   return (
     <div className={`p-3 border-l-4 ${severityColor}`}>
@@ -25,7 +25,7 @@ const AlertItem = ({ alert }) => {
         <span className="text-xs text-theme-text-secondary">{new Date(alert.timestamp).toLocaleTimeString()}</span>
       </div>
       <p className="text-xs text-theme-text-secondary mt-1">{alert.description}</p>
-      <p className="text-xs text-blue-400 mt-1 truncate">
+      <p className="text-xs text-theme-info-text mt-1 truncate">
         Protocol: {protocolMonitoring[alert.protocolId]?.name || alert.protocolId}
       </p>
     </div>
@@ -95,11 +95,11 @@ const EmbeddedSupervisionDashboard = () => {
           <h4 className="font-semibold text-theme-text-primary mb-2">DeFi Systemic Risk</h4>
           {isLoading.risk ? <p className="text-theme-text-secondary">Loading risk data...</p> : systemicRisk && (
             <div className="space-y-2 text-sm">
-                <div className="flex justify-between"><span className="text-theme-text-secondary">Overall Risk Level:</span> <Pill text={systemicRisk.overallRiskLevel} colorClass={systemicRisk.overallRiskLevel === 'Elevated' ? 'bg-red-900 bg-opacity-30 text-red-300' : 'bg-yellow-900 bg-opacity-30 text-yellow-300'} /></div>
+                <div className="flex justify-between"><span className="text-theme-text-secondary">Overall Risk Level:</span> <Pill text={systemicRisk.overallRiskLevel} colorClass={systemicRisk.overallRiskLevel === 'Elevated' ? 'bg-theme-error-bg text-theme-error-text border border-theme-error-border' : 'bg-theme-warning-bg text-theme-warning-text border border-theme-warning-border'} /></div>
                 <div className="flex justify-between"><span className="text-theme-text-secondary">Total Value Locked:</span> <span className="font-medium text-theme-text-primary">${(systemicRisk.totalTVL / 1e9).toFixed(2)}B</span></div>
                 <div className="flex justify-between"><span className="text-theme-text-secondary">Protocols Monitored:</span> <span className="font-medium text-theme-text-primary">{systemicRisk.monitoredProtocols}</span></div>
                 <div className="flex justify-between"><span className="text-theme-text-secondary">Protocols on Watchlist:</span> <span className="font-medium text-theme-text-primary">{systemicRisk.protocolsOnWatchlist}</span></div>
-                <p className="text-xs text-gray-400 pt-2 border-t border-theme-border mt-2">{systemicRisk.keyRiskFactor}</p>
+                <p className="text-xs text-theme-text-secondary pt-2 border-t border-theme-border mt-2">{systemicRisk.keyRiskFactor}</p>
             </div>
           )}
         </div>
@@ -110,7 +110,7 @@ const EmbeddedSupervisionDashboard = () => {
                 <div key={report.nodeId} className="p-2 bg-theme-bg rounded-md text-xs">
                     <p className="font-bold text-theme-text-secondary">{report.protocolName}</p>
                     <p className="text-theme-text-primary">{report.complianceSummary}</p>
-                    <div className="text-right"><Pill text={report.status} colorClass={report.status === 'Active' ? 'bg-green-900 bg-opacity-30 text-green-300' : 'bg-yellow-900 bg-opacity-30 text-yellow-300'} /></div>
+                    <div className="text-right"><Pill text={report.status} colorClass={report.status === 'Active' ? 'bg-theme-success-bg text-theme-success-text border border-theme-success-border' : 'bg-theme-warning-bg text-theme-warning-text border border-theme-warning-border'} /></div>
                 </div>
               ))}
            </div>
@@ -138,11 +138,11 @@ const EmbeddedSupervisionDashboard = () => {
             {validationResult && (
                 <div className="mt-3 text-xs space-y-1">
                     <p className="text-theme-text-secondary"><strong>Protocol:</strong> <span className="text-theme-text-primary">{validationResult.protocolName}</span></p>
-                    <p className="text-theme-text-secondary"><strong>Validation Result:</strong> {validationResult.validationPassed ? <Pill text="Passed" colorClass="bg-green-900 bg-opacity-30 text-green-300"/> : <Pill text="Failed" colorClass="bg-red-900 bg-opacity-30 text-red-300"/>}</p>
+                    <p className="text-theme-text-secondary"><strong>Validation Result:</strong> {validationResult.validationPassed ? <Pill text="Passed" colorClass="bg-theme-success-bg text-theme-success-text border border-theme-success-border"/> : <Pill text="Failed" colorClass="bg-theme-error-bg text-theme-error-text border border-theme-error-border"/>}</p>
                     {validationResult.issues.length > 0 && (
                         <div>
                             <p className="font-semibold text-theme-text-secondary">Issues Found:</p>
-                            <ul className="list-disc list-inside pl-2 text-red-400">
+                            <ul className="list-disc list-inside pl-2 text-theme-error-text">
                                 {validationResult.issues.map((issue, i) => <li key={i}>{issue}</li>)}
                             </ul>
                         </div>

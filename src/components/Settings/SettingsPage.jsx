@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { UserGroupIcon, KeyIcon, BellIcon, CogIcon, ShieldCheckIcon, DocumentTextIcon, UsersIcon, EnvelopeIcon } from '@heroicons/react/24/outline';
+import { UserGroupIcon, KeyIcon, BellIcon, CogIcon, ShieldCheckIcon, DocumentTextIcon, UsersIcon, EnvelopeIcon, PaintBrushIcon } from '@heroicons/react/24/outline';
+import ThemeToggle from '../ThemeToggle/ThemeToggle.jsx';
 
 // --- Mock Data ---
 const mockUsers = [
@@ -119,6 +120,19 @@ const SettingsPage = () => {
                          <SettingsCard title="Password Policy Management" icon={<KeyIcon />}>
                              <div className="text-sm text-theme-text-secondary italic">
                                 (Placeholder: An administrator interface to enforce password complexity, expiration, and history requirements would be configured here.)
+                             </div>
+                         </SettingsCard>
+
+                         {/* Theme Preferences */}
+                         <SettingsCard title="Theme Preferences" icon={<PaintBrushIcon />}>
+                             <div className="flex items-center justify-between">
+                                 <div>
+                                     <p className="text-sm text-theme-text-primary font-medium mb-1">Application Theme</p>
+                                     <p className="text-sm text-theme-text-secondary">Switch between light and dark mode to customize your viewing experience.</p>
+                                 </div>
+                                 <div className="ml-4">
+                                     <ThemeToggle />
+                                 </div>
                              </div>
                          </SettingsCard>
                     </div>

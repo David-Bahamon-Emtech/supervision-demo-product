@@ -28,9 +28,9 @@
 
 .rbc-btn-group button:hover,
 .rbc-btn-group button:focus {
-  background-color: #3e444a;
+  background-color: var(--theme-border);
   color: var(--theme-text-primary);
-  border-color: #5a6268;
+  border-color: var(--theme-border);
 }
 
 .rbc-btn-group button.rbc-active,
@@ -67,7 +67,7 @@
 }
 
 .rbc-off-range-bg {
-  background-color: #2a2f34; /* Slightly different from the main bg */
+  background-color: var(--theme-bg-secondary);
 }
 
 /* Today's date cell */
@@ -86,7 +86,8 @@
     color: var(--theme-accent);
 }
 .rbc-off-range .rbc-date-cell {
-    color: #6c757d; /* Dim the dates from other months */
+    color: var(--theme-text-secondary);
+    opacity: 0.5;
 }
 
 /* Event styling */

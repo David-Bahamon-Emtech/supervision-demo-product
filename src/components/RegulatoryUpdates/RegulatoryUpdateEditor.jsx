@@ -3,7 +3,9 @@ import React, { useState, useEffect } from 'react';
 import { addOrUpdateContent } from './regulatoryUpdatesService.js';
 import licenseCategoriesData from '../../data/licenseCategories.js';
 
-const RegulatoryUpdateEditor = ({ contentToEdit, contentType, onClose, onSave }) => {
+const RegulatoryUpdateEditor = ({ isOpen, contentToEdit, contentType, onClose, onSave }) => {
+  if (!isOpen) return null;
+
   const [formData, setFormData] = useState({
     title: '',
     status: 'Draft',
@@ -19,7 +21,7 @@ const RegulatoryUpdateEditor = ({ contentToEdit, contentType, onClose, onSave })
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [error, setError] = useState('');
-  
+
   const isEditing = contentToEdit !== null;
   const currentContentType = isEditing ? contentToEdit.contentType : contentType;
 
@@ -86,9 +88,9 @@ const RegulatoryUpdateEditor = ({ contentToEdit, contentType, onClose, onSave })
         const errData = await response.json();
         throw new Error(errData.error || 'Analysis failed. Check server logs.');
       }
-      
+
       const result = await response.json();
-      
+
       const updatePayload = {
         summary: result.summary || 'AI could not generate a summary.',
         textContent: result.extractedText || 'Could not extract text from document.'
@@ -129,7 +131,7 @@ const RegulatoryUpdateEditor = ({ contentToEdit, contentType, onClose, onSave })
       if (isEditing) {
         payload.id = contentToEdit.id;
       }
-      
+
       const savedContent = await addOrUpdateContent(payload);
       onSave(savedContent);
     } catch (err) {
@@ -143,53 +145,57 @@ const RegulatoryUpdateEditor = ({ contentToEdit, contentType, onClose, onSave })
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
-  
+
+  const inputStyles = "mt-1 block w-full p-2 bg-theme-bg border-theme-border rounded-md shadow-sm sm:text-sm focus:ring-theme-accent focus:border-theme-accent";
+
   return (
-    <div className="fixed inset-0 bg-gray-600 bg-opacity-75 overflow-y-auto h-full w-full z-50 flex justify-center items-center p-4">
-      <div className="bg-white rounded-lg shadow-xl w-full max-w-3xl max-h-[90vh] flex flex-col">
-        <div className="px-6 py-4 border-b border-gray-200">
-          <h3 className="text-lg font-semibold text-gray-800">
+    <div className="fixed inset-0 bg-black bg-opacity-75 overflow-y-auto h-full w-full z-50 flex justify-center items-center p-4">
+      <div className="bg-theme-bg-secondary rounded-lg shadow-xl w-full max-w-3xl max-h-[90vh] flex flex-col border border-theme-border">
+        {/* Header */}
+        <div className="px-6 py-4 border-b border-theme-border">
+          <h3 className="text-lg font-semibold text-theme-text-primary">
             {isEditing ? `Edit ${currentContentType}` : `Create New ${currentContentType}`}
           </h3>
         </div>
 
-        <div className="flex-1 overflow-y-auto p-6 space-y-4">
-          {error && <div className="p-3 bg-red-100 text-red-700 rounded-md text-sm">{error}</div>}
-          
+        {/* Form Content */}
+        <form onSubmit={handleSubmit} className="flex-1 overflow-y-auto p-6 space-y-4">
+          {error && <div className="p-3 bg-red-900 bg-opacity-30 text-red-300 rounded-md text-sm border border-red-500">{error}</div>}
+
           <div>
-            <label htmlFor="documentUpload" className="block text-sm font-medium text-gray-700">Upload Source Document (PDF, TXT)</label>
+            <label htmlFor="documentUpload" className="block text-sm font-medium text-theme-text-secondary">Upload Source Document (PDF, TXT)</label>
             <div className="mt-1 flex items-center space-x-4">
-              <input type="file" id="documentUpload" onChange={handleFileChange} accept=".pdf,.txt" className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"/>
-              <button type="button" onClick={handleAnalyze} disabled={!selectedFile || isAnalyzing} className="px-4 py-2 text-sm font-medium text-white bg-indigo-600 rounded-md shadow-sm hover:bg-indigo-700 disabled:opacity-50 flex-shrink-0">
+              <input type="file" id="documentUpload" onChange={handleFileChange} accept=".pdf,.txt" className="block w-full text-sm text-theme-text-secondary file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-theme-bg file:text-theme-accent hover:file:brightness-110"/>
+              <button type="button" onClick={handleAnalyze} disabled={!selectedFile || isAnalyzing} className="px-4 py-2 text-sm font-medium text-sidebar-bg bg-theme-accent rounded-md shadow-sm hover:brightness-110 disabled:opacity-50 flex-shrink-0">
                 {isAnalyzing ? 'Analyzing...' : 'Upload & Analyze'}
               </button>
             </div>
           </div>
-          
-          <hr/>
+
+          <hr className="border-theme-border"/>
 
           <div>
-            <label htmlFor="title" className="block text-sm font-medium text-gray-700">Title <span className="text-red-500">*</span></label>
-            <input type="text" name="title" id="title" value={formData.title} onChange={handleChange} className="mt-1 block w-full p-2 border-gray-300 rounded-md shadow-sm sm:text-sm" required />
+            <label htmlFor="title" className="block text-sm font-medium text-theme-text-secondary">Title <span className="text-red-500">*</span></label>
+            <input type="text" name="title" id="title" value={formData.title} onChange={handleChange} className={inputStyles} required />
           </div>
 
           <div>
-            <label htmlFor="summary" className="block text-sm font-medium text-gray-700">Summary / Abstract <span className="text-red-500">*</span></label>
-            <textarea name="summary" id="summary" value={formData.summary} onChange={handleChange} rows="3" className="mt-1 block w-full p-2 border-gray-300 rounded-md shadow-sm sm:text-sm"></textarea>
+            <label htmlFor="summary" className="block text-sm font-medium text-theme-text-secondary">Summary / Abstract <span className="text-red-500">*</span></label>
+            <textarea name="summary" id="summary" value={formData.summary} onChange={handleChange} rows="3" className={inputStyles}></textarea>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-                <label htmlFor="type" className="block text-sm font-medium text-gray-700">Type / Category</label>
-                <select name="type" id="type" value={formData.type} onChange={handleChange} className="mt-1 block w-full p-2 border-gray-300 rounded-md shadow-sm sm:text-sm">
+                <label htmlFor="type" className="block text-sm font-medium text-theme-text-secondary">Type / Category</label>
+                <select name="type" id="type" value={formData.type} onChange={handleChange} className={inputStyles}>
                     {(currentContentType === 'Update' ? updateTypes : publicationTypes).map(t => (
                         <option key={t} value={t}>{t}</option>
                     ))}
                 </select>
             </div>
              <div>
-                <label htmlFor="status" className="block text-sm font-medium text-gray-700">Status</label>
-                <select name="status" id="status" value={formData.status} onChange={handleChange} className="mt-1 block w-full p-2 border-gray-300 rounded-md shadow-sm sm:text-sm">
+                <label htmlFor="status" className="block text-sm font-medium text-theme-text-secondary">Status</label>
+                <select name="status" id="status" value={formData.status} onChange={handleChange} className={inputStyles}>
                     <option>Draft</option>
                     <option>Published</option>
                     <option>Archived</option>
@@ -200,41 +206,41 @@ const RegulatoryUpdateEditor = ({ contentToEdit, contentType, onClose, onSave })
             {currentContentType === 'Publication' && (
                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                        <label htmlFor="author" className="block text-sm font-medium text-gray-700">Author / Department</label>
-                        <input type="text" name="author" id="author" value={formData.author} onChange={handleChange} className="mt-1 block w-full p-2 border-gray-300 rounded-md shadow-sm sm:text-sm" />
+                        <label htmlFor="author" className="block text-sm font-medium text-theme-text-secondary">Author / Department</label>
+                        <input type="text" name="author" id="author" value={formData.author} onChange={handleChange} className={inputStyles} />
                     </div>
                     <div>
-                        <label htmlFor="tags" className="block text-sm font-medium text-gray-700">Tags (comma-separated)</label>
-                        <input type="text" name="tags" id="tags" value={Array.isArray(formData.tags) ? formData.tags.join(', ') : formData.tags} onChange={handleChange} className="mt-1 block w-full p-2 border-gray-300 rounded-md shadow-sm sm:text-sm" />
+                        <label htmlFor="tags" className="block text-sm font-medium text-theme-text-secondary">Tags (comma-separated)</label>
+                        <input type="text" name="tags" id="tags" value={Array.isArray(formData.tags) ? formData.tags.join(', ') : formData.tags} onChange={handleChange} className={inputStyles} />
                     </div>
                 </div>
             )}
-            
+
             {currentContentType === 'Update' && (
                  <div>
-                    <label htmlFor="applicableCategories" className="block text-sm font-medium text-gray-700">Applicable License Categories (AI Suggested)</label>
-                    <select name="applicableCategories" id="applicableCategories" multiple value={formData.applicableCategories} readOnly className="mt-1 block w-full h-24 p-2 border-gray-300 rounded-md shadow-sm sm:text-sm bg-gray-50">
+                    <label htmlFor="applicableCategories" className="block text-sm font-medium text-theme-text-secondary">Applicable License Categories (AI Suggested)</label>
+                    <select name="applicableCategories" id="applicableCategories" multiple value={formData.applicableCategories} readOnly className={`${inputStyles} h-24 bg-theme-bg`}>
                     {licenseCategoriesData.map(cat => (
                         <option key={cat.id} value={cat.id}>{cat.name}</option>
                     ))}
                     </select>
-                    <p className="text-xs text-gray-500 mt-1">AI suggestions are shown. Final categories can be adjusted after saving.</p>
+                    <p className="text-xs text-theme-text-secondary mt-1">AI suggestions are shown. Final categories can be adjusted after saving.</p>
                 </div>
             )}
 
 
           <div>
-            <label htmlFor="textContent" className="block text-sm font-medium text-gray-700">Full Content</label>
-            <textarea name="textContent" id="textContent" value={formData.textContent} onChange={handleChange} rows="8" className="mt-1 block w-full p-2 border-gray-300 rounded-md shadow-sm sm:text-sm font-mono text-xs"></textarea>
+            <label htmlFor="textContent" className="block text-sm font-medium text-theme-text-secondary">Full Content</label>
+            <textarea name="textContent" id="textContent" value={formData.textContent} onChange={handleChange} rows="8" className={`${inputStyles} font-mono text-xs`}></textarea>
           </div>
 
-        </div>
-
-        <div className="px-6 py-4 bg-gray-50 border-t border-gray-200 flex justify-end space-x-3">
-          <button type="button" onClick={onClose} className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50">
+        </form>
+         {/* Footer */}
+        <div className="px-6 py-4 bg-theme-bg border-t border-theme-border flex justify-end space-x-3">
+          <button type="button" onClick={onClose} className="px-4 py-2 text-sm font-medium text-theme-text-primary bg-gray-600 border border-gray-500 rounded-md hover:bg-gray-700">
             Cancel
           </button>
-          <button type="button" onClick={handleSubmit} disabled={isSaving || isAnalyzing} className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 disabled:opacity-50">
+          <button type="button" onClick={handleSubmit} disabled={isSaving || isAnalyzing} className="px-4 py-2 text-sm font-medium text-sidebar-bg bg-theme-accent rounded-md hover:brightness-110 disabled:opacity-50">
             {isSaving ? 'Saving...' : 'Save Content'}
           </button>
         </div>

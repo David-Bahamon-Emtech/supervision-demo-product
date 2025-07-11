@@ -7,6 +7,24 @@ import TemplateUploadModal from './TemplateUploadModal.jsx';
 import TemplateEditModal from './TemplateEditModal.jsx';
 import templateDownloadService from './templateDownloadService.js';
 
+// Helper component for status badges, styled for the dark theme
+const StatusBadge = ({ status }) => {
+  let bgColorClass = 'bg-gray-700';
+  let textColorClass = 'text-gray-200';
+  switch (status) {
+    case 'Published': bgColorClass = 'bg-green-900 bg-opacity-50'; textColorClass = 'text-green-300'; break;
+    case 'Draft': bgColorClass = 'bg-yellow-900 bg-opacity-50'; textColorClass = 'text-yellow-300'; break;
+    case 'Archived': bgColorClass = 'bg-gray-800 bg-opacity-50'; textColorClass = 'text-gray-400'; break;
+    default: break;
+  }
+  return (
+    <span className={`px-3 py-1 text-xs font-semibold rounded-full ${bgColorClass} ${textColorClass}`}>
+      {status}
+    </span>
+  );
+};
+
+
 const TemplateManagement = () => {
   const initialHardcodedTemplates = [
     {
@@ -118,7 +136,7 @@ const TemplateManagement = () => {
         const options = { year: 'numeric', month: 'short', day: 'numeric', timeZone: 'UTC' };
         return date.toLocaleDateString(undefined, options);
     }
-    return 'Invalid Date';
+    return dateString; // Return original string if format is unexpected
   };
 
   const handleOpenAICreatorModal = () => setIsAICreatorModalOpen(true);
@@ -165,11 +183,9 @@ const TemplateManagement = () => {
         document.body.removeChild(a);
         URL.revokeObjectURL(url);
     } 
-    // MODIFIED SECTION for contentLink:
     else if (template.contentLink) {
       const a = document.createElement('a');
       a.href = template.contentLink;
-      // Use originalFileName if available, otherwise derive from name or fallback
       a.download = template.originalFileName || template.name.replace(/[^a-z0-9_.-]/gi, '_') || 'download';
       document.body.appendChild(a);
       a.click();
@@ -226,94 +242,96 @@ const TemplateManagement = () => {
   };
 
   return (
-    <div className="p-4">
-      <h2 className="text-2xl font-semibold text-gray-800 mb-4">Template Management</h2>
-      <p className="text-gray-600 mb-6">
-        Manage regulatory document templates, compliance checklists, and communication templates.
-      </p>
-
+    <div className="p-4 md:p-6 bg-theme-bg min-h-screen">
+      <div className="flex justify-between items-center mb-6">
+          <div>
+            <h1 className="text-3xl font-bold text-theme-text-primary">Template Management</h1>
+            <p className="text-theme-text-secondary mt-1">
+              Manage checklists, regulatory documents, and communication templates.
+            </p>
+          </div>
+      </div>
+      
       <div className="mb-6 flex space-x-3">
         <button
           onClick={handleOpenAICreatorModal}
-          className="px-4 py-2 bg-green-600 text-white font-semibold rounded-md shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-75"
+          className="px-4 py-2 bg-theme-accent text-sidebar-bg font-semibold rounded-md shadow-sm hover:brightness-110 transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-theme-bg focus:ring-theme-accent"
         >
-          Create Template with AI
+          Create with AI
         </button>
         <button
           onClick={handleOpenUploadModal}
-          className="px-4 py-2 bg-blue-600 text-white font-semibold rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75"
+          className="px-4 py-2 bg-gray-600 text-white font-semibold rounded-md shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-theme-bg focus:ring-gray-500"
         >
-          Upload New Template
+          Upload Template
         </button>
       </div>
 
-      {isLoading && <div className="text-center p-4 text-gray-500">Loading templates...</div>}
-      {error && <div className="text-center p-4 text-red-500 bg-red-100 rounded-md">{error}</div>}
+      {isLoading && <div className="text-center p-4 text-theme-text-secondary">Loading templates...</div>}
+      {error && <div className="text-center p-4 text-red-300 bg-red-900 bg-opacity-30 border border-red-500 rounded-md shadow">{error}</div>}
 
       {!isLoading && !error && (
-        <div className="bg-white shadow rounded-lg overflow-x-auto">
-          <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-gray-50">
-              <tr>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Template Name</th>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Version</th>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Last Updated</th>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
-              </tr>
-            </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
-              {templates.map((template) => (
-                <tr key={template.id}>
-                  <td className="px-6 py-4 whitespace-normal text-sm font-medium text-gray-900 max-w-xs">{template.name}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{template.type}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{template.version}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm">
-                    <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
-                      template.status === 'Published' ? 'bg-green-100 text-green-800' :
-                      template.status === 'Draft' ? 'bg-yellow-100 text-yellow-800' :
-                      template.status === 'Archived' ? 'bg-gray-100 text-gray-800' : 'bg-gray-100 text-gray-800'
-                    }`}>
-                      {template.status}
-                    </span>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{formatDate(template.lastUpdated)}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                    <button 
-                      onClick={() => handleViewTemplate(template)}
-                      className="text-indigo-600 hover:text-indigo-900 mr-3"
-                    >
-                      View
-                    </button>
-                    <button 
-                      onClick={() => handleOpenEditModal(template)}
-                      className="text-blue-600 hover:text-blue-900 mr-3"
-                    >
-                      Edit
-                    </button>
-                    {(template.fileObject || template.contentLink || template.textContent) ? (
-                      <button 
-                        onClick={() => handleDownloadTemplate(template)}
-                        className="text-green-600 hover:text-green-900"
-                      >
-                        Download
-                      </button>
-                    ) : (
-                      <span className="text-gray-400 text-xs">No Download</span>
-                    )}
-                  </td>
-                </tr>
-              ))}
-              {templates.length === 0 && !isLoading && (
+        <div className="bg-theme-bg-secondary p-0 sm:p-6 rounded-xl shadow-lg">
+          <div className="overflow-x-auto">
+            <table className="min-w-full divide-y divide-theme-border">
+              <thead className="bg-black bg-opacity-20">
                 <tr>
-                  <td colSpan="6" className="px-6 py-4 text-center text-sm text-gray-500">
-                    No templates defined or found.
-                  </td>
+                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-theme-text-secondary uppercase tracking-wider">Template Name</th>
+                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-theme-text-secondary uppercase tracking-wider">Type</th>
+                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-theme-text-secondary uppercase tracking-wider">Version</th>
+                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-theme-text-secondary uppercase tracking-wider">Status</th>
+                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-theme-text-secondary uppercase tracking-wider">Last Updated</th>
+                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-theme-text-secondary uppercase tracking-wider">Actions</th>
                 </tr>
-              )}
-            </tbody>
-          </table>
+              </thead>
+              <tbody className="bg-theme-bg-secondary divide-y divide-theme-border">
+                {templates.map((template) => (
+                  <tr key={template.id} className="hover:bg-theme-bg">
+                    <td className="px-6 py-4 whitespace-normal text-sm font-medium text-theme-text-primary max-w-xs">{template.name}</td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-theme-text-secondary">{template.type}</td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-theme-text-secondary">{template.version}</td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm">
+                      <StatusBadge status={template.status} />
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-theme-text-secondary">{formatDate(template.lastUpdated)}</td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                      <div className="flex items-center space-x-4">
+                        <button 
+                          onClick={() => handleViewTemplate(template)}
+                          className="text-blue-400 hover:text-theme-accent"
+                        >
+                          View
+                        </button>
+                        <button 
+                          onClick={() => handleOpenEditModal(template)}
+                          className="text-blue-400 hover:text-theme-accent"
+                        >
+                          Edit
+                        </button>
+                        {(template.fileObject || template.contentLink || template.textContent) ? (
+                          <button 
+                            onClick={() => handleDownloadTemplate(template)}
+                            className="text-blue-400 hover:text-theme-accent"
+                          >
+                            Download
+                          </button>
+                        ) : (
+                          <span className="text-gray-600 text-xs italic">No Download</span>
+                        )}
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+                {templates.length === 0 && !isLoading && (
+                  <tr>
+                    <td colSpan="6" className="px-6 py-10 text-center text-sm text-theme-text-secondary">
+                      No templates found.
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
         </div>
       )}
 

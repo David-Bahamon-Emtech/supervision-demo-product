@@ -73,57 +73,60 @@ const WorkflowEditorModal = ({ isOpen, onClose, onSave, workflowToEdit }) => {
 
   if (!isOpen) return null;
 
+  const inputStyles = "mt-1 block w-full p-2 bg-theme-bg border-theme-border rounded-md shadow-sm sm:text-sm focus:ring-blue-500 focus:border-blue-500 text-theme-text-primary placeholder:text-gray-500";
+  const labelStyles = "block text-sm font-medium text-theme-text-secondary";
+
   return (
-    <div className="fixed inset-0 bg-gray-600 bg-opacity-75 overflow-y-auto h-full w-full z-50 flex justify-center items-center p-4">
-      <div className="bg-white rounded-lg shadow-xl w-full max-w-2xl max-h-[90vh] flex flex-col">
+    <div className="fixed inset-0 bg-black bg-opacity-75 overflow-y-auto h-full w-full z-50 flex justify-center items-center p-4">
+      <div className="bg-theme-bg-secondary rounded-lg shadow-xl w-full max-w-2xl max-h-[90vh] flex flex-col border border-theme-border">
         {/* Header */}
-        <div className="px-6 py-4 border-b border-gray-200">
-          <h3 className="text-lg font-semibold text-gray-800">
+        <div className="px-6 py-4 border-b border-theme-border">
+          <h3 className="text-lg font-semibold text-theme-text-primary">
             {isEditing ? 'Edit Workflow' : 'Create New Workflow'}
           </h3>
         </div>
 
         {/* Content - Form */}
         <div className="flex-1 overflow-y-auto p-6 space-y-6">
-          {error && <div className="p-3 bg-red-100 text-red-700 rounded-md text-sm">{error}</div>}
+          {error && <div className="p-3 bg-red-900 bg-opacity-30 text-red-300 border border-red-500 rounded-md text-sm">{error}</div>}
           {/* Basic Info */}
           <div className="space-y-4">
             <div>
-              <label htmlFor="workflow-name" className="block text-sm font-medium text-gray-700">Workflow Name <span className="text-red-500">*</span></label>
-              <input type="text" id="workflow-name" value={name} onChange={(e) => setName(e.target.value)} className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm sm:text-sm focus:ring-blue-500 focus:border-blue-500" />
+              <label htmlFor="workflow-name" className={labelStyles}>Workflow Name <span className="text-red-500">*</span></label>
+              <input type="text" id="workflow-name" value={name} onChange={(e) => setName(e.target.value)} className={inputStyles} />
             </div>
             <div>
-              <label htmlFor="workflow-description" className="block text-sm font-medium text-gray-700">Description</label>
-              <textarea id="workflow-description" value={description} onChange={(e) => setDescription(e.target.value)} rows="3" className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm sm:text-sm focus:ring-blue-500 focus:border-blue-500"></textarea>
+              <label htmlFor="workflow-description" className={labelStyles}>Description</label>
+              <textarea id="workflow-description" value={description} onChange={(e) => setDescription(e.target.value)} rows="3" className={inputStyles}></textarea>
             </div>
           </div>
 
           {/* Stages */}
           <div>
-            <h4 className="text-md font-medium text-gray-800 mb-2">Stages</h4>
-            <div className="space-y-3 bg-gray-50 p-4 rounded-md border">
+            <h4 className="text-md font-medium text-theme-text-primary mb-2">Stages</h4>
+            <div className="space-y-3 bg-theme-bg p-4 rounded-md border border-theme-border">
               {stages.map((stage, index) => (
                 <div key={stage.id} className="grid grid-cols-12 gap-3 items-center">
-                  <div className="col-span-4">
-                    <label className="text-xs text-gray-600">Stage Name</label>
-                    <input type="text" value={stage.name} onChange={(e) => handleStageChange(index, 'name', e.target.value)} placeholder="e.g., Initial Review" className="mt-1 block w-full p-2 border border-gray-300 rounded-md text-sm" />
+                  <div className="col-span-12 sm:col-span-4">
+                    <label className="text-xs text-theme-text-secondary">Stage Name</label>
+                    <input type="text" value={stage.name} onChange={(e) => handleStageChange(index, 'name', e.target.value)} placeholder="e.g., Initial Review" className={inputStyles} />
                   </div>
-                  <div className="col-span-4">
-                    <label className="text-xs text-gray-600">Assigned Role</label>
-                    <input type="text" value={stage.assignedToRole} onChange={(e) => handleStageChange(index, 'assignedToRole', e.target.value)} placeholder="e.g., Licensing Officer" className="mt-1 block w-full p-2 border border-gray-300 rounded-md text-sm" />
+                  <div className="col-span-12 sm:col-span-4">
+                    <label className="text-xs text-theme-text-secondary">Assigned Role</label>
+                    <input type="text" value={stage.assignedToRole} onChange={(e) => handleStageChange(index, 'assignedToRole', e.target.value)} placeholder="e.g., Licensing Officer" className={inputStyles} />
                   </div>
-                  <div className="col-span-2">
-                    <label className="text-xs text-gray-600">SLA (Days)</label>
-                    <input type="number" value={stage.slaDays} onChange={(e) => handleStageChange(index, 'slaDays', e.target.value)} placeholder="e.g., 5" className="mt-1 block w-full p-2 border border-gray-300 rounded-md text-sm" />
+                  <div className="col-span-6 sm:col-span-2">
+                    <label className="text-xs text-theme-text-secondary">SLA (Days)</label>
+                    <input type="number" value={stage.slaDays} onChange={(e) => handleStageChange(index, 'slaDays', e.target.value)} placeholder="e.g., 5" className={inputStyles} />
                   </div>
-                  <div className="col-span-2 pt-5">
-                    <button onClick={() => handleRemoveStage(index)} disabled={stages.length <= 1} className="px-2 py-1 text-red-600 hover:text-red-800 disabled:opacity-50 disabled:cursor-not-allowed">
+                  <div className="col-span-6 sm:col-span-2 pt-5 text-right sm:text-left">
+                    <button onClick={() => handleRemoveStage(index)} disabled={stages.length <= 1} className="px-2 py-1 text-sm text-red-400 hover:text-red-300 disabled:text-gray-600 disabled:cursor-not-allowed">
                       Remove
                     </button>
                   </div>
                 </div>
               ))}
-              <button onClick={handleAddStage} className="mt-3 px-3 py-1 text-sm text-blue-600 border border-blue-500 rounded-md hover:bg-blue-50">
+              <button onClick={handleAddStage} className="mt-3 px-3 py-1 text-sm text-blue-400 border border-blue-500 rounded-md hover:bg-blue-900 hover:bg-opacity-30 transition-colors">
                 + Add Stage
               </button>
             </div>
@@ -131,28 +134,28 @@ const WorkflowEditorModal = ({ isOpen, onClose, onSave, workflowToEdit }) => {
 
           {/* Approvers */}
           <div>
-            <label htmlFor="workflow-approvers" className="block text-sm font-medium text-gray-700">Required Approvers</label>
-            <p className="text-xs text-gray-500 mb-1">Select one or more staff members who must approve this workflow before it can become active. (Hold Ctrl/Cmd to select multiple)</p>
+            <label htmlFor="workflow-approvers" className={labelStyles}>Required Approvers</label>
+            <p className="text-xs text-theme-text-secondary mb-1">Select one or more staff members who must approve this workflow. (Hold Ctrl/Cmd to select multiple)</p>
             <select
               id="workflow-approvers"
               multiple
               value={requiredApprovers}
               onChange={handleApproverChange}
-              className="mt-1 block w-full p-2 h-32 border border-gray-300 rounded-md shadow-sm sm:text-sm focus:ring-blue-500 focus:border-blue-500"
+              className={`${inputStyles} h-32`}
             >
               {regulatorStaff.map(staff => (
-                <option key={staff.staffId} value={staff.staffId}>{staff.name} ({staff.role})</option>
+                <option key={staff.staffId} value={staff.staffId} className="p-1">{staff.name} ({staff.role})</option>
               ))}
             </select>
           </div>
         </div>
 
         {/* Footer */}
-        <div className="px-6 py-4 border-t border-gray-200 flex justify-end space-x-3 bg-gray-50">
-          <button onClick={onClose} className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50">
+        <div className="px-6 py-4 border-t border-theme-border flex justify-end space-x-3 bg-black bg-opacity-20">
+          <button onClick={onClose} className="px-4 py-2 text-sm font-medium text-theme-text-primary bg-gray-700 border border-transparent rounded-md hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-theme-bg-secondary focus:ring-gray-500">
             Cancel
           </button>
-          <button onClick={handleSave} className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700">
+          <button onClick={handleSave} className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-theme-bg-secondary focus:ring-blue-500">
             Save Workflow
           </button>
         </div>

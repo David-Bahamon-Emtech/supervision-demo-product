@@ -11,6 +11,29 @@ const AIStressTestingPanel = () => {
   const [aiNarrative, setAiNarrative] = useState('');
   const [isLoadingNarrative, setIsLoadingNarrative] = useState(false);
 
+  // Dark-theme compatible chart options
+  const barChartOptions = {
+      maintainAspectRatio: false,
+      scales: {
+          y: {
+              beginAtZero: true,
+              ticks: { color: '#ADB5BD' }, // theme-text-secondary
+              grid: { color: '#495057' } // theme-border
+          },
+          x: {
+              ticks: { color: '#ADB5BD' },
+              grid: { color: 'transparent' }
+          }
+      },
+      plugins: {
+          legend: {
+              labels: {
+                  color: '#ADB5BD'
+              }
+          }
+      }
+  };
+
   const handleRunTest = () => {
     setIsTestRunning(true);
     setTestResults(null);
@@ -28,14 +51,14 @@ const AIStressTestingPanel = () => {
           {
             label: 'Pre-Stress',
             data: result.impact.map(i => parseFloat(i.pre_stress) || 0),
-            backgroundColor: 'rgba(54, 162, 235, 0.6)',
+            backgroundColor: 'rgba(54, 162, 235, 0.7)',
             borderColor: 'rgba(54, 162, 235, 1)',
             borderWidth: 1,
           },
           {
             label: 'Post-Stress',
             data: result.impact.map(i => parseFloat(i.post_stress) || 0),
-            backgroundColor: 'rgba(255, 99, 132, 0.6)',
+            backgroundColor: 'rgba(255, 99, 132, 0.7)',
             borderColor: 'rgba(255, 99, 132, 1)',
             borderWidth: 1,
           },
@@ -74,29 +97,29 @@ const AIStressTestingPanel = () => {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
       {/* Configuration Panel */}
-      <div className="lg:col-span-1 bg-white p-4 rounded-lg shadow space-y-4">
+      <div className="lg:col-span-1 bg-theme-bg-secondary p-4 rounded-lg shadow-lg space-y-4">
         <div>
-          <label htmlFor="scenario-select" className="block text-sm font-medium text-gray-700">
+          <label htmlFor="scenario-select" className="block text-sm font-medium text-theme-text-secondary">
             Select Stress Test Scenario
           </label>
           <select
             id="scenario-select"
             value={selectedScenarioId}
             onChange={(e) => setSelectedScenarioId(e.target.value)}
-            className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md"
+            className="mt-1 block w-full pl-3 pr-10 py-2 text-base bg-theme-bg border-theme-border focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md text-theme-text-primary"
           >
             {stressTestScenarios.map(s => (
               <option key={s.id} value={s.id}>{s.name} ({s.type})</option>
             ))}
           </select>
         </div>
-        <p className="text-xs text-gray-500">
+        <p className="text-xs text-theme-text-secondary">
           {stressTestScenarios.find(s => s.id === selectedScenarioId)?.description}
         </p>
         <button
           onClick={handleRunTest}
           disabled={isTestRunning}
-          className="w-full px-4 py-2 bg-blue-600 text-white font-semibold rounded-md shadow-sm hover:bg-blue-700 disabled:opacity-50 flex items-center justify-center"
+          className="w-full px-4 py-2 bg-theme-accent text-sidebar-bg font-semibold rounded-md shadow-sm hover:brightness-110 transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-theme-bg focus:ring-theme-accent disabled:opacity-50 flex items-center justify-center"
         >
           {isTestRunning ? (
             <>
@@ -113,40 +136,40 @@ const AIStressTestingPanel = () => {
       </div>
 
       {/* Results and Narrative Panel */}
-      <div className="lg:col-span-2 bg-white p-4 rounded-lg shadow">
-        <h4 className="text-lg font-semibold text-gray-700 mb-2">Results & Analysis</h4>
+      <div className="lg:col-span-2 bg-theme-bg-secondary p-4 rounded-lg shadow-lg">
+        <h4 className="text-lg font-semibold text-theme-text-primary mb-2">Results & Analysis</h4>
         {!testResults && !isTestRunning && (
-            <div className="h-full flex items-center justify-center text-gray-500 italic">
+            <div className="h-full flex items-center justify-center text-theme-text-secondary italic">
                 Select a scenario and run the test to see results.
             </div>
         )}
          {isTestRunning && (
-            <div className="h-full flex items-center justify-center text-gray-500 italic">
+            <div className="h-full flex items-center justify-center text-theme-text-secondary italic">
                 Calculating system-wide impact...
             </div>
         )}
         {testResults && (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-                <h5 className="font-semibold text-gray-600">Impact on Key Metrics</h5>
+                <h5 className="font-semibold text-theme-text-secondary">Impact on Key Metrics</h5>
                 <div className="mt-2 h-64">
-                    <Bar data={testResults.chartData} options={{ maintainAspectRatio: false, scales: {y: {beginAtZero: true}} }} />
+                    <Bar data={testResults.chartData} options={barChartOptions} />
                 </div>
                 <button
                     onClick={handleGenerateNarrative}
                     disabled={isLoadingNarrative}
-                    className="w-full mt-4 px-4 py-2 bg-purple-600 text-white text-sm font-semibold rounded-md shadow-sm hover:bg-purple-700 disabled:opacity-50"
+                    className="w-full mt-4 px-4 py-2 bg-theme-accent text-sidebar-bg text-sm font-semibold rounded-md shadow-sm hover:brightness-110 transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-theme-bg focus:ring-theme-accent disabled:opacity-50"
                 >
                     {isLoadingNarrative ? 'Generating...' : 'Generate AI Narrative'}
                 </button>
             </div>
-            <div className="bg-gray-50 p-3 rounded-lg">
-                <h5 className="font-semibold text-gray-600 mb-2">AI Narrative Analysis</h5>
-                {isLoadingNarrative && <p className="text-sm italic text-gray-500">AI is interpreting the results...</p>}
+            <div className="bg-theme-bg p-3 rounded-lg">
+                <h5 className="font-semibold text-theme-text-secondary mb-2">AI Narrative Analysis</h5>
+                {isLoadingNarrative && <p className="text-sm italic text-theme-text-secondary">AI is interpreting the results...</p>}
                 {aiNarrative ? (
-                     <p className="text-sm text-gray-800 whitespace-pre-wrap">{aiNarrative}</p>
+                     <p className="text-sm text-theme-text-primary whitespace-pre-wrap">{aiNarrative}</p>
                 ) : (
-                    !isLoadingNarrative && <p className="text-sm italic text-gray-500">Click "Generate AI Narrative" for an automated interpretation of the results.</p>
+                    !isLoadingNarrative && <p className="text-sm italic text-theme-text-secondary">Click "Generate AI Narrative" for an automated interpretation of the results.</p>
                 )}
             </div>
           </div>

@@ -22,37 +22,37 @@ const IndicatorCard = ({ indicator }) => {
   switch (indicator.trend) {
     case 'up':
       trendIcon = '▲';
-      trendColor = indicator.status === 'warning' || indicator.status === 'critical' ? 'text-red-500' : 'text-green-500';
+      trendColor = indicator.status === 'warning' || indicator.status === 'critical' ? 'text-red-400' : 'text-green-400';
       break;
     case 'down':
       trendIcon = '▼';
-      trendColor = indicator.status === 'warning' || indicator.status === 'critical' ? 'text-green-500' : 'text-red-500';
+      trendColor = indicator.status === 'warning' || indicator.status === 'critical' ? 'text-green-400' : 'text-red-400';
       break;
     default:
       trendIcon = '●';
-      trendColor = 'text-gray-500';
+      trendColor = 'text-gray-400';
       break;
   }
 
   let statusColor;
   switch (indicator.status) {
     case 'critical':
-      statusColor = 'bg-red-100 border-red-500';
+      statusColor = 'bg-red-900 bg-opacity-30 border-red-500';
       break;
     case 'warning':
-      statusColor = 'bg-yellow-100 border-yellow-500';
+      statusColor = 'bg-yellow-900 bg-opacity-30 border-yellow-500';
       break;
     default:
-      statusColor = 'bg-green-100 border-green-500';
+      statusColor = 'bg-green-900 bg-opacity-30 border-green-500';
   }
 
   return (
     <div className={`p-3 rounded-lg border-l-4 ${statusColor}`}>
       <div className="flex justify-between items-start">
-        <p className="text-sm font-medium text-gray-700">{indicator.name}</p>
+        <p className="text-sm font-medium text-theme-text-secondary">{indicator.name}</p>
         <span className={`text-sm font-bold ${trendColor}`}>{trendIcon} {indicator.trend}</span>
       </div>
-      <p className="text-2xl font-bold text-gray-800 mt-1">{indicator.value}</p>
+      <p className="text-2xl font-bold text-theme-text-primary mt-1">{indicator.value}</p>
     </div>
   );
 };
@@ -62,6 +62,57 @@ const SystemicRiskDashboard = () => {
   const [alerts, setAlerts] = useState([]);
   const [concentrationData, setConcentrationData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+
+  // Chart options that are compatible with a dark theme
+  const chartOptions = (titleText) => ({
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        labels: {
+          color: '#ADB5BD' // theme-text-secondary
+        }
+      },
+      title: {
+        display: true,
+        text: titleText,
+        color: '#E9ECEF', // theme-text-primary
+        font: {
+          size: 16
+        }
+      }
+    },
+    scales: {
+      y: {
+        ticks: { color: '#ADB5BD' },
+        grid: { color: '#495057' } // theme-border
+      },
+      x: {
+        ticks: { color: '#ADB5BD' },
+        grid: { color: '#495057' } // theme-border
+      }
+    }
+  });
+  
+  const doughnutChartOptions = (titleText) => ({
+      maintainAspectRatio: false,
+      plugins: {
+          legend: {
+              position: 'right',
+              labels: {
+                  color: '#ADB5BD' // theme-text-secondary
+              }
+          },
+          title: {
+              display: true,
+              text: titleText,
+              color: '#E9ECEF', // theme-text-primary
+              font: {
+                size: 16
+              }
+          }
+      }
+  });
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -83,16 +134,16 @@ const SystemicRiskDashboard = () => {
             label: 'Credit Concentration',
             data: sectorData.map(d => d.percentage),
             backgroundColor: [
-              'rgba(255, 99, 132, 0.7)',
-              'rgba(54, 162, 235, 0.7)',
-              'rgba(255, 206, 86, 0.7)',
-              'rgba(75, 192, 192, 0.7)',
-              'rgba(153, 102, 255, 0.7)',
-              'rgba(255, 159, 64, 0.7)',
-              'rgba(99, 255, 132, 0.7)',
+              'rgba(255, 99, 132, 0.8)',
+              'rgba(54, 162, 235, 0.8)',
+              'rgba(255, 206, 86, 0.8)',
+              'rgba(75, 192, 192, 0.8)',
+              'rgba(153, 102, 255, 0.8)',
+              'rgba(255, 159, 64, 0.8)',
+              'rgba(99, 255, 132, 0.8)',
             ],
-            borderColor: '#fff',
-            borderWidth: 1,
+            borderColor: '#2A2F34', // theme-bg-secondary
+            borderWidth: 2,
           }],
         });
 
@@ -107,7 +158,7 @@ const SystemicRiskDashboard = () => {
   }, []);
 
   if (isLoading) {
-    return <div className="p-6 text-center text-gray-500">Loading Systemic Risk Dashboard...</div>;
+    return <div className="p-6 text-center text-theme-text-secondary">Loading Systemic Risk Dashboard...</div>;
   }
 
   const barChartData = {
@@ -115,7 +166,7 @@ const SystemicRiskDashboard = () => {
       datasets: [{
           label: 'Value (%)',
           data: riskData['Asset Quality']?.map(d => parseFloat(d.value)),
-          backgroundColor: 'rgba(239, 68, 68, 0.6)',
+          backgroundColor: 'rgba(239, 68, 68, 0.7)',
           borderColor: 'rgba(239, 68, 68, 1)',
           borderWidth: 1,
       }]
@@ -147,34 +198,31 @@ const SystemicRiskDashboard = () => {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
-        <div className="lg:col-span-3 bg-white p-4 rounded-lg shadow">
-          <h4 className="font-semibold text-gray-700 mb-2">Key Risk Trends</h4>
+        <div className="lg:col-span-3 bg-theme-bg-secondary p-4 rounded-lg shadow-lg">
           <div className="h-72">
-            <Line data={lineChartData} options={{ maintainAspectRatio: false, plugins: { title: { display: true, text: 'CAR vs NPL Ratio Trend' } } }} />
+            <Line data={lineChartData} options={chartOptions('CAR vs NPL Ratio Trend')} />
           </div>
         </div>
-        <div className="lg:col-span-2 bg-white p-4 rounded-lg shadow">
-           <h4 className="font-semibold text-gray-700 mb-2">Credit Concentration by Sector</h4>
+        <div className="lg:col-span-2 bg-theme-bg-secondary p-4 rounded-lg shadow-lg">
             <div className="h-72 flex items-center justify-center">
-                {concentrationData && <Doughnut data={concentrationData} options={{ maintainAspectRatio: false, plugins: { legend: { position: 'right' } } }} />}
+                {concentrationData && <Doughnut data={concentrationData} options={doughnutChartOptions('Credit Concentration by Sector')} />}
             </div>
         </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div className="bg-white p-4 rounded-lg shadow">
-            <h4 className="font-semibold text-gray-700 mb-2">Asset Quality Metrics</h4>
+          <div className="bg-theme-bg-secondary p-4 rounded-lg shadow-lg">
             <div className="h-72">
-                <Bar data={barChartData} options={{ maintainAspectRatio: false, indexAxis: 'y', plugins: { title: { display: true, text: 'Asset Quality Indicators' } } }} />
+                <Bar data={barChartData} options={{ ...chartOptions('Asset Quality Indicators'), indexAxis: 'y' }} />
             </div>
         </div>
-        <div className="bg-white p-4 rounded-lg shadow">
-            <h4 className="font-semibold text-gray-700 mb-2">Top Systemic Alerts</h4>
+        <div className="bg-theme-bg-secondary p-4 rounded-lg shadow-lg">
+            <h4 className="font-semibold text-theme-text-primary mb-2">Top Systemic Alerts</h4>
             <div className="space-y-3">
                 {alerts.map(alert => (
-                     <div key={alert.id} className={`p-3 border-l-4 ${alert.severity === 'High' ? 'border-red-500 bg-red-50' : 'border-yellow-500 bg-yellow-50'}`}>
-                        <p className={`font-bold text-sm ${alert.severity === 'High' ? 'text-red-800' : 'text-yellow-800'}`}>{alert.title}</p>
-                        <p className="text-xs text-gray-700">{alert.description}</p>
+                     <div key={alert.id} className={`p-3 border-l-4 ${alert.severity === 'High' ? 'border-red-500 bg-red-900 bg-opacity-30' : 'border-yellow-500 bg-yellow-900 bg-opacity-30'}`}>
+                        <p className={`font-bold text-sm ${alert.severity === 'High' ? 'text-red-300' : 'text-yellow-300'}`}>{alert.title}</p>
+                        <p className="text-xs text-theme-text-secondary">{alert.description}</p>
                     </div>
                 ))}
             </div>

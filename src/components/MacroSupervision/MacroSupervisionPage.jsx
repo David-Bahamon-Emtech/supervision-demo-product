@@ -33,10 +33,10 @@ const MacroSupervisionPage = () => {
     ];
 
     return (
-        <div className="p-4 md:p-6 bg-gray-100 min-h-screen">
-            <h1 className="text-3xl font-bold text-gray-800 mb-6">Macro-Prudential Supervision</h1>
+        <div className="p-4 md:p-6 bg-theme-bg min-h-screen">
+            <h1 className="text-3xl font-bold text-theme-text-primary mb-6">Macro-Prudential Supervision</h1>
 
-            <div className="mb-6 border-b border-gray-300">
+            <div className="mb-6 border-b border-theme-border">
                 <nav className="-mb-px flex space-x-6 overflow-x-auto" aria-label="Tabs">
                     {tabs.map(tab => (
                         <button
@@ -44,8 +44,8 @@ const MacroSupervisionPage = () => {
                             onClick={() => setActiveTab(tab.id)}
                             className={`${
                                 activeTab === tab.id
-                                ? 'border-blue-500 text-blue-600'
-                                : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                                ? 'border-theme-accent text-theme-accent'
+                                : 'border-transparent text-theme-text-secondary hover:text-theme-text-primary hover:border-gray-500'
                             } whitespace-nowrap py-3 px-1 border-b-2 font-medium text-sm focus:outline-none`}
                         >
                             {tab.label}
@@ -54,9 +54,7 @@ const MacroSupervisionPage = () => {
                 </nav>
             </div>
             
-            <div className="bg-gray-50 p-6 rounded-b-lg shadow-inner-lg">
-                {renderContent()}
-            </div>
+            {renderContent()}
         </div>
     );
 };

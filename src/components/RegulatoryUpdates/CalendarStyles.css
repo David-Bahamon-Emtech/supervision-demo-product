@@ -1,0 +1,106 @@
+/* Custom styles for react-big-calendar to match the dark theme */
+
+/* Overall container */
+.rbc-calendar {
+  color: var(--theme-text-primary);
+}
+
+/* Toolbar (header with navigation) */
+.rbc-toolbar {
+  background-color: var(--theme-bg);
+  border-bottom: 1px solid var(--theme-border);
+  padding: 10px 15px;
+  border-radius: 0.5rem 0.5rem 0 0;
+}
+
+.rbc-toolbar .rbc-toolbar-label {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--theme-text-primary);
+}
+
+.rbc-btn-group button {
+  background-color: var(--theme-bg-secondary);
+  color: var(--theme-text-primary);
+  border: 1px solid var(--theme-border);
+  transition: background-color 0.2s;
+}
+
+.rbc-btn-group button:hover,
+.rbc-btn-group button:focus {
+  background-color: #3e444a;
+  color: var(--theme-text-primary);
+  border-color: #5a6268;
+}
+
+.rbc-btn-group button.rbc-active,
+.rbc-btn-group button.rbc-active:hover {
+  background-color: var(--theme-accent);
+  color: var(--sidebar-bg);
+  border-color: var(--theme-accent);
+  box-shadow: none;
+}
+
+/* Calendar grid */
+.rbc-month-view, .rbc-time-view, .rbc-agenda-view {
+  background-color: var(--theme-bg);
+  border: 1px solid var(--theme-border);
+  border-top: none;
+  border-radius: 0 0 0.5rem 0.5rem;
+}
+
+/* Day headers (Sun, Mon, etc.) */
+.rbc-header {
+  border-bottom: 1px solid var(--theme-border);
+  text-align: right;
+  padding: 8px 10px;
+  color: var(--theme-text-secondary);
+  font-weight: 500;
+}
+
+/* Date cells */
+.rbc-day-bg {
+  border-left: 1px solid var(--theme-border);
+}
+.rbc-month-row {
+  border-top: 1px solid var(--theme-border);
+}
+
+.rbc-off-range-bg {
+  background-color: #2a2f34; /* Slightly different from the main bg */
+}
+
+/* Today's date cell */
+.rbc-today {
+  background-color: rgba(201, 161, 79, 0.1); /* Gold accent with low opacity */
+}
+
+/* Date numbers */
+.rbc-date-cell {
+  padding: 5px;
+  text-align: right;
+  color: var(--theme-text-secondary);
+}
+.rbc-date-cell.rbc-now {
+    font-weight: bold;
+    color: var(--theme-accent);
+}
+.rbc-off-range .rbc-date-cell {
+    color: #6c757d; /* Dim the dates from other months */
+}
+
+/* Event styling */
+.rbc-event {
+  border: none !important;
+  box-shadow: none !important;
+  cursor: pointer;
+  transition: filter 0.2s;
+}
+
+.rbc-event:hover {
+  filter: brightness(1.2);
+}
+
+.rbc-event-label {
+    display: none; /* We will use our custom component for the label */
+}

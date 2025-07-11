@@ -25,6 +25,23 @@ const AIMacroAnalytics = () => {
 
     try {
       const result = await aiMacroAnalyticsService.queryMacroRisks(query);
+      
+      // Inject dark-theme compatible options into chart data
+      if (result.displayType === 'chart') {
+          result.data.options = {
+              ...result.data.options,
+              maintainAspectRatio: false,
+              plugins: {
+                  ...result.data.options?.plugins,
+                  legend: { ...result.data.options?.plugins?.legend, labels: { color: '#ADB5BD' } },
+                  title: { ...result.data.options?.plugins?.title, color: '#E9ECEF' }
+              },
+              scales: {
+                  y: { ticks: { color: '#ADB5BD' }, grid: { color: '#495057' } },
+                  x: { ticks: { color: '#ADB5BD' }, grid: { color: '#495057' } }
+              }
+          };
+      }
       setQueryResult(result);
     } catch (error) {
       setQueryError(error.message || "An error occurred while querying the AI service.");
@@ -61,17 +78,19 @@ const AIMacroAnalytics = () => {
 
     switch (queryResult.displayType) {
         case 'scalar':
-            return <div className="p-4 bg-blue-50 rounded-lg text-lg font-semibold text-blue-800">{queryResult.data}</div>;
+            return <div className="p-4 bg-blue-900 bg-opacity-30 rounded-lg text-lg font-semibold text-blue-300">{queryResult.data}</div>;
         case 'table':
             return (
-                <table className="min-w-full divide-y divide-gray-200 border">
-                    <thead className="bg-gray-50">
-                        <tr>{queryResult.data.headers.map(h => <th key={h} className="px-3 py-2 text-left text-xs font-medium text-gray-500">{h}</th>)}</tr>
-                    </thead>
-                    <tbody className="bg-white divide-y divide-gray-200">
-                        {queryResult.data.rows.map((row, i) => <tr key={i}>{row.map((cell, j) => <td key={j} className="px-3 py-2 text-sm">{cell}</td>)}</tr>)}
-                    </tbody>
-                </table>
+                <div className="overflow-x-auto">
+                    <table className="min-w-full divide-y divide-theme-border border border-theme-border">
+                        <thead className="bg-black bg-opacity-20">
+                            <tr>{queryResult.data.headers.map(h => <th key={h} className="px-3 py-2 text-left text-xs font-medium text-theme-text-secondary uppercase tracking-wider">{h}</th>)}</tr>
+                        </thead>
+                        <tbody className="bg-theme-bg-secondary divide-y divide-theme-border">
+                            {queryResult.data.rows.map((row, i) => <tr key={i} className="hover:bg-theme-bg">{row.map((cell, j) => <td key={j} className="px-3 py-2 text-sm text-theme-text-primary">{cell}</td>)}</tr>)}
+                        </tbody>
+                    </table>
+                </div>
             );
         case 'chart':
             const ChartComponent = {
@@ -79,71 +98,71 @@ const AIMacroAnalytics = () => {
                 line: Line,
                 doughnut: Doughnut,
             }[queryResult.data.chartType] || Bar;
-            return <ChartComponent data={queryResult.data} options={queryResult.data.options} />;
+            return <div className="h-80"><ChartComponent data={queryResult.data} options={queryResult.data.options} /></div>;
         default:
-            return <pre className="whitespace-pre-wrap text-sm">{JSON.stringify(queryResult, null, 2)}</pre>;
+            return <pre className="whitespace-pre-wrap text-sm text-theme-text-secondary">{JSON.stringify(queryResult, null, 2)}</pre>;
     }
   };
 
   return (
     <div className="space-y-6">
       {/* Natural Language Query Section */}
-      <div className="bg-white p-4 rounded-lg shadow">
-        <h4 className="font-semibold text-gray-700 mb-2">Query Systemic Data with Natural Language</h4>
+      <div className="bg-theme-bg-secondary p-4 rounded-lg shadow-lg">
+        <h4 className="font-semibold text-theme-text-primary mb-2">Query Systemic Data with Natural Language</h4>
         <form onSubmit={handleQuerySubmit} className="flex items-center space-x-2">
           <input
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            className="w-full p-2 border border-gray-300 rounded-md shadow-sm"
+            className="w-full p-2 bg-theme-bg border border-theme-border rounded-md shadow-sm text-theme-text-primary focus:ring-theme-accent focus:border-theme-accent"
             placeholder="e.g., 'Show me a bar chart of NPL ratios by entity' or 'Which entities have the highest CRE exposure?'"
             disabled={isQuerying}
           />
           <button
             type="submit"
             disabled={isQuerying || !query.trim()}
-            className="px-4 py-2 bg-blue-600 text-white font-semibold rounded-md shadow-sm hover:bg-blue-700 disabled:opacity-50"
+            className="px-4 py-2 bg-theme-accent text-sidebar-bg font-semibold rounded-md shadow-sm hover:brightness-110 transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-theme-bg focus:ring-theme-accent disabled:opacity-50"
           >
             <SparklesIcon className="w-5 h-5 inline-block mr-1" />
             {isQuerying ? 'Analyzing...' : 'Ask AI'}
           </button>
         </form>
-        <div className="mt-4 p-4 border-t">
-          {isQuerying && <p className="text-center text-gray-500">AI is thinking...</p>}
-          {queryError && <div className="p-3 bg-red-100 text-red-700 rounded-md">{queryError}</div>}
+        <div className="mt-4 pt-4 border-t border-theme-border">
+          {isQuerying && <p className="text-center text-theme-text-secondary">AI is thinking...</p>}
+          {queryError && <div className="p-3 bg-red-900 bg-opacity-30 text-red-300 rounded-md">{queryError}</div>}
           {queryResult && renderQueryResult()}
         </div>
       </div>
 
       {/* Document Analysis Section */}
-      <div className="bg-white p-4 rounded-lg shadow">
-        <h4 className="font-semibold text-gray-700 mb-2">Analyze Regulatory Document</h4>
+      <div className="bg-theme-bg-secondary p-4 rounded-lg shadow-lg">
+        <h4 className="font-semibold text-theme-text-primary mb-2">Analyze Regulatory Document</h4>
         <div className="flex items-center space-x-2">
           <input
             type="file"
             onChange={handleFileChange}
-            className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-gray-100 file:text-blue-700 hover:file:bg-blue-50"
+            className="block w-full text-sm text-theme-text-secondary file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-gray-700 file:text-theme-text-primary hover:file:bg-gray-600"
             disabled={isAnalyzingDoc}
           />
           <button
             onClick={handleDocumentAnalysis}
             disabled={isAnalyzingDoc || !documentFile}
-            className="px-4 py-2 bg-purple-600 text-white font-semibold rounded-md shadow-sm hover:bg-purple-700 disabled:opacity-50 flex-shrink-0"
+            className="px-4 py-2 bg-theme-accent text-sidebar-bg font-semibold rounded-md shadow-sm hover:brightness-110 transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-theme-bg focus:ring-theme-accent disabled:opacity-50 flex-shrink-0"
           >
             <DocumentArrowUpIcon className="w-5 h-5 inline-block mr-1" />
             {isAnalyzingDoc ? 'Analyzing...' : 'Analyze Document'}
           </button>
         </div>
-        <div className="mt-4 p-4 border-t">
-            {isAnalyzingDoc && <p className="text-center text-gray-500">AI is processing the document...</p>}
-            {docAnalysisError && <div className="p-3 bg-red-100 text-red-700 rounded-md">{docAnalysisError}</div>}
+        <div className="mt-4 pt-4 border-t border-theme-border">
+            {isAnalyzingDoc && <p className="text-center text-theme-text-secondary">AI is processing the document...</p>}
+            {docAnalysisError && <div className="p-3 bg-red-900 bg-opacity-30 text-red-300 rounded-md">{docAnalysisError}</div>}
             {docAnalysisResult && (
                 <div className="space-y-3 text-sm">
-                    <h5 className="font-bold">Analysis Summary:</h5>
-                    <p className="p-2 bg-gray-50 rounded-md italic">"{docAnalysisResult.summary}"</p>
-                    <h5 className="font-bold pt-2 border-t">Suggested Categories:</h5>
+                    <h5 className="font-bold text-theme-text-primary">Analysis Summary:</h5>
+                    <p className="p-2 bg-theme-bg rounded-md italic text-theme-text-secondary">"{docAnalysisResult.summary}"</p>
+                    <h5 className="font-bold pt-2 border-t border-theme-border text-theme-text-primary">Suggested Categories:</h5>
                     <div className="flex flex-wrap gap-2">
-                        {docAnalysisResult.suggestedCategoryIds.map(id => <span key={id} className="px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-xs">{id}</span>)}
+                        {docAnalysisResult.suggestedCategoryIds.map(id => <span key={id} className="px-2 py-1 bg-blue-900 bg-opacity-50 text-blue-300 rounded-full text-xs">{id}</span>)}
                     </div>
                 </div>
             )}

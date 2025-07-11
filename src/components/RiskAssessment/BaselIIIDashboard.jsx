@@ -13,16 +13,16 @@ import entitiesData from '../../data/entities.js';
 // --- Reusable Components ---
 
 const MetricCard = ({ title, value, status, description }) => {
-    let statusColor = 'text-gray-600';
-    if (status === 'Compliant') statusColor = 'text-green-600';
-    if (status === 'Non-Compliant') statusColor = 'text-red-600';
+    let statusColor = 'text-theme-text-secondary';
+    if (status === 'Compliant') statusColor = 'text-green-400';
+    if (status === 'Non-Compliant') statusColor = 'text-red-400';
 
     return (
-        <div className="bg-gray-50 p-4 rounded-lg shadow-inner">
-            <p className="text-sm font-medium text-gray-500">{title}</p>
-            <p className="text-3xl font-bold text-gray-800 my-1">{value}</p>
+        <div className="bg-theme-bg-secondary p-4 rounded-lg shadow-inner border border-theme-border">
+            <p className="text-sm font-medium text-theme-text-secondary">{title}</p>
+            <p className="text-3xl font-bold text-theme-text-primary my-1">{value}</p>
             {status && <p className={`text-sm font-semibold ${statusColor}`}>{status}</p>}
-            {description && <p className="text-xs text-gray-400 mt-1">{description}</p>}
+            {description && <p className="text-xs text-theme-text-secondary mt-1">{description}</p>}
         </div>
     );
 };
@@ -30,8 +30,16 @@ const MetricCard = ({ title, value, status, description }) => {
 const ComplianceIndicator = ({ isCompliant, label }) => (
     <div className="flex items-center">
         <span className={`w-3 h-3 rounded-full mr-2 ${isCompliant ? 'bg-green-500' : 'bg-red-500'}`}></span>
-        <span className="text-sm text-gray-700">{label}</span>
+        <span className="text-sm text-theme-text-primary">{label}</span>
     </div>
+);
+
+const ComplianceStatusPill = ({ isCompliant }) => (
+    <span className={`px-3 py-1 text-xs font-semibold rounded-full ${
+        isCompliant ? 'bg-green-200 text-green-800' : 'bg-red-200 text-red-800'
+    }`}>
+        {isCompliant ? 'Compliant' : 'Non-Compliant'}
+    </span>
 );
 
 
@@ -81,18 +89,18 @@ const BaselIIIDashboard = () => {
     }, []);
 
     if (isLoading) {
-        return <div className="p-6 text-center text-gray-500">Loading Basel III Compliance Data...</div>;
+        return <div className="p-6 text-center text-theme-text-secondary">Loading Basel III Compliance Data...</div>;
     }
 
     if (error) {
-        return <div className="p-6 text-center text-red-600 bg-red-100 rounded-md">{error}</div>;
+        return <div className="p-6 text-center text-red-400 bg-red-900 bg-opacity-30 rounded-md">{error}</div>;
     }
 
     return (
         <div className="space-y-8">
             <div>
-                <h2 className="text-2xl font-semibold text-gray-800">System-Wide Capital & Liquidity Analysis</h2>
-                <p className="text-sm text-gray-600 mt-1">Aggregated prudential metrics from all reporting institutions.</p>
+                <h2 className="text-2xl font-semibold text-theme-text-primary">System-Wide Capital & Liquidity Analysis</h2>
+                <p className="text-sm text-theme-text-secondary mt-1">Aggregated prudential metrics from all reporting institutions.</p>
                 <div className="mt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                     <MetricCard title="Avg. CET1 Ratio" value={`${systemMetrics?.averageCet1Ratio.toFixed(2)}%`} description="Core capital strength" />
                     <MetricCard title="Avg. Tier 1 Ratio" value={`${systemMetrics?.averageTier1Ratio.toFixed(2)}%`} />
@@ -102,28 +110,26 @@ const BaselIIIDashboard = () => {
             </div>
 
             <div>
-                <h2 className="text-2xl font-semibold text-gray-800 mt-10">Entity-Specific Compliance Status</h2>
-                <p className="text-sm text-gray-600 mt-1">Detailed compliance breakdown for individual institutions.</p>
-                <div className="mt-4 overflow-x-auto bg-white rounded-lg shadow">
-                    <table className="min-w-full divide-y divide-gray-200">
-                        <thead className="bg-gray-50">
+                <h2 className="text-2xl font-semibold text-theme-text-primary mt-10">Entity-Specific Compliance Status</h2>
+                <p className="text-sm text-theme-text-secondary mt-1">Detailed compliance breakdown for individual institutions.</p>
+                <div className="mt-4 overflow-x-auto bg-theme-bg-secondary rounded-lg shadow-lg border border-theme-border">
+                    <table className="min-w-full divide-y divide-theme-border">
+                        <thead className="bg-black bg-opacity-20">
                             <tr>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Entity Name</th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Overall Compliance</th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">CET1 / Tier 1 / Total Capital</th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">LCR / NSFR</th>
+                                <th className="px-6 py-3 text-left text-xs font-medium text-theme-text-secondary uppercase">Entity Name</th>
+                                <th className="px-6 py-3 text-left text-xs font-medium text-theme-text-secondary uppercase">Overall Compliance</th>
+                                <th className="px-6 py-3 text-left text-xs font-medium text-theme-text-secondary uppercase">CET1 / Tier 1 / Total Capital</th>
+                                <th className="px-6 py-3 text-left text-xs font-medium text-theme-text-secondary uppercase">LCR / NSFR</th>
                             </tr>
                         </thead>
-                        <tbody className="divide-y divide-gray-200">
+                        <tbody className="divide-y divide-theme-border">
                             {entityDetails.map(entity => (
-                                <tr key={entity.id} className="hover:bg-gray-50">
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{entity.name}</td>
+                                <tr key={entity.id} className="hover:bg-theme-bg">
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-theme-text-primary">{entity.name}</td>
                                     <td className="px-6 py-4 whitespace-nowrap text-sm">
-                                        <MetricCard 
-                                            status={entity.compliance.compliant ? 'Compliant' : 'Non-Compliant'}
-                                        />
+                                        <ComplianceStatusPill isCompliant={entity.compliance.compliant} />
                                     </td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-theme-text-secondary">
                                         <p>{entity.capital?.cet1Ratio}% / {entity.capital?.tier1Ratio}% / {entity.capital?.totalCapitalRatio}%</p>
                                         <div className="flex space-x-4 mt-1">
                                             <ComplianceIndicator isCompliant={entity.compliance.cet1} label="CET1" />
@@ -131,7 +137,7 @@ const BaselIIIDashboard = () => {
                                             <ComplianceIndicator isCompliant={entity.compliance.totalCapital} label="Total" />
                                         </div>
                                     </td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-theme-text-secondary">
                                         {entity.liquidity?.lcr}% / {entity.liquidity?.nsfr}%
                                     </td>
                                 </tr>

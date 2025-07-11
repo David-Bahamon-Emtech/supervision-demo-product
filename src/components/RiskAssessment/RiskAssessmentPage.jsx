@@ -20,28 +20,25 @@ import RiskReportingDashboard from './RiskReportingDashboard.jsx';
 
 // --- Helper Components ---
 
-const RiskScore = ({ score, size = 'large' }) => {
-    let colorClass = 'bg-gray-400';
-    if (score >= 4.0) colorClass = 'bg-red-500';
-    else if (score >= 3.0) colorClass = 'bg-orange-500';
-    else if (score >= 2.0) colorClass = 'bg-yellow-400';
-    else if (score > 0) colorClass = 'bg-green-500';
-
-    const sizeClass = size === 'large'
-        ? 'w-12 h-12 text-lg'
-        : 'w-10 h-10 text-base';
+const RiskScore = ({ score }) => {
+    let colorClass = 'text-gray-400';
+    if (score >= 4.0) colorClass = 'text-red-400';
+    else if (score >= 3.0) colorClass = 'text-orange-400';
+    else if (score >= 2.0) colorClass = 'text-yellow-400';
+    else if (score > 0) colorClass = 'text-green-400';
 
     return (
-        <div className={`flex items-center justify-center rounded-full text-white font-bold ${colorClass} ${sizeClass}`}>
+        <span className={`text-xl font-semibold ${colorClass}`}>
             {score.toFixed(1)}
-        </div>
+        </span>
     );
 };
 
+
 const DashboardCard = ({ title, children, icon }) => (
-    <div className="bg-white p-4 rounded-lg shadow-md h-full">
-        <div className="flex items-center text-lg font-semibold text-gray-700 mb-2">
-            {React.cloneElement(icon, { className: 'w-6 h-6 mr-2 text-gray-500' })}
+    <div className="bg-theme-bg-secondary p-4 rounded-lg shadow-md h-full">
+        <div className="flex items-center text-lg font-semibold text-theme-text-primary mb-2">
+            {React.cloneElement(icon, { className: 'w-6 h-6 mr-2 text-theme-text-secondary' })}
             {title}
         </div>
         <div>{children}</div>
@@ -55,14 +52,14 @@ const RiskProfileModal = ({ entity, onClose, onMitigationAction, onOverrideChang
     const [manualOverride, setManualOverride] = manualOverrideState;
 
     return (
-        <div className="fixed inset-0 bg-gray-600 bg-opacity-75 overflow-y-auto h-full w-full z-50 flex items-center justify-center p-4">
-            <div className="relative bg-white p-6 rounded-lg shadow-xl w-full max-w-5xl max-h-[95vh] flex flex-col">
-                <div className="flex justify-between items-start pb-4 border-b">
+        <div className="fixed inset-0 bg-black bg-opacity-75 overflow-y-auto h-full w-full z-50 flex items-center justify-center p-4">
+            <div className="relative bg-theme-bg-secondary p-6 rounded-lg shadow-xl w-full max-w-5xl max-h-[95vh] flex flex-col border border-theme-border">
+                <div className="flex justify-between items-start pb-4 border-b border-theme-border">
                     <div>
-                        <h2 className="text-2xl font-semibold text-gray-800">Risk Profile: <span className="text-blue-600">{entity.companyName}</span></h2>
-                        {entity.isOverridden && <span className="px-2 py-1 text-xs font-semibold rounded-full bg-purple-100 text-purple-800">Manually Overridden</span>}
+                        <h2 className="text-2xl font-semibold text-theme-text-primary">Risk Profile: <span className="text-theme-accent">{entity.companyName}</span></h2>
+                        {entity.isOverridden && <span className="px-2 py-1 text-xs font-semibold rounded-full bg-purple-200 text-purple-800">Manually Overridden</span>}
                     </div>
-                    <button onClick={onClose} className="text-gray-400 hover:text-gray-600">
+                    <button onClick={onClose} className="text-theme-text-secondary hover:text-theme-text-primary">
                         <XMarkIcon className="w-6 h-6" />
                     </button>
                 </div>
@@ -72,44 +69,44 @@ const RiskProfileModal = ({ entity, onClose, onMitigationAction, onOverrideChang
                         {/* Left Side: Drill Down Details */}
                         <div className="lg:col-span-2 space-y-6">
                             <div>
-                                <h3 className="font-semibold text-gray-700 mb-2">Key Identification</h3>
-                                <div className="text-sm p-3 bg-gray-50 rounded-md">
+                                <h3 className="font-semibold text-theme-text-primary mb-2">Key Identification</h3>
+                                <div className="text-sm p-3 bg-theme-bg rounded-md">
                                     <p><strong>Registration Number:</strong> {entity.registrationNumber}</p>
                                     <p><strong>Assigned Officer:</strong> {regulatorStaffData.find(s => s.staffId === entity.assignedOfficerId)?.name || 'N/A'}</p>
                                     <p><strong>License(s) Held:</strong> {licensesData.filter(l => l.entityId === entity.entityId).map(l => l.licenseType).join(', ')}</p>
                                 </div>
                             </div>
                              <div>
-                                <h3 className="font-semibold text-gray-700 mb-2">Underlying Data Points</h3>
-                                <div className="text-sm p-3 bg-gray-50 rounded-md">
+                                <h3 className="font-semibold text-theme-text-primary mb-2">Underlying Data Points</h3>
+                                <div className="text-sm p-3 bg-theme-bg rounded-md">
                                     <p><strong>Compliance:</strong> Overdue Submissions: {complianceSubmissionsData.filter(s => s.entityId === entity.entityId && (s.status === 'Pending Submission' || s.status === 'Late Submission')).length}</p>
                                     <p><strong>Credit:</strong> Simulated NPL Ratio: {entity.simulatedNPL}% | Simulated CAR: {entity.simulatedCAR}%</p>
                                     <p><strong>Governance:</strong> Number of PEPs: {(entity.directors?.filter(d => d.isPEP).length || 0) + (entity.ubos?.filter(u => u.isPEP).length || 0)}</p>
                                 </div>
                             </div>
                              <div>
-                                <h3 className="font-semibold text-gray-700 mb-2">Risk Mitigation Actions</h3>
+                                <h3 className="font-semibold text-theme-text-primary mb-2">Risk Mitigation Actions</h3>
                                 <div className="flex flex-wrap gap-2">
-                                    <button onClick={() => onMitigationAction('Schedule Inspection')} className="text-sm p-2 bg-blue-100 text-blue-800 rounded hover:bg-blue-200">Schedule Inspection</button>
-                                    <button onClick={() => onMitigationAction('Request Remediation Plan')} className="text-sm p-2 bg-blue-100 text-blue-800 rounded hover:bg-blue-200">Request Remediation</button>
-                                    <button onClick={() => onMitigationAction('Issue Warning Letter')} className="text-sm p-2 bg-blue-100 text-blue-800 rounded hover:bg-blue-200">Issue Warning</button>
+                                    <button onClick={() => onMitigationAction('Schedule Inspection')} className="text-sm p-2 bg-blue-900 bg-opacity-50 text-blue-300 rounded hover:bg-blue-800">Schedule Inspection</button>
+                                    <button onClick={() => onMitigationAction('Request Remediation Plan')} className="text-sm p-2 bg-blue-900 bg-opacity-50 text-blue-300 rounded hover:bg-blue-800">Request Remediation</button>
+                                    <button onClick={() => onMitigationAction('Issue Warning Letter')} className="text-sm p-2 bg-blue-900 bg-opacity-50 text-blue-300 rounded hover:bg-blue-800">Issue Warning</button>
                                 </div>
-                                {entity.lastActionTaken && <p className="text-xs text-gray-500 mt-2 italic">Last action taken (this session): {entity.lastActionTaken}</p>}
+                                {entity.lastActionTaken && <p className="text-xs text-theme-text-secondary mt-2 italic">Last action taken (this session): {entity.lastActionTaken}</p>}
                             </div>
                             <div>
-                                <h3 className="font-semibold text-gray-700 mb-2">Individual Stress Testing</h3>
-                                <p className="text-xs text-gray-500 mb-2">Run simulations based on specific risk scenarios.</p>
+                                <h3 className="font-semibold text-theme-text-primary mb-2">Individual Stress Testing</h3>
+                                <p className="text-xs text-theme-text-secondary mb-2">Run simulations based on specific risk scenarios.</p>
                                 <div className="flex flex-wrap gap-2">
-                                    <button onClick={() => onRunStressTest({ type: 'INTEREST_RATE_SHOCK', shockValue: 0.25 })} className="text-sm p-2 bg-red-100 text-red-800 rounded hover:bg-red-200">25% NIM Reduction</button>
-                                    <button onClick={() => onRunStressTest({ type: 'CREDIT_DEFAULT_SHOCK', sector: 'Commercial Real Estate', shockValue: 0.50 })} className="text-sm p-2 bg-red-100 text-red-800 rounded hover:bg-red-200">+50% NPL in Real Estate</button>
+                                    <button onClick={() => onRunStressTest({ type: 'INTEREST_RATE_SHOCK', shockValue: 0.25 })} className="text-sm p-2 bg-red-900 bg-opacity-50 text-red-300 rounded hover:bg-red-800">25% NIM Reduction</button>
+                                    <button onClick={() => onRunStressTest({ type: 'CREDIT_DEFAULT_SHOCK', sector: 'Commercial Real Estate', shockValue: 0.50 })} className="text-sm p-2 bg-red-900 bg-opacity-50 text-red-300 rounded hover:bg-red-800">+50% NPL in Real Estate</button>
                                 </div>
-                                {isStressing && <p className="text-sm italic text-gray-500 mt-2">Running simulation...</p>}
+                                {isStressing && <p className="text-sm italic text-theme-text-secondary mt-2">Running simulation...</p>}
                                 {stressTestResults && (
-                                    <div className="mt-4 p-3 bg-gray-100 rounded-md">
+                                    <div className="mt-4 p-3 bg-theme-bg rounded-md">
                                         <h4 className="font-semibold text-sm mb-2">Stress Test Results</h4>
                                         <p className="text-xs italic mb-2">{stressTestResults.impactSummary}</p>
                                         <table className="w-full text-xs">
-                                            <thead><tr className="border-b"><th className="text-left">Metric</th><th className="text-right">Pre-Stress</th><th className="text-right">Post-Stress</th></tr></thead>
+                                            <thead><tr className="border-b border-theme-border"><th className="text-left">Metric</th><th className="text-right">Pre-Stress</th><th className="text-right">Post-Stress</th></tr></thead>
                                             <tbody>
                                                 <tr><td>CAR</td><td className="text-right">{stressTestResults.preStress.car.toFixed(2)}%</td><td className="text-right font-bold">{stressTestResults.postStress.car.toFixed(2)}%</td></tr>
                                                 <tr><td>NPL Ratio</td><td className="text-right">{stressTestResults.preStress.nplRatio.toFixed(2)}%</td><td className="text-right font-bold">{stressTestResults.postStress.nplRatio.toFixed(2)}%</td></tr>
@@ -121,27 +118,27 @@ const RiskProfileModal = ({ entity, onClose, onMitigationAction, onOverrideChang
                             </div>
                             {/* --- Unstructured Document Analysis --*/}
                             <div>
-                                <h3 className="font-semibold text-gray-700 mb-2">Unstructured Document Analysis</h3>
-                                 <div className="p-4 bg-gray-50 rounded-lg">
-                                     <label htmlFor="risk-doc-upload-modal" className="block text-sm font-medium text-gray-700 mb-2">Upload a document for this entity:</label>
+                                <h3 className="font-semibold text-theme-text-primary mb-2">Unstructured Document Analysis</h3>
+                                 <div className="p-4 bg-theme-bg rounded-lg">
+                                     <label htmlFor="risk-doc-upload-modal" className="block text-sm font-medium text-theme-text-secondary mb-2">Upload a document for this entity:</label>
                                      <div className="flex items-center space-x-3">
-                                         <input id="risk-doc-upload-modal" type="file" onChange={onFileChange} accept=".pdf,.txt" className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"/>
+                                         <input id="risk-doc-upload-modal" type="file" onChange={onFileChange} accept=".pdf,.txt" className="block w-full text-sm text-theme-text-secondary file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-900 file:text-blue-200 hover:file:bg-blue-800"/>
                                          <button onClick={onAnalyzeDocument} disabled={isAnalyzing || !selectedFile} className="px-4 py-2 bg-purple-600 text-white font-semibold rounded-md shadow-sm hover:bg-purple-700 disabled:opacity-50 flex items-center flex-shrink-0">
                                             <SparklesIcon className="w-5 h-5 mr-2"/>
                                             {isAnalyzing ? 'Analyzing...' : 'Analyze'}
                                          </button>
                                      </div>
-                                     {selectedFile && <p className="text-xs text-gray-500 mt-2">Selected: {selectedFile.name}</p>}
-                                     {isAnalyzing && <p className="text-center text-gray-500 italic mt-2">AI is processing the document...</p>}
-                                     {analysisError && <div className="text-red-600 text-sm mt-2">{analysisError}</div>}
+                                     {selectedFile && <p className="text-xs text-theme-text-secondary mt-2">Selected: {selectedFile.name}</p>}
+                                     {isAnalyzing && <p className="text-center text-theme-text-secondary italic mt-2">AI is processing the document...</p>}
+                                     {analysisError && <div className="text-red-400 text-sm mt-2">{analysisError}</div>}
                                      {analysisResult && (
                                          <div className="mt-4">
                                              <h4 className="font-semibold text-sm mb-2">Analysis Results:</h4>
                                              <ol className="list-decimal list-inside space-y-2 text-sm">
                                                  {analysisResult.map(risk => (
                                                      <li key={risk.rank}>
-                                                         <span className="font-semibold text-gray-800">{risk.category}:</span>
-                                                         <span className="text-gray-600 ml-1">{risk.description}</span>
+                                                         <span className="font-semibold text-theme-text-primary">{risk.category}:</span>
+                                                         <span className="text-theme-text-secondary ml-1">{risk.description}</span>
                                                      </li>
                                                  ))}
                                              </ol>
@@ -152,11 +149,11 @@ const RiskProfileModal = ({ entity, onClose, onMitigationAction, onOverrideChang
                         </div>
                         
                         {/* Right Side: Manual Override Form */}
-                        <div className="space-y-4 p-4 border rounded-lg bg-gray-50">
-                            <h3 className="font-semibold text-gray-700 mb-2">Manual Override</h3>
+                        <div className="space-y-4 p-4 border rounded-lg bg-theme-bg">
+                            <h3 className="font-semibold text-theme-text-primary mb-2">Manual Override</h3>
                              <div>
                                 <label className="text-sm font-medium">Internal Risk Rating</label>
-                                <select value={manualOverride.internalRiskRating} onChange={(e) => onOverrideChange('internalRiskRating', e.target.value)} className="w-full p-2 border rounded-md text-sm">
+                                <select value={manualOverride.internalRiskRating} onChange={(e) => onOverrideChange('internalRiskRating', e.target.value)} className="w-full p-2 border rounded-md text-sm bg-theme-bg border-theme-border focus:ring-theme-accent focus:border-theme-accent">
                                     <option>Low</option><option>Medium</option><option>High</option><option>Critical</option>
                                 </select>
                             </div>
@@ -165,13 +162,13 @@ const RiskProfileModal = ({ entity, onClose, onMitigationAction, onOverrideChang
                                 {Object.keys(entity.pillarScores).map(pillar => (
                                      <div key={pillar} className="flex items-center justify-between mt-1">
                                         <span className="text-sm">{pillar}</span>
-                                        <input type="number" step="0.1" min="1" max="5" value={manualOverride.pillarScores[pillar]} onChange={e => onOverrideChange('pillarScores', e.target.value, pillar)} className="w-20 p-1 border rounded-md text-sm"/>
+                                        <input type="number" step="0.1" min="1" max="5" value={manualOverride.pillarScores[pillar]} onChange={e => onOverrideChange('pillarScores', e.target.value, pillar)} className="w-20 p-1 border rounded-md text-sm bg-theme-bg border-theme-border focus:ring-theme-accent focus:border-theme-accent"/>
                                      </div>
                                 ))}
                             </div>
                             <div>
                                 <label className="text-sm font-medium">Supervisory Notes</label>
-                                <textarea value={manualOverride.supervisoryNotes} onChange={(e) => onOverrideChange('supervisoryNotes', e.target.value)} className="w-full p-2 border rounded-md text-sm" rows="4" placeholder="Justification for override..."></textarea>
+                                <textarea value={manualOverride.supervisoryNotes} onChange={(e) => onOverrideChange('supervisoryNotes', e.target.value)} className="w-full p-2 border rounded-md text-sm bg-theme-bg border-theme-border focus:ring-theme-accent focus:border-theme-accent" rows="4" placeholder="Justification for override..."></textarea>
                             </div>
                             <button onClick={onSaveOverride} className="w-full p-2 bg-gray-600 text-white text-sm rounded hover:bg-gray-700">Save Justification & Override</button>
                         </div>
@@ -192,6 +189,8 @@ const RiskAssessmentPage = () => {
     const [manualOverride, setManualOverride] = useState({});
     const [stressTestResults, setStressTestResults] = useState(null);
     const [isStressing, setIsStressing] = useState(false);
+    const [sortConfig, setSortConfig] = useState({ key: 'compositeScore', direction: 'descending' });
+
 
     // New State for Unstructured Data Analysis
     const [selectedFile, setSelectedFile] = useState(null);
@@ -201,6 +200,37 @@ const RiskAssessmentPage = () => {
 
     // New state for tab navigation
     const [activeTab, setActiveTab] = useState('Overview');
+
+    const sortedEntities = useMemo(() => {
+        let sortableItems = [...entitiesWithScores];
+        if (sortConfig.key !== null) {
+            sortableItems.sort((a, b) => {
+                if (a[sortConfig.key] < b[sortConfig.key]) {
+                    return sortConfig.direction === 'ascending' ? -1 : 1;
+                }
+                if (a[sortConfig.key] > b[sortConfig.key]) {
+                    return sortConfig.direction === 'ascending' ? 1 : -1;
+                }
+                return 0;
+            });
+        }
+        return sortableItems;
+    }, [entitiesWithScores, sortConfig]);
+
+    const requestSort = (key) => {
+        let direction = 'ascending';
+        if (sortConfig.key === key && sortConfig.direction === 'ascending') {
+            direction = 'descending';
+        }
+        setSortConfig({ key, direction });
+    };
+    
+    const getSortIndicator = (key) => {
+        if (sortConfig.key === key) {
+          return sortConfig.direction === 'ascending' ? ' ▲' : ' ▼';
+        }
+        return '';
+    };
 
     // Reconstruct the needed DeFi data structure from the new data source
     const mockDeFiData = useMemo(() => {
@@ -329,44 +359,57 @@ const RiskAssessmentPage = () => {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
                 <DashboardCard title="Systemic Risk Heatmap" icon={<FireIcon />}>
                    <div className="grid grid-cols-2 gap-4">
-                       <div className="p-2 bg-gray-50 rounded text-center"><p className="text-sm text-gray-600">Total Overdue Submissions</p><p className="text-2xl font-bold text-red-600">{systemicRiskData?.totalOverdue}</p></div>
-                       <div className="p-2 bg-gray-50 rounded text-center"><p className="text-sm text-gray-600">Entities with Issues</p><p className="text-2xl font-bold text-orange-600">{systemicRiskData?.entitiesWithIssues}</p></div>
-                       <div className="p-2 bg-gray-50 rounded text-center"><p className="text-sm text-gray-600">Avg. System-wide CAR</p><p className="text-2xl font-bold text-green-600">{systemicRiskData?.avgCAR}</p></div>
-                       <div className="p-2 bg-gray-50 rounded text-center"><p className="text-sm text-gray-600">Avg. System-wide NPL</p><p className="text-2xl font-bold text-blue-600">{systemicRiskData?.avgNPL}</p></div>
+                       <div className="p-2 bg-theme-bg rounded text-center"><p className="text-sm text-theme-text-secondary">Total Overdue Submissions</p><p className="text-2xl font-bold text-red-400">{systemicRiskData?.totalOverdue}</p></div>
+                       <div className="p-2 bg-theme-bg rounded text-center"><p className="text-sm text-theme-text-secondary">Entities with Issues</p><p className="text-2xl font-bold text-orange-400">{systemicRiskData?.entitiesWithIssues}</p></div>
+                       <div className="p-2 bg-theme-bg rounded text-center"><p className="text-sm text-theme-text-secondary">Avg. System-wide CAR</p><p className="text-2xl font-bold text-green-400">{systemicRiskData?.avgCAR}</p></div>
+                       <div className="p-2 bg-theme-bg rounded text-center"><p className="text-sm text-theme-text-secondary">Avg. System-wide NPL</p><p className="text-2xl font-bold text-blue-400">{systemicRiskData?.avgNPL}</p></div>
                    </div>
                </DashboardCard>
                <DashboardCard title="Sector Risk Trends" icon={<ArrowTrendingUpIcon />}>
-                   <ul className="h-48 overflow-y-auto space-y-2">{sectorTrends.map(sector => (<li key={sector.name} className="flex justify-between items-center p-2 bg-gray-50 rounded-md"><span className="text-sm font-medium text-gray-800">{sector.name}</span><span className="text-sm font-bold text-gray-600">{sector.avgRiskScore} ({sector.trend})</span></li>))}</ul>
+                   <ul className="h-48 overflow-y-auto space-y-2">{sectorTrends.map(sector => (<li key={sector.name} className="flex justify-between items-center p-2 bg-theme-bg rounded-md"><span className="text-sm font-medium text-theme-text-primary">{sector.name}</span><span className="text-sm font-bold text-theme-text-secondary">{sector.avgRiskScore} ({sector.trend})</span></li>))}</ul>
                </DashboardCard>
                 <DashboardCard title="Digital Asset Supervision" icon={<WalletIcon />}>
                     <div className="space-y-3">
-                        <div className="p-2 bg-gray-50 rounded"><p className="text-sm text-gray-600">Systemic Stablecoin Collateralization</p><p className="text-2xl font-bold text-gray-800">{mockDeFiData.stablecoinCollateralization[0].ratio}</p></div>
-                        <div className="p-2 bg-gray-50 rounded"><p className="text-sm text-gray-600">Total Value Locked (TVL)</p><p className="text-2xl font-bold text-gray-800">{mockDeFiData.tvl}</p></div>
-                        <div className="p-2 bg-gray-50 rounded"><p className="text-sm text-gray-600">Overall DeFi Leverage</p><p className="text-2xl font-bold text-gray-800">{mockDeFiData.leverage}</p></div>
+                        <div className="p-2 bg-theme-bg rounded"><p className="text-sm text-theme-text-secondary">Systemic Stablecoin Collateralization</p><p className="text-2xl font-bold text-theme-text-primary">{mockDeFiData.stablecoinCollateralization[0].ratio}</p></div>
+                        <div className="p-2 bg-theme-bg rounded"><p className="text-sm text-theme-text-secondary">Total Value Locked (TVL)</p><p className="text-2xl font-bold text-theme-text-primary">{mockDeFiData.tvl}</p></div>
+                        <div className="p-2 bg-theme-bg rounded"><p className="text-sm text-theme-text-secondary">Overall DeFi Leverage</p><p className="text-2xl font-bold text-theme-text-primary">{mockDeFiData.leverage}</p></div>
                     </div>
                </DashboardCard>
             </div>
             
             {/* --- Entity Risk Overview Table --*/}
-            <div className="bg-white p-6 rounded-lg shadow-lg mb-8">
-                <h2 className="text-xl font-semibold text-gray-800 mb-4">Entity Risk Overview</h2>
+            <div className="bg-theme-bg-secondary p-6 rounded-lg shadow-lg mb-8">
+                <h2 className="text-xl font-semibold text-theme-text-primary mb-4">Entity Risk Overview</h2>
                 <div className="overflow-x-auto">
-                    <table className="min-w-full divide-y divide-gray-200">
-                        <thead className="bg-gray-50">
+                    <table className="min-w-full divide-y divide-theme-border">
+                        <thead className="bg-black bg-opacity-20">
                             <tr>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Entity Name</th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Composite Score</th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Trend</th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Primary Risk Driver</th>
+                                {[
+                                    { label: 'Entity Name', key: 'companyName' },
+                                    { label: 'Composite Score', key: 'compositeScore', className: 'text-center' },
+                                    { label: 'Trend', key: 'trend' },
+                                    { label: 'Primary Risk Driver', key: 'primaryRiskDriver' },
+                                ].map(({ label, key, className }) => (
+                                    <th 
+                                        key={key} 
+                                        className={`px-6 py-3 text-left text-xs font-medium text-theme-text-secondary uppercase tracking-wider cursor-pointer hover:bg-black hover:bg-opacity-30 ${className}`}
+                                        onClick={() => requestSort(key)}
+                                    >
+                                        {label}
+                                        {getSortIndicator(key)}
+                                    </th>
+                                ))}
                             </tr>
                         </thead>
-                        <tbody className="bg-white divide-y divide-gray-200">
-                            {entitiesWithScores.map(entity => (
-                                <tr key={entity.entityId} onClick={() => handleSelectEntity(entity)} className={`hover:bg-gray-100 cursor-pointer ${selectedEntity?.entityId === entity.entityId ? 'bg-blue-50' : ''} ${entity.trend === 'down' ? 'bg-red-50 hover:bg-red-100' : ''}`}>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{entity.companyName}</td>
-                                    <td className="px-6 py-4 whitespace-nowrap"><RiskScore score={entity.compositeScore} /></td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 capitalize">{entity.trend}</td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{entity.primaryRiskDriver}</td>
+                        <tbody className="bg-theme-bg-secondary divide-y divide-theme-border">
+                            {sortedEntities.map(entity => (
+                                <tr key={entity.entityId} onClick={() => handleSelectEntity(entity)} className={`hover:bg-theme-bg cursor-pointer transition-colors duration-150 ${selectedEntity?.entityId === entity.entityId ? 'bg-blue-900 bg-opacity-30' : ''} ${entity.trend === 'down' ? 'bg-red-900 bg-opacity-20 hover:bg-red-900 hover:bg-opacity-30' : ''}`}>
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-theme-text-primary">{entity.companyName}</td>
+                                    <td className="px-6 py-4 whitespace-nowrap text-center">
+                                        <RiskScore score={entity.compositeScore} />
+                                    </td>
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-theme-text-secondary capitalize">{entity.trend}</td>
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-theme-text-secondary">{entity.primaryRiskDriver}</td>
                                 </tr>
                             ))}
                         </tbody>
@@ -400,14 +443,14 @@ const RiskAssessmentPage = () => {
     };
     
      if (isLoading) {
-        return <div className="p-6 text-center">Loading Risk Assessment Data...</div>;
+        return <div className="p-6 text-center text-theme-text-secondary">Loading Risk Assessment Data...</div>;
     }
 
     return (
-        <div className="p-4 md:p-6 bg-gray-100 min-h-screen">
-            <h1 className="text-3xl font-bold text-gray-800 mb-6">Risk Assessment</h1>
+        <div className="p-4 md:p-6 bg-theme-bg min-h-screen">
+            <h1 className="text-3xl font-bold text-theme-text-primary mb-6">Risk Assessment</h1>
 
-            <div className="mb-6 border-b border-gray-300">
+            <div className="mb-6 border-b border-theme-border">
                 <nav className="-mb-px flex space-x-6 overflow-x-auto" aria-label="Tabs">
                     {[
                         'Overview', 'Basel III Compliance', 'Supervision Framework', 
@@ -417,7 +460,7 @@ const RiskAssessmentPage = () => {
                         <button
                             key={tab}
                             onClick={() => setActiveTab(tab)}
-                            className={`${activeTab === tab ? 'border-blue-500 text-blue-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'} whitespace-nowrap py-3 px-1 border-b-2 font-medium text-sm`}
+                            className={`${activeTab === tab ? 'border-theme-accent text-theme-accent' : 'border-transparent text-theme-text-secondary hover:text-theme-text-primary hover:border-gray-500'} whitespace-nowrap py-3 px-1 border-b-2 font-medium text-sm`}
                         >
                             {tab}
                         </button>

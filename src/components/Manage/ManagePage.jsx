@@ -3,10 +3,10 @@ import React, { useState } from 'react';
 import WorkflowManagement from './WorkflowManagement.jsx';
 import TemplateManagement from './TemplateManagement.jsx';
 import MetricsManagement from './MetricsManagement.jsx';
-import ApplicationFormManagement from './ApplicationFormManagement.jsx'; // Import the new component
+import ApplicationFormManagement from './ApplicationFormManagement.jsx';
 
 const ManagePage = () => {
-  const [activeSubTab, setActiveSubTab] = useState('workflow');
+  const [activeSubTab, setActiveSubTab] = useState('application-form');
 
   const subNavItems = [
     { id: 'workflow', label: 'Workflow Management' },
@@ -18,23 +18,29 @@ const ManagePage = () => {
   const renderSubContent = () => {
     switch (activeSubTab) {
       case 'workflow':
+        // NOTE: This component's content has not been provided, so it will appear unstyled.
         return <WorkflowManagement />;
       case 'template':
+        // NOTE: This component's content has not been provided, so it will appear unstyled.
         return <TemplateManagement />;
       case 'metrics':
+        // NOTE: This component's content has not been provided, so it will appear unstyled.
         return <MetricsManagement />;
       case 'application-form':
-        return <ApplicationFormManagement />; // Use the imported component
+        return <ApplicationFormManagement />; // This component has been styled.
       default:
-        return <WorkflowManagement />;
+        return <ApplicationFormManagement />;
     }
   };
 
   return (
-    <div className="p-4 md:p-6 bg-gray-100 min-h-screen">
-      <h1 className="text-3xl font-bold text-gray-800 mb-6">Management Dashboard</h1>
+    <div className="p-4 md:p-6 bg-theme-bg min-h-screen">
+      <div className="mb-6">
+        <h1 className="text-3xl font-bold text-theme-text-primary">Management Dashboard</h1>
+        <p className="text-theme-text-secondary mt-1">Configure and manage core system settings, templates, and workflows.</p>
+      </div>
 
-      <div className="mb-6 border-b border-gray-300">
+      <div className="mb-6 border-b border-theme-border">
         <nav className="-mb-px flex space-x-4 sm:space-x-8 overflow-x-auto" aria-label="Manage Tabs">
           {subNavItems.map(item => (
             <button
@@ -42,8 +48,8 @@ const ManagePage = () => {
               onClick={() => setActiveSubTab(item.id)}
               className={`${
                 activeSubTab === item.id
-                  ? 'border-blue-500 text-blue-600'
-                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                  ? 'border-theme-accent text-theme-accent'
+                  : 'border-transparent text-theme-text-secondary hover:text-theme-text-primary hover:border-gray-500'
               } whitespace-nowrap py-3 px-2 sm:px-3 border-b-2 font-medium text-sm focus:outline-none`}
             >
               {item.label}
@@ -52,7 +58,8 @@ const ManagePage = () => {
         </nav>
       </div>
 
-      <div className="bg-white p-6 shadow-lg rounded-xl">
+      {/* The content container is now themed. The content inside will depend on whether its component has been themed. */}
+      <div className="bg-theme-bg-secondary p-6 shadow-lg rounded-xl border border-theme-border">
         {renderSubContent()}
       </div>
     </div>

@@ -11,16 +11,16 @@ import entitiesData from '../../data/entities.js';
 
 // --- Reusable Components ---
 const InfoCard = ({ title, children, className = '' }) => (
-    <div className={`bg-white p-6 rounded-lg shadow-lg ${className}`}>
-        <h3 className="text-lg font-semibold text-gray-700 border-b pb-2 mb-3">{title}</h3>
+    <div className={`bg-theme-bg-secondary p-6 rounded-lg shadow-lg border border-theme-border ${className}`}>
+        <h3 className="text-lg font-semibold text-theme-text-primary border-b border-theme-border pb-2 mb-3">{title}</h3>
         {children}
     </div>
 );
 
 const DataRow = ({ label, value, unit = '' }) => (
-    <div className="flex justify-between py-1.5 border-b border-gray-100 last:border-b-0">
-        <span className="text-sm text-gray-600">{label}</span>
-        <span className="text-sm font-medium text-gray-800">
+    <div className="flex justify-between py-1.5 border-b border-theme-border last:border-b-0">
+        <span className="text-sm text-theme-text-secondary">{label}</span>
+        <span className="text-sm font-medium text-theme-text-primary">
             {typeof value === 'number' ? value.toLocaleString() : value} {unit}
         </span>
     </div>
@@ -63,15 +63,15 @@ const MarketRiskDashboard = () => {
     }, [selectedEntityId]);
 
      if (isLoading) {
-        return <div className="p-6 text-center text-gray-500">Loading Market Risk Data...</div>;
+        return <div className="p-6 text-center text-theme-text-secondary">Loading Market Risk Data...</div>;
     }
 
     if (error) {
-        return <div className="p-6 text-center text-red-600 bg-red-100 rounded-md">{error}</div>;
+        return <div className="p-6 text-center text-red-400 bg-red-900 bg-opacity-30 rounded-md">{error}</div>;
     }
 
     if (!marketRiskData) {
-        return <div className="p-6 text-center text-gray-500">No market risk data available for the selected entity.</div>;
+        return <div className="p-6 text-center text-theme-text-secondary">No market risk data available for the selected entity.</div>;
     }
 
     const { varData, fxData, interestData, concentrationData, entityName } = marketRiskData;
@@ -79,8 +79,8 @@ const MarketRiskDashboard = () => {
     return (
         <div className="space-y-8">
              <div>
-                <h2 className="text-2xl font-semibold text-gray-800">Market Risk Dashboard for: {entityName}</h2>
-                <p className="text-sm text-gray-600 mt-1">Analysis of potential losses due to factors that affect the overall performance of financial markets.</p>
+                <h2 className="text-2xl font-semibold text-theme-text-primary">Market Risk Dashboard for: {entityName}</h2>
+                <p className="text-sm text-theme-text-secondary mt-1">Analysis of potential losses due to factors that affect the overall performance of financial markets.</p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
@@ -124,15 +124,15 @@ const MarketRiskDashboard = () => {
                      {concentrationData && concentrationData.largeExposures ? (
                          <div className="space-y-3">
                             {concentrationData.largeExposures.map((exp, index) => (
-                                <div key={index} className="p-3 bg-gray-50 rounded-md">
-                                    <p className="font-semibold text-gray-800">{exp.counterparty}</p>
-                                    <div className="w-full bg-gray-200 rounded-full h-2.5 mt-2">
+                                <div key={index} className="p-3 bg-theme-bg rounded-md">
+                                    <p className="font-semibold text-theme-text-primary">{exp.counterparty}</p>
+                                    <div className="w-full bg-gray-700 rounded-full h-2.5 mt-2">
                                         <div 
-                                            className="bg-blue-600 h-2.5 rounded-full" 
+                                            className="bg-blue-500 h-2.5 rounded-full" 
                                             style={{ width: `${(exp.exposure / exp.limit) * 100}%`}}
                                         ></div>
                                     </div>
-                                    <div className="flex justify-between text-xs mt-1 text-gray-500">
+                                    <div className="flex justify-between text-xs mt-1 text-theme-text-secondary">
                                         <span>Exposure: ${exp.exposure.toLocaleString()}</span>
                                         <span>Limit: ${exp.limit.toLocaleString()}</span>
                                     </div>

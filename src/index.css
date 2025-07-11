@@ -8,6 +8,14 @@
   --sidebar-highlight-bg: #4A5568;
   --sidebar-highlight-text: #FFFFFF;
   --emtech-gold: #C9A14F;
+
+  /* --- NEW: Dark Theme Content Colors --- */
+  --theme-bg: #212529;                  /* Primary background for content area */
+  --theme-bg-secondary: #2A2F34;        /* Background for cards, tables */
+  --theme-text-primary: #E9ECEF;        /* Main text color */
+  --theme-text-secondary: #ADB5BD;      /* Lighter text for subtitles, placeholders */
+  --theme-border: #495057;              /* Border color */
+  --theme-accent: var(--emtech-gold);   /* Use gold as the primary accent */
 }
 
 body {
@@ -17,7 +25,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #f5f5f5;
+  background-color: var(--theme-bg); /* Use the new dark background for the body */
+  color: var(--theme-text-primary); /* Set the default text color */
 }
 
 code {
@@ -25,17 +34,11 @@ code {
     monospace;
 }
 
-/* Debugging styles - remove after fixing */
+/* Remove debug styles */
 .debug-sidebar {
-  background: var(--sidebar-bg) !important;
-  color: var(--sidebar-text) !important;
-  border: 2px solid red !important;
+  border: none !important;
 }
 
 .debug-test {
-  background: lime !important;
-  color: black !important;
-  padding: 10px !important;
-  margin: 10px !important;
-  border: 2px solid blue !important;
+  display: none !important;
 }

@@ -1,0 +1,1047 @@
+Request for Proposal
+Suptech Solution for
+Financial Regulation, Supervision
+& Oversight
+DISCLAIMER
+The Central Bank of Trinidad and Tobago “the Bank”, at its sole discretion, reserves the right to
+accept or reject the lowest or any Proposal and/or any portion of it, or to extend, cancel or defer
+the solicitation process and reject all Proposals at any time prior to award of contract. The Bank
+shall also have the right to cancel the project subsequent to the issuance of a letter of award
+without thereby incurring any liability to the affected Vendor or Vendors or any obligation to
+inform the affected Vendor or Vendors of the grounds for such decision.
+Receipt of this Request for Proposal (RFP) should not be construed as an implied agreement on
+the part of the Bank to proceed with any contractual agreement with the Vendor.
+If the Bank decides to award part or this entire project to the Vendor, it will then begin contractual
+discussions with the Vendor and, contingent on the outcome of these contractual discussions, the
+Bank may or may not proceed with this project or may select another Vendor.
+The RFP and the intellectual property contained therein are the sole property of the Bank. The
+RFP and/or its contents may not be copied, distributed, or used in any way without prior written
+consent authorized by the Bank’s personnel. The response to the RFP will become the sole
+property of the Bank and will not be returned.
+The Vendors and their employees, subcontractors and agents, must keep confidential the
+information provided by the Bank in this RFP and this obligation shall survive the cancellation or
+acceptance of the RFP by the Bank. The information provided herein must not be used for any
+purpose other than for its response. The Vendors must ensure that all safeguards and proper
+procedures are implemented to protect the confidentiality of the information.
+Central Bank of Trinidad and Tobago 2
+Table of Contents
+A. TECHNICAL REQUEST ....................................................................................................................................... 4
+1. BACKGROUND .............................................................................................................................................................. 4
+2. OBJECTIVES OF THE REQUEST .............................................................................................................................................. 4
+3. CURRENT ENVIRONMENT ............................................................................................................................................. 5
+4. GENERAL TERMS AND CONDITIONS ............................................................................................................................. 6
+5. DELIVERABLES ............................................................................................................................................................. 7
+6. STRUCTURE OF PROPOSALS .......................................................................................................................................... 8
+a. Executive Summary ................................................................................................................................................. 8
+b. Central Bank’s Requirements .................................................................................................................................. 8
+c. Vendor Profile ......................................................................................................................................................... 8
+d. Cost Proposal .......................................................................................................................................................... 8
+e. Project Implementation/Scheduling ....................................................................................................................... 9
+f. Training/Knowledge Transfer ................................................................................................................................. 9
+g. Post Implementation support ................................................................................................................................. 9
+h. Warranties / After Sales / Maintenance ................................................................................................................. 9
+i. References ............................................................................................................................................................ 10
+j. Financials .............................................................................................................................................................. 10
+k. All other Statutory and Industry related requirements ...................................................................................... 10
+B. INSTRUCTIONS TO VENDORS ........................................................................................................................ 11
+7. SUBMISSION OF PROPOSAL DOCUMENT ..................................................................................................................... 11
+8. MANDATORY REQUIREMENTS .................................................................................................................................... 11
+9. EVALUATION PROCESS ............................................................................................................................................... 11
+10. EVALUATION CRITERIA .............................................................................................................................................. 11
+11. CLARIFICATION OR INTERPRETATION OF ITEMS ......................................................................................................... 12
+12. VALIDITY PERIOD ...................................................................................................................................................... 12
+13. PAYMENT TERMS ....................................................................................................................................................... 12
+14. QUOTATIONS .............................................................................................................................................................. 12
+15. RETENTION ................................................................................................................................................................ 13
+16. CONTRACTS ............................................................................................................................................................... 13
+17. LIQUIDATED DAMAGES .............................................................................................................................................. 13
+18. DELIVERY PERIOD ...................................................................................................................................................... 13
+19. UNSOLICITED INFLUENCE........................................................................................................................................... 13
+20. CONFLICT OF INTEREST .............................................................................................................................................. 13
+21. COMMUNICATION/NOTIFICATION OF AWARD ............................................................................................................ 13
+22. EXECUTION OF AGREEMENT ...................................................................................................................................... 13
+23. WITHHOLDING TAX ................................................................................................................................................... 13
+24. INSURANCE ................................................................................................................................................................ 14
+APPENDICES ................................................................................................................................................................ 17
+APPENDIX 1 - DETAILED DEPARTMENT REQUIREMENTS AND SUPPORTING DOCUMENTATION ............................................ 18
+APPENDIX 2 – LIST OF REGULATORY RETURNS ................................................................................................................... 19
+APPENDIX 3 - LIST OF HIGH-LEVEL PROCESSES .................................................................................................................. 28
+APPENDIX 4 - HIGH-LEVEL PROCESS MAPPING ................................................................................................................... 29
+APPENDIX 5 – IT DESCRIPTION ............................................................................................................................................ 30
+Central Bank of Trinidad and Tobago 3
+A. Technical Request
+1. Background
+The Central Bank of Trinidad and Tobago (the Bank) is responsible for overseeing monetary
+policy, and promoting financial stability, which in part involves regulating financial institutions.
+Its mission is “the promotion of such monetary, credit and exchange policies as would foster
+monetary and financial stability and public confidence and be favourable to the economy of
+Trinidad and Tobago."
+The Central Bank is responsible for inter alia, maintaining confidence in, and promoting the
+soundness and stability of the financial system, by supervising the operations of commercial
+banks, non-bank financial institutions, bureaux de change, insurance companies, insurance
+intermediaries, pension plans, and financial holding companies. The Financial Institutions
+Supervision Department (FISD) of the Bank is primarily responsible for carrying out this mandate
+by supervising regulated institutions to ensure that they are in sound financial condition and
+operating in accordance with the relevant laws, regulations, and guidelines issued by the Bank.
+The Payments and Financial Markets Infrastructure Department (PFMID) contributes to financial
+stability through effective supervision and oversight of the National Payments System and is
+responsible for the regulation and supervision of payments system operators and payment service
+providers (including e-money issuers).
+The Bank is also responsible for the anti-money laundering and combatting terrorism financing
+(AML/CFT) supervision of its regulated entities.
+The Statistics Department is responsible for compiling the Monetary, Financial and External
+Sector Statistics for the country. It also produces a Quarterly Index of Economic Activity (QIEA)
+and reports on Government debt, fiscal operations and other real sector indicators. It gathers data
+from various market participants, (such as banks, non-banks, insurers, pension funds, the
+government and corporate entities), then organises, summarises, and presents this data to support
+supervisory decision-making and monetary and fiscal policy formation. It continuously strives
+to improve the quality, relevance, and consistency of the Bank's data, ensuring alignment with
+international standards.
+Over the past decade, digital innovations have transformed the financial sector, offering benefits
+like improved access, operational efficiencies, and new products. However, these innovations
+also bring risks, including cybersecurity threats, and data privacy issues. The sheer volume of
+regulatory data and resource constraints require the Bank to continuously seek ways to improve
+its ability to effectively oversee, ensure compliance, and manage systemic risks. The increasingly
+complex organisational structures of financial holding companies, with their local, regional, and
+international subsidiaries, require robust supervisory oversight and a more nuanced and dynamic
+monitoring approach.
+Traditional supervisory methods, legacy infrastructure, and limited resources make it increasingly
+difficult to keep pace with these changes. The Bank must therefore strategically transition to a
+more sophisticated supervisory solution that is dynamic, automated, and data-driven in order to
+keep abreast of these rapid technological advancements and increasing complexities in the
+financial sector.
+2. Objectives of the Request
+The Bank aims to transform its regulatory and supervisory functions by incorporating advanced
+technologies such as data analytics, artificial intelligence, machine learning, and cloud computing
+via the acquisition and implementation of a Supervisory Technology (SupTech) solution.
+Implementing SupTech can help the Bank effectively manage the increasing complexities in the
+financial sector, ensure robust financial oversight and foster a stable economic environment. Refer
+to Section 4 for more information.
+Central Bank of Trinidad and Tobago 4
+3. Current Environment
+For the intake of structured quantitative data, the Bank currently uses the Forecasting Analysis
+and Modelling Environment (FAME) System as its data warehouse for economic and financial
+data. In FY2022/23, the FAME Enterprise Data Management (FEDM) system was deployed,
+complemented by the GoAnywhere secure file transfer application, to automate the intake of
+regulatory and other submissions from the Statistics Department's external data providers.
+The process flowchart below (Figure 1) demonstrates the process by which regulatory returns
+(containing quantitative data mostly in Excel format) are submitted via GoAnywhere and
+ultimately loaded into FEDM. The “CB20” Return (monthly balance sheet of commercial banks
+and non-bank financial institutions) is used in this example.
+Figure 1: Process Flow - Submission of Regulatory Returns
+Firstly, institutions submit the required regulatory returns via the web-based GoAnywhere portal.
+Usernames and passwords are assigned to each institution, granting specific access to selections
+on the platform. Checks have been built-in within the platform to ensure that the institution
+chooses the correct selection when submitting their respective returns.
+Once the correct selections have been made and the correct return file submitted, through the
+GoAnywhere platform the return is moved to a temporary staging area until the relevant scheduler
+loads the return into the FEDM environment. The schedulers are set at predetermined dates and
+times based on each submissions’ regulatory requirements.
+Before loading, data is verified by FEDM through a series of built-in validations. If any validation
+fails, the return is rejected and the relevant institution and Statistics Department are automatically
+alerted via email that the return failed a validation, which also contains a FEDM error log that
+identifies the failure. The institution is then required to resubmit an amended return following
+the same process identified earlier1.
+Once all validation checks are passed in FEDM, the respective databases are updated and
+predefined reports can be generated for dissemination to the various stakeholders. The reports
+are generated in Microsoft Excel (XLSX) using the FAME POPULATOR Excel Add-In, while
+some compliance reports are generated in PDF2.
+1 The majority of returns have in-built verification checks in the Excel template so institutions usually address any
+validation failures prior to submission. Resubmissions have significantly reduced under this new system.
+2 The Go Anywhere system allows for compliance tracking. This is currently being rolled out.
+Central Bank of Trinidad and Tobago 5
+FISD is responsible for regulating over 70 per cent of the local financial sector’s assets. This
+comprises 8 commercial banks, 16 non-bank financial institutions, 4 financial holding companies,
+31 insurers, 33 insurance brokers, 3,165 insurance intermediaries, 175 pension plans, and 4
+bureaux de change. As a result, FISD receives a significant amount of diverse, proprietary,
+quantitative and qualitative, correspondence, applications, reports, and other supervisory
+information, in a variety of formats. This results in a labour-intensive and inefficient process of
+data entry, verification, validation, analysis, reporting, and management of structured and
+unstructured data.
+Currently, PFMID supervises 10 Payment Service Providers (PSPs), including four E-Money
+Issuers (EMIs) for e-money business and one Inter-Bank Payment System Operator to ensure
+compliance with governance, legal, and risk management standards, while also processing several
+new applications and ongoing inquiries. PFMID depends on other departments, such as Financial
+Technology Information Services, Risk Management, Legal and FISD, for licensing and
+supervision reviews. Market surveillance and data analytics are labour-intensive and basic, with
+general reporting done manually, causing delays and budget overruns. Assessments, compliance
+checks, and the creation of entity profiles are performed manually. Planned new legislation will
+require substantial systems and resources for effective administration. PFMID's small staff size
+further complicates these challenges. Similar to FISD, PFMID receives a significant amount of
+proprietary, quantitative and qualitative, correspondence, applications, reports, and other
+supervisory information, in a variety of formats. Therefore, the same applies with ensuring that
+this unstructured information is incorporated into our assessments.
+Refer to Appendix 5 for more information on FAME and FEDM.
+4. General Terms and Conditions
+The following general terms and conditions will also apply:
+a. Vendors must indicate all parties concerned with, or contributing to, the Proposal including
+any subcontracts or similar arrangements.
+b. Unless otherwise expressly agreed, there shall be no binding contract between the successful
+Vendor and the Bank unless and until a written contract is executed by both Parties.
+c. The requirements specified in this RFP reflect those known at present. The Bank reserves the
+right to vary the final requirements prior to the closing date of the tender and in such event,
+will issue an addendum to the tender, along with a reasonable extension to the tender’s closing
+date.
+d. All documentation submitted and statements made as part of, or in connection with, the
+successful Proposal will be carried forward as part of the contract.
+e. The Bank will treat all information contained in a Vendor’s response, and any subsequent
+information, as commercially confidential and will not disclose it to any third party, without
+specific written authority.
+f. No advertising, press release or any other information relating to the submission or acceptance
+of any Proposal shall be published in any newspaper, magazine, journal or other medium
+without the prior consent of the Bank.
+g. This RFP and any contract arising from it shall be construed according to and governed by
+the laws of the Republic of Trinidad and Tobago and the Vendor agrees to submit to the
+exclusive jurisdiction of the Trinidad and Tobago courts in any dispute or difference of any
+kind which may arise concerning this RFP or any related contract.
+h. Vendors will be required to comply with the appropriate Health and Safety measures and
+protocols implemented by the Bank in accordance with any existing or new health ordinances.
+Central Bank of Trinidad and Tobago 6
+5. Deliverables
+The Bank is interested in exploring solutions that facilitate:
+a. Automated Workflow Management: Streamlining internal workflows to reduce manual
+input and efforts, improve efficiency and accuracy in the supervisory processes (e.g. onsite
+and offsite supervision). Workflow tracking should facilitate generation of alerts/prompts and
+enable users (particularly supervisors and managers) to determine what stages of the process
+have been conducted and what remains outstanding. Analytics regarding the
+processes/workflows (e.g. how many on-site examinations have been conducted, what stage
+of the process takes the longest etc.) would be useful.
+b. Automation of Regulatory Applications: The automated collection and processing of
+regulatory applications for approvals (e.g. licensing/registration, fit and proper), receipt of
+payments, and other related processes and/or documentation. Capability to have these
+documents checked against requirements stated in legislation and guidelines would be useful.
+c. Risk Management Tools: Analytic tools for risk assessment, monitoring and management.
+Capability to use varied inputs (both quantitative and qualitative) to generate a composite risk
+assessment, which can then be modified by staff as, needed.
+d. Compliance Monitoring: The monitoring of various aspects of regulatory compliance in
+real-time or near real-time. This can ensure that the Bank can meet regulatory deadlines and
+provide accurate reports to stakeholders.
+e. Data Intake and Storage: Portal for receiving regulatory returns and ad-hoc quantitative and
+qualitative data; data storage that facilitates easy data retrieval as well as flexible and robust
+reporting. Capability to integrate with the existing FEDM/FAME environment.
+Please provide the methodology used for costing data cleaning and migration (i.e. use of
+FEDM/FAME vs without FEDM/FAME).
+f. Creation of Forms/Surveys: The ability to create both standardised and ad-hoc
+forms/surveys are required whereby responses can be received, collated and analysed within
+the system.
+g. Data Visualisation and Analysis: The provision of deep insights and analysis through data
+visualisation, machine learning, or artificial intelligence tools.
+h. Reporting Capabilities: The ability to develop easily insightful reporting based on risk
+assessments and analytics.
+i. Review and Analysis of Unstructured Data: Capability to summarise and extract useful
+information from varied sources such as annual reports, audited financial statements, legal
+documents, policies and procedures, business plans, Internal Capital Adequacy Assessment
+Process (ICAAP) for banks / Own Risk Self-Assessment (ORSA) for insurers, emails, etc.
+j. Audit Review Capabilities: The system should provide audit tools and audit logs to track
+activity.
+k. Resilient Operations: The solution should include provisions for both a production and a test
+environment, as well as placement at a disaster recovery site capable of live data replication.
+The solution should have high availability with fail-over mechanisms to the disaster recovery
+site.
+Central Bank of Trinidad and Tobago 7
+The detailed listing of departmental requirements is contained in Appendix 1.
+6. Structure of Proposals
+Vendors are required to submit their Proposals in the format specified below….
+a. Executive Summary
+1. Give a synopsis of solution; items to be supplied, services to be offered, etc.
+2. Previous experience in the provision of this solution.
+3. Proposed cost of the solution to be provided (VAT Exclusive).
+b. Central Bank’s Requirements
+The Vendor should describe its interpretation of the Bank’s requirements and how their
+Proposal best meets them.
+c. Vendor Profile
+A business profile of the Vendor, which should include the following:
+1. The company’s history and structure, including the number of years in operation.
+2. Number of staff employed.
+3. The number of years that the company has been executing projects of the type being
+proposed.
+4. A list of similar projects.
+5. The number, role, expertise, of the staff members relevant to this Proposal (i.e. those that
+will be executing the work).
+d. Cost Proposal
+Vendors are required to provide their cost breakdowns and total cost for a period of five years,
+broken down, by year as per the table below. If the vendor is able to provide costings based
+on modules, the modules should be specified and their respective costs listed in the tables
+below. The vendor is required to provide pricing for cloud-based and on premise versions of
+their proposed solution3:
+5 Year
+Production Environment Year 1 Year 2 Year 3 Year 4 Year 5
+TOTAL
+Software/software services (inclusive of
+licensing) for vendor and/or any 3rd party
+software used
+Implementation (including data migration &
+integration, setup and configuration of
+environment and any other considerations)
+Support & Maintenance
+TOTALS
+5 Year
+Testing Environment Year 1 Year 2 Year 3 Year 4 Year 5
+TOTAL
+Software/software services (inclusive of
+licensing) for vendor and/or any 3rd party
+software used
+3 Add additional rows as needed.
+Central Bank of Trinidad and Tobago 8
+Implementation (including data migration &
+integration, setup and configuration of
+environment and any other considerations)
+Support & Maintenance
+TOTALS
+5 Year
+Disaster Recovery Environment Year 1 Year 2 Year 3 Year 4 Year 5
+TOTAL
+Software/software services (inclusive of
+licensing) for vendor and/or any 3rd party
+software used
+Implementation (including data migration &
+integration, setup and configuration of
+environment and any other considerations)
+Support & Maintenance
+TOTALS
+Other Vendor Recommended 5 Year
+Year 1 Year 2 Year 3 Year 4 Year 5
+Environment/s TOTAL
+Software/software services (inclusive of
+licensing) for vendor and/or any 3rd party
+software used
+Implementation (including data migration &
+integration, setup and configuration of
+environment and any other considerations)
+Support & Maintenance
+TOTALS
+For the on premise solution, vendors are also required to list the recommended hardware, software,
+networking, and security components needed to successfully implement and operate the solution.
+e. Project Implementation/Scheduling
+The Vendor should identify the timelines, phases, resources to be used and duration of the
+proposed project - i.e. how the project as described in the Technical request is to be executed.
+f. Training/Knowledge Transfer
+Describe the applicable training and knowledge transfer activities.
+g. Post Implementation support
+Describe the method and approach to post implementation support.
+h. Warranties / After Sales / Maintenance
+The terms and conditions of all warranties and maintenance agreements should be clearly
+stated in the Proposal. A copy of the maintenance agreement must be provided.
+Central Bank of Trinidad and Tobago 9
+i. References
+Vendors are required to share the contact information (contact name; phone number and
+email address) of three (3) client references. These references should be limited to clients
+involved in projects of a similar type. These references are to be presented in the format shown
+below.
+Scope of
+No. Client US$ Value Duration Reference
+Works
+Supply of Name, Designation,
+Client Name Dollar
+Suptech Time period Telephone and E-mail
+1 & Registered value of the
+Services of the project Address for Client
+Address project
+Representative
+j. Financials
+Vendors are required to provide audited financial statements for the last three (3) years or
+financial statements accompanied by an Accountant’s Report, if audited financial statements
+are not available. The financial statements comprise:
+ An Independent Auditor’s Opinion or Accountant’s Report issued by a firm or
+practitioner with a valid practicing certificate;
+ The primary financial statements (Statement of Financial Position signed by the Directors,
+Statement of Comprehensive Income, Statement of Changes in Equity and Cash Flow
+Statement) with supporting notes.
+If the financial statements submitted does not meet the above requirements, the submission
+will be considered as non-compliant with the RFP requirements.
+k. All other Statutory and Industry related requirements
+Companies Registered outside of Trinidad and Tobago:
+(a) Proof of Incorporation Status, or equivalent
+(b) Tax Clearance certification as applicable within the Foreign Vendor’s Jurisdiction
+Only vendors that are registered on the eboxTENDERS platform are eligible to receive invitations
+and submit proposals.
+Original documents are to be provided upon request, and they should be valid for the period
+of the RFP. Vendors are advised to monitor and manage their Vendor Accounts on the eBox
+Platform on an ongoing basis as an approved Vendor.
+Note: All Vendors are also asked to submit/upload a copy of a sample Vendor contract, if any, for
+ease of administration.
+END OF STRUCTURE OF PROPOSALS
+Central Bank of Trinidad and Tobago 10
+B. Instructions to Vendors
+7. Submission of Proposal Document
+a. Proposal documents and all other related correspondence must be in ENGLISH.
+b. Proposals must be received by the Bank under seal by 3:00 p.m. (GMT-4) on Wednesday,
+April 30, 2025. Each Proposal must consist of one (1) electronic copy sent via the CBTT
+eBox Tenders Website (https://eboxtenders.com/cbtt)4.
+c. Any Proposal received by the Bank after the Deadline for its Receipt, will NOT be considered.
+d. The Vendor shall wholly absorb all costs incurred in the preparation and presentation of the
+Proposal.
+e. The Vendor whose response best meets the requirements will be issued a letter of acceptance
+(i.e. an Award Letter) and notified that such acceptance is provisional and subject to the
+tenderer entering into a binding contract and receipt of a performance bond, where applicable.
+Note: The Vendor is expected to examine carefully all instructions, conditions, forms, terms,
+specifications and drawings in the tendering documents. Failure to comply with the
+requirements of tender will be at the Vendor’s own risk. Tenders, which are not
+substantially responsive5 to the requirements of the tendering documents, will be
+disqualified.
+8. Mandatory Requirements
+7.1 Any Proposal that fails to meet the Mandatory Requirements stipulated below will be
+deemed nonresponsive and will be given no further consideration:
+a. The Vendor must provide documents that demonstrate their organisation’s financial status.,
+The Vendor must establish that it has the legal capacity to enter into contracts as supported
+by evidence of its registration status.
+b. The Vendor must provide evidence that it has fulfilled all tax and other applicable statutory
+obligations.
+c. The Vendor must upload the executed Non-Disclosure Agreement (NDA) with the proposal
+for this Tender.
+d. The Vendor must disclose any current or pending litigation related to the provision of services
+to a client.
+9. Evaluation Process
+The evaluation process is structured in such a way as to select the most economically
+advantageous tender, which is best suited to meet the requirements of the Bank. The evaluation
+would be carried out in accordance with the pre-determined criteria listed below and the
+acceptance of any tender will be subject to the successful completion of a pilot as described herein.
+10. Evaluation Criteria
+The Bank will place emphasis on the following criteria in evaluating the solution proposed.
+4 For further enquires, kindly contact the Support Services - Procurement Unit at 1(868)621-2288, exts. 2195/2165/
+2734/2621 or email us at cbtt-procurement@central-bank.org.tt. Refer to our website at https://www.central-
+bank.org.tt/about/procurement-process for general information on the Bank’s Procurement Process.
+5 A substantially responsive tender is one, which, conforms to all the terms, conditions and specifications of the Tendering
+Documents without material deviation, reservation or omission. A material deviation or reservation is one, which affects in
+any substantial way the scope, quality, or performance of the Works, or which is rendered to be significantly inconsistent
+with the Tendering requirements of the Bank.
+Central Bank of Trinidad and Tobago 11
+The vendor with the highest score will be required to successfully conduct a pilot of the solution
+using live data and actual integrations, before its tender can be accepted.
+Score
+Evaluation Criteria
+(%)
+1. Functional and Technical Requirements 40
+2. Cost 25
+3. Licensing, Technical and After-Sales Support, Service Level Agreements
+15
+(SLAs), & Training
+4. Implementation Timelines and Approach 10
+5. Vendor Expertise 10
+TOTAL 100
+The pilot will be evaluated on a “pass/fail” basis, and will be used to assess the achievement of
+required objectives and deliverables, technical feasibility, user feedback, and the identification of
+any significant technical roadblocks or limitations. Detailed criteria will be provided to the
+selected vendor before the pilot phase.
+If the vendor with the highest score fails the pilot, the vendor’s tender shall not be accepted. In
+such a circumstance, the Bank reserves the right to invite the vendor with the next highest score
+to conduct the pilot. If any such vendor fails the pilot, its tender shall not be accepted.
+11. Clarification or Interpretation of Items
+Questions related to this RFP should be submitted via the CBTT eBox Tenders Website
+(eboxtenders.com/cbtt) by 4:00 p.m. on Wednesday, April 02, 2025. Questions will be clarified
+by the Bank in writing prior to accepting the tenders.
+12. Validity Period
+All prices quoted in the bids shall be valid for at least ninety (90) days from the Tender closing
+date. In exceptional circumstances, the Bank may request an extension of the period of validity.
+In the event that an extension is requested, Vendors who extend their validity date will not be
+permitted to alter their bid Proposal
+13. Payment Terms
+Subject to the acceptance of the Services by the Bank, the Bank shall pay the Vendor within
+thirty (30) days upon receipt of an original invoice. Payment terms may be negotiated during the
+contract signing. Payment to firms will be made by Electronic Transfers.
+14. Quotations
+Foreign based companies may quote their bids in United States Dollars (US$), which the Bank
+will convert to its TT$ equivalence, based on the rate of exchange as at the closing date of
+submissions.
+Central Bank of Trinidad and Tobago 12
+15. Retention
+The Bank will retain ten percent (10%) of the Contract Price for a defects liability period of three
+(3) months after the completion date.
+16. Contracts
+The Proposal should include a copy of any proposed contractual documents appropriate to this
+procurement. The Bank reserves the right to use its own form of contract or to negotiate on the
+basis of the Vendor ’s proposed contract(s) at its own discretion.
+17. Liquidated Damages
+If the Services are not completed within the agreed term, the Vendor shall be required to pay to the
+Bank liquidated damages at the rate of one percent (1%) of the Contract Price per week for every
+week or part of a week for which the Services remain uncompleted and such liquidated damages
+may be set off against any monies due to the Vendor by the Bank.
+18. Delivery Period
+The contract delivery period MUST BE STATED.
+19. Unsolicited Influence
+Any attempt by a Vendor to influence representatives of the Bank in the evaluation process, will
+result in disqualification of the Vendor.
+20. Conflict of Interest
+Whether or not actual or potential conflict of interest exists, depends on the facts and the
+circumstances as disclosed by the Vendor in response to this Invitation to Tender and as
+determined by the Bank. The Bank is the final authority for determining whether a conflict of
+interest exists and shall reject a Proposal or terminate a contract with any entity that has or if
+found to have a conflict of interest.
+21. Communication/Notification of Award
+Communication between the Bank and Vendors shall be by post, telephone, facsimile
+transmission, eboxTENDERS Platform, courier service, personal delivery or email, to the
+addresses designated by parties for that purpose.
+22. Execution of Agreement
+After receiving notice of award from the Secretary of the Central Bank Tenders Committee, the
+successful Vendor is required to execute a contract with the Bank, prior to commencement of the
+Works.
+23. Withholding Tax
+Central Bank of Trinidad and Tobago 13
+The Bank pursuant to section 50(1) of the Income Tax Act shall withhold the appropriate amount
+of Withholding Tax from the gross payment to the Vendor and such amounts will then be paid
+over to the Board of Inland Revenue in the appropriate manner. Please refer to the following link
+for more detail: https://www.ird.gov.tt/withholding-tax/bulk_upload.
+The vendor may then submit this withholding tax as part of their domestic tax submission.
+24. Insurance
+During the Term of this Contract the Vendor shall, at its own expense, take out and maintain in
+full force and effect the insurance coverage of the kind and in the amounts specified below. Where
+aggregate limits are applicable, such limits shall be automatically reinstated, at the Vendor’s
+expense, in the event that claim settlements are made under the policy. The insurance coverage
+required is as follows:
+a) Workmen Compensation/Employer’s Liability (for duration of time that vendor
+employees or contractors will be in country)
+The Contractor shall carry Workmen’s Compensation Insurance covering all employees of the
+Contractor including sub-contractors as required under applicable laws of Trinidad and Tobago.
+Such insurance coverage shall carry a Medical Expenses limit of no less than Trinidad and
+Tobago Dollars One Thousand (TT$ 1,000.00). Employer’s Liability Insurance with a
+limit of not less than Trinidad and Tobago Dollars Two Million Five Hundred Thousand
+(TT$ 2,500,000.00) for each accident or occurrence in respect of or injury to all employees of
+the Contractor and its sub-contractors.
+b) Public Liability (for duration of time that vendor employees or contractors will be in
+country)
+The Contractor shall be liable for third party bodily injury including bodily injury and death of
+third parties and third party property damage including CBTT resulting from or relating to the
+Contractor’s, or any of its Sub-contractor’s performance of Works up to a limit of Trinidad &
+Tobago Dollars THREE MILLION (TT$ 3,000,000.00) (or its equivalent) for any one
+accident and Trinidad & Tobago Dollars THREE MILLION (TT$ 3,000,000.00) for a
+series of accidents arising from one event. Such policy shall also include the following
+extensions:
+a) Property in the insured’s care custody and control to a limit of 10 % of the Sum insured
+in the annual aggregate.
+b) Away Risks
+c) Including liability arising out of work carried out by sub-contractors
+Central Bank of Trinidad and Tobago 14
+c) Professional Indemnity
+The CONTRACTOR shall insure the legal liability of the Contractor arising out of the fault,
+defect, error or omission of the CONTRACTOR or any person for whom the CONTRACTOR
+is responsible in the carrying out their professional duties in an amount not less than United
+States Dollars ONE MILLION (US$1,000,000.00) (or its equivalent). Coverage shall be in
+full force and effect for the duration of the contract and 12 months Extended Reporting Period.
+d) Cyber Insurance
+The CONTRACTOR shall insure for first party coverage (including privacy breach response,
+customer notification, data recovery/restoration, business income loss, cyber extortion, privacy
+regulatory actions) and third party liability coverage for cyber wrongful acts. Such policy shall
+also include extensions for system failure / operational error and/or human error, reputational
+injury, outside service providers and bricking. Cover shall be in the amount of not less than
+USD 1,000,000 for each occurrence and USD 2,000,000 in the aggregate. Such insurance shall
+be maintained on a stand-alone basis, or as cyber insurance coverage provided as part of any
+professional liability insurance policy. Such policy shall be on a claims made basis.
+e) Automobile Liability Insurance (for duration of time that vendor will be in country utilising
+rental vehicles)
+Automobile Liability Insurance for all activities related to the performance of the work with a
+limit of not less than TTD 2,000,000.00 per occurrence and TTD 4,000,000.00 arising out of
+total claims for any one accident per vehicle for bodily injury to third parties including THE
+BANK and TTD 1,000,000.00 per occurrence and TTD 2,000,000.00 arising out of total claims
+for any one accident per vehicle for third party property damage including THE BANK,
+covering all vehicles and automotive equipment owned, hired or in the custody and control of
+the Contractor and complying with all applicable legislation. Such policies should include a
+Tool of Trade Clause, where applicable.
+1.2 Each insurance policy shall:
+(a) be placed with reputable and substantial insurers satisfactory to COMPANY, with an
+AM Best rating of at least A- or equivalent rating from an internationally or
+regionally recognized credit rating agency.
+(b) contain a provision that written notice of cancellation, alteration or any material
+change thereof shall be delivered to COMPANY not less than thirty (30) days in
+advance of the effective date thereof, and in no event shall such policies be cancelled
+by the Contractor without COMPANY’s prior written consent unless equivalent
+replacement policies are then issued and available providing the required insurance;
+Central Bank of Trinidad and Tobago 15
+(c) identify COMPANY as an additional insured with the exception of the Workmen
+Compensation section of the Workmen Compensation/ Employer Liability policy
+and the Professional Indemnity policy
+(d) Contain waivers of subrogation rights in favour of COMPANY.
+(e) Contain an Indemnity to Principal provision.
+1.3 The Contractor shall, prior to commencement of the Services hereunder, provide
+COMPANY with written evidence that the aforementioned insurances have been effected and
+are in full force with respect to this Contract.
+1.4 The limits specified in this Clause are minimum requirements and shall not be construed
+in any way as limits of liability or as constituting acceptance by COMPANY of responsibility
+for financial liabilities in excess of such limits.
+1.5 If, in COMPANY’s opinion, the minimum limits of the insurance herein required have
+become inadequate during the term of this Contract, the Contractor shall increase such
+minimum limits by reasonable amounts upon the written request of COMPANY within forty-
+five (45) days after receipt thereof. Any increase in the level of the premium as a result of the
+request by COMPANY for such enhanced insurance coverage shall be reimbursed by
+COMPANY to the Contractor upon submission of proper document in support of payment
+thereof. For risk management to advise on.
+END OF INSTRUCTIONS TO VENDORS
+Central Bank of Trinidad and Tobago 16
+APPENDICES
+Central Bank of Trinidad and Tobago 17
+Appendix 1 - Detailed Department Requirements and Supporting Documentation
+Please review the following files for each department’s detailed requirements and sample
+documentation:
+# Item File Name Applicable
+Dept.
+FISD,
+Detailed
+1. Sup Tech - User Requirements.xlsx PFMID,
+Requirements
+Statistics
+High-Level Process FISD,
+2. FISD & PFMI High-Level Process Map.pdf
+Map PFMID
+Procedures, process
+3. flow charts, sample FISD Combined Supporting Documents.pdf FISD
+documents
+Sample Regulatory
+4. ABC Bank Consolidated CB100B-Basel-II-III.xlsx FISD
+Returns
+Sample Regulatory Basel II_III (CB100B) Summary Report for ABC Bank
+5. FISD
+Returns Consolidated.xlsx
+Sample Regulatory Basel II_III_(CB100B) Full Template Reports for ABC Bank
+6. FISD
+Returns Consolidated (all data points in Time Series).xlsx
+Compliance Matrices
+7. PFMID Combined Supporting Documents.pdf PFMID
+and Process Flows
+Central Bank of Trinidad and Tobago 18
+Appendix 2 – List of Regulatory Returns
+PFMID
+Return
+Return Name Description Submitting Institutions Frequency
+(PFMID)
+CB70M Payments System The CB70-M Return captures Licensed Commercial Banks & Monthly
+Participant Monthly data on cash, paper-based and The Central Bank of Trinidad
+Reporting Form paperless payment instruments, and Tobago
+payment cards in circulation,
+and the payments infrastructure.
+CB71 Payments System The CB71 Return captures data, InfoLink Services Limited (ISL): Quarterly
+Operator Reporting inter alia, on volumes and values ACH and LINX
+Form of different types of transactions
+including direct debits and
+credits, returns, rejects and fee
+structure.
+CB73 Payments System The CB73 Return captures data The Central Bank of Trinidad Monthly
+Reporting Form - on the volume and value of and Tobago
+RTGS & Cheque RTGS transactions, cheque
+Clearings Operator clearings, cash transactions,
+participant data and fees
+charged.
+CB74M Utility Company & The CB74-M Return captures Utility Companies and Third Monthly
+Bill Payment data on the volume and value of Party Bill Payment Service
+Service Provider Bill Payments processed by Providers (BPSPs)
+Monthly Reporting Utility Companies and Third
+Form Party Bill Payment Service
+Providers (BPSP), on a monthly
+basis disaggregated by the mode
+of payment and the channel of
+payment (i.e. via internet,
+mobile mechanism or over the
+counter). The CB74-M Return
+also collects data on bill
+payment transactions in foreign
+currencies.
+CB75 Payments System The CB75 Return captures data Payment Service Providers Monthly
+Provider (PSP) on PSP agents, merchants and
+Monthly Reporting households, PSP memoranda
+Form (Pilot) accounts on payment channels
+and types of payees captures as
+well as qualitative data on PSPs.
+CB76 Foreign Currency The CB76 Return captures Licensed Commercial Banks Monthly
+Transaction information on the volume and
+Settlement Tables value of foreign transactions
+(cross-border or local where
+applicable), made by
+commercial banks for
+themselves and on behalf of
+their customers or other third
+parties.
+CB77W E-Money Issuer The CB77W Return collects Licensed financial institutions Weekly
+(EMI) Weekly data on the e-money issued (that (as applicable) and Payment
+Reporting Return is, the e-float), EMI custodian service providers (PSP’s) who
+(Pilot) account balances, e-money have been licensed as E-Money
+accounts and types of e- money Issuers registered with the
+transactions. Central Bank of Trinidad and
+Tobago pursuant to Section
+36(cc) of the Central Bank Act
+Chapter 79:02 and the E-Money
+Issuer Order, 2020.
+Central Bank of Trinidad and Tobago 19
+Return
+Return Name Description Submitting Institutions Frequency
+(PFMID)
+CB77M E-Money Issuer The CB77M Return collects Licensed financial institutions Monthly
+(EMI) Monthly data on e-money transactions by (as applicable) and Payment
+Reporting Return commercial banks and their service providers (PSP’s) who
+(Pilot) businesses and individuals and have been licensed as E-Money
+by e-Money Issuers (“EMIs”) Issuers registered with the
+and their agents, businesses and Central Bank of Trinidad and
+Individuals. Tobago pursuant to Section
+36(cc) of the Central Bank Act
+Chapter 79:02 and the E-Money
+Issuer Order, 2020.
+CB78M Electronic Cheque The CB78M Return collects InfoLink Services Limited (ISL) Monthly
+Clearings System data on the volume and value of - Operator of an ECCS licensed
+(ECCS) Operator cheques cleared, cheques with the Central Bank of
+Monthly Reporting returned and the fees collected Trinidad and Tobago pursuant to
+Form (Pilot) by the system. Section 36(cc) of the Central
+Bank Act Chapter 79:02.
+Central Bank of Trinidad and Tobago 20
+FISD – Banks and Non-Banks
+Return Return Name Description Submitting Frequency
+(FISD - BNBU) Institutions
+CB100LR Leverage Ratio Return Captures data on financial and credit Banks and Monthly
+derivatives, on balance sheet assets, Non-Banks
+off balance sheet exposures and
+Securities financing transactions
+CB100B Basel II/III Reporting Capital Adequacy Report – credit, Banks and Monthly
+Template market and operational risk Non-Banks
+CB20 Monthly Statement of Captures Balance Sheet information Banks and Monthly
+Condition such as assets, liabilities, capital, Non-Banks
+liquid funds, investments etc.
+CB110 Investments Reporting Captures details on the institution’s Banks and Monthly
+Form investment portfolio inclusive of Non-Banks
+treasury bills /notes, bonds, equity
+and mutual funds.
+CB115 Country Exposures Country exposures for key accounts Banks and Monthly
+Reporting Forms such as loans, acceptances and Non-Banks
+deposits. The loans are further
+disaggregated by industrial sector
+such as Government, Private
+Financial Sector, Energy & Mining,
+Agriculture, Electricity and Water,
+Transport, Storage and
+Communication, Distribution, Real
+Estate, Manufacturing, Construction,
+Hotels and Restaurants and
+Consumers.
+CB100LR Leverage Ratio Return Captures data on financial and credit Banks and Quarterly
+derivatives, on balance sheet assets, Non-Banks
+off balance sheet exposures and
+Securities financing transactions
+Top 20 Borrowers and Top 20 Borrowers and Captures data on FX borrowers and Banks Quarterly
+Depositors Depositors depositors
+CB100B Basel II/III Reporting Captures capital adequacy data Banks and Quarterly
+Template inclusive of qualifying capital as well Non-Banks
+as market risk information, such as
+foreign exchange risk etc.
+Central Bank of Trinidad and Tobago 21
+Return Return Name Description Submitting Frequency
+(FISD - BNBU) Institutions
+CB30 Real Estate Mortgage Captures loan information and Banks and Quarterly
+Loans - Quarterly categorization such as loans by Non-Banks
+Changes and Purpose sectors, purposes, and interest rates
+charged etc.
+CB30/11 Size Distribution of Captures Commercial Bank deposits Banks and Quarterly
+Deposits Non-Banks
+CB30/12 Size Distribution of Captures Commercial Bank Foreign Banks Quarterly
+Foreign Currency Currency deposits
+Deposits
+CB30A Real Estate Mortgages Captures loan information and Banks Quarterly
+Report categorization such as loans by
+sectors, purposes, and interest rates
+charged etc.
+CB40 Statement of Income Captures Income and Expenses Banks and Quarterly
+and Expenses information such as Operating Non-Banks
+Income and Operating Expenses.
+QSR Quarterly Captures information on the nominal Banks and Quarterly
+Shareholding Return and beneficial shareholders holding Non-banks
+5% of more of the licensee’s shares.
+CB105 Credit Exposures Captures all credit exposures to Banks and Quarterly
+Reporting Form persons, borrower groups or related Non-Banks
+groups amounting to ten per cent
+(10%) or more of its capital base.
+Stress Testing Data Stress Testing Data Captures data on repricing and Banks Quarterly
+Requirement Requirement maturity, private and public sector
+past due loans by sector and
+consumer past due loans by purpose
+Group Consolidated Group Consolidated Captures group data on Income, Financial Semi
+Reporting Template Reporting Template Credit Delinquency, Country Holding Annual
+Exposure, intercompany balances, Companies
+capital adequacy and compliance
+Central Bank of Trinidad and Tobago 22
+Return Return Name Description Submitting Frequency
+(FISD - BNBU) Institutions
+CB20 Reporting Form Monthly Statement of Captures Balance Sheet information Banks and Annual
+(same form as that used for Condition such as assets, liabilities, capital, Non-Banks
+monthly reporting) liquid funds, investments etc.
+CB40 Reporting Form CB40 Reporting Captures Income and Expenses Banks and Annual
+(same form as that used for Form (same form as information such as Operating Non-Banks
+quarterly reporting) that used for quarterly Income and Operating Expenses.
+reporting)
+CB50 Return Schedule of Fees and Captures data on fees and charges Banks Annual
+Charges
+Central Bank of Trinidad and Tobago 23
+FISD – Insurance
+Return - Return Name Description Submitting Frequency
+(FISD – IU) Institution
+IA-ANNUAL- Annual IA 2018 – Insurance Act Captures financial Long term Annual
+RETURN- Annual Returns Long Term information prepared by Insurers
+LT_V3.1 Insurers) Long Term insurers in
+accordance with the
+requirements of the IA
+2018 and financial
+reporting standards.
+IA-ANNUAL- Annual IA 2018 - Insurance Act Captures financial General Insurers Annual
+RETURN- Annual Returns (General information prepared by
+GEN_V3.1 Insurers) general insurers in
+accordance with the
+requirements of the IA
+2018 and financial
+reporting standards.
+AAR_V1.0 Appointed Actuary's Report Captures key information All Insurers Annual
+from the Appointed
+Actuary including a
+valuation of the insurer’s
+policy liabilities and other
+actuarial liabilities.
+AAR- Schedules to the Appointed Supplement to the Long term Annual
+LT_V1.0 Actuary's Report (Long Term Appointed Actuary’s Insurers
+Insurers) Report: Contains more
+granular and
+supplementary financial
+information (supporting the
+Appointed Actuary’s
+Report) required by the
+regulator.
+AAR- Schedules to the Appointed Supplement to the General Insurers Annual
+GEN_V1.0 Actuary's Report (General Appointed Actuary’s
+Insurers) Report: Contains more
+granular and
+supplementary financial
+information (supporting the
+Appointed Actuary’s
+Report) required by the
+regulator.
+AML- AML/CFT External Audited Captures insurers’ All Insurers Annual
+CFT_V1.0 Report compliance with the
+AML/CFT legislation and
+guidelines.
+IA-ASSET- Annual IA 2018 - Asset Supplement to the Annual All Insurers Annual
+SCHEDULE_ Schedule IA 2018 Returns: contains
+V1.0 more granular and
+supplementary financial
+information (supporting the
+IA 2018 Annual Returns)
+required by the regulator.
+ASSOCI- Association of underwriters Captures financial Association of Annual
+UNDERWRIT outside of T&T information regarding the Underwriters
+ERS- association of
+OTT_V1.0 underwriters.
+ASSOCI- Association of underwriters Captures financial Association of Annual
+UNDERWRIT established in T&T information regarding the underwriters
+ERS-TT_V1.0 association of
+underwriters.
+CAT-R_V1.0 Catastrophe Reserve Fund Insurers carrying on All Insurers Annual
+(unaudited) property business are
+required to establish and
+maintain a Catastrophe
+Central Bank of Trinidad and Tobago 24
+Return - Return Name Description Submitting Frequency
+(FISD – IU) Institution
+Reserve Fund. This form
+captures data regarding
+said fund.
+FATCA- FATCA Reports Captures the insurers’ All Insurers Every three
+R_V1.0 compliance with the Tax years
+Information Exchange
+Agreements and the
+associated guideline.
+FCR_V1.0 Financial Condition Report This report is prepared by All Insurers Annual
+the insurer’s appointed
+actuary and investigates
+the financial condition of
+an insurer with respect to
+capital adequacy and
+liquidity in accordance
+with the relevant
+regulations.
+IFRS-S_V1.0 IFRS Financial Statements & Captures the financial All Insurers Annual
+Auditor Report information of all the
+entities’ operations
+prepared in accordance
+with financial reporting
+standards and duly audited
+in accordance with
+International Standards on
+Auditing (Auditor Report).
+CAPAD_V2.0 Quarterly Capital Adequacy Captures the capital All Insurers Quarterly
+Returns adequacy requirements set
+out in the Insurance
+(Capital Adequacy)
+Regulations.
+CB20- Insurance Quarterly Returns Captures financial data for All Insurers Quarterly
+CB40_V4.1 (VERSION 4.1) each insurer, prepared at
+the end of each calendar
+year quarter.
+Version 4.1 returns are
+prepared in accordance
+with the Insurance Act,
+Chap 84:01
+CB20- Insurance Quarterly Returns Captures financial data for All Insurers Quarterly
+CB40_V5.1 (VERSION 5.1) each insurer, prepared at
+the end of each calendar
+year quarter.
+Version 5.1 returns are
+prepared in accordance
+with the IA, 2018.
+KEY- Key Personnel Return Captures key information All Insurers Annual
+PERSONNEL on behalf of controlling
+_V1.0 shareholders, directors,
+controllers and managers
+of insurers registered under
+the IA 2018.
+STATEMENT Submit statement to Central Captures information All Insurers Annual
+- Bank on Unclaimed Monies regarding policies in
+UNCLAIMED within five days of publishing respect of which there is
+- unclaimed monies unclaimed money.
+MONIES_V1.
+0 This statement is required
+to be published and
+subsequently submitted to
+the Central Bank.
+Central Bank of Trinidad and Tobago 25
+Return - Return Name Description Submitting Frequency
+(FISD – IU) Institution
+UNCLAIMED Confirmation of: Remit to Captures information All Insurers Annual
+-MONIES- Central Bank unclaimed monies regarding policies included
+REMIT- in the published statement,
+CONFIRMAT which remain unclaimed
+ION_V1.0 after the stipulated
+timeframe.
+CB40Ti_V1.0 Quarterly Financial Data for Captures financial data for All Insurers Quarterly
+Tobago Tobago operations.
+QIS_V1.0 Quarterly Insurance Survey Captures data on number All Insurers Quarterly
+of vehicles insured as one
+indicator of the transport
+subsector of the Quarterly
+Index or Real Economic
+Activity (QIEA)
+BOPSPIFINA Balance of Payments Survey Captures data on trade in All Insurers Quarterly
+NDINS_V1.0 Form services and financial
+account positions and
+flows for the compilation
+of the balance of payments
+and international
+investment position
+ASSOCI- Quarterly Returns for Captures financial Association of Quarterly
+UNDERWRIT Association of Underwriters information regarding the Underwriters
+ERS- association of
+QTR_V1.0 underwriters.
+QSR_V2.0 Quarterly Shareholding Report Captures information on All Insurers Quarterly
+the shareholders on
+insurers registered under
+the IA 2018.
+REINSUR- Reinsurance Arrangements Summary of the key All Insurers Annual
+ARRANGEM details/components of the
+ENTS_V1.0 reinsurance contracts
+between an
+insurer/reinsurer.
+CYBER- Cybersecurity Self-Assessment Captures an insurer’s self- All Insurers Annual
+ASSESSMEN Return assessment on their
+T_V1.0 institutions’ cyber-security
+practices.
+CYBERSE- Cybersecurity - Action plans Insurers are required to All Insurers Annual
+ACTION- submit a comprehensive
+PLAN_V1.0 action plan to address
+deficiencies identified in
+the cybersecurity self-
+assessment.
+CLAIMS- Claims Schedule Captures basic claims All Insurers Quarterly
+SC_V1.0 information, grouped by
+accident year.
+CB105i_V2.1 Credit Exposures Captures information on All Insurers Quarterly
+credit exposures in excess
+of the limits prescribed in
+the IA 2018.
+PR- IFRS 17 - Quarterly Capital Captures the capital All Insurers Quarterly
+CAPAD_V2.0 Adequacy Returns (Parallel Run) adequacy requirements set
+out in the Insurance
+(Capital Adequacy)
+Regulations, prepared in
+accordance with the
+recently introduced IFRS
+17 standards.
+Central Bank of Trinidad and Tobago 26
+Return - Return Name Description Submitting Frequency
+(FISD – IU) Institution
+PR- IFRS 17 - Credit Exposures Captures information on All Insurers Quarterly
+CB105i_V2.1 (Parallel Run) credit exposures in excess
+of the limits prescribed in
+the IA 2018, prepared in
+accordance with the
+recently introduced IFRS
+17 standards.
+PROPERTY- Property Valuation Reports Property valuations for any All Insurers Annual
+VAL_V1.0 investment properties held
+by insurers.
+Central Bank of Trinidad and Tobago 27
+Appendix 3 - List of High-Level Processes
+A.1.1 Licensing of Banks and Non-Banks
+A.1.2 Registration of Insurers
+A.1.3 Licensing of Bureaux de Charge
+A.1.4 Registration of Pension Plans
+A.1.5 Licensing and Registration of Payment Service Providers
+(PSPs including EMIs)
+A.1.6 Licensing of Payment Service Operators
+A.2.1 Registration of Intermediaries
+A.2.2 Renewal of Registration of Intermediaries
+A.2.3 Expiration of Registration of Intermediaries
+A.2.4 Termination of Registration of Intermediaries
+A.2.5 Termination of Bureau's Authorisation/Location
+Regulatory
+A.3.1 Fit & Proper Approvals (Personal Declaration &
+Approvals
+Questionnaire (PDQs) Applications)
+A.3.2 Director/Officer Permit
+A.3.3 Significant & Controlling Shareholders Permits
+A.4.1 Mergers and Acquisitions
+A.4.2 Opening/closing/relocating of branches outside of T&T
+Microprudential
+A.4.3 Opening/closing/relocating of branches in T&T
+Oversight
+A.4.4 New bureau location
+A.4.5 Opening/closing/relocating of representative office
+in/outside T&T
+A.4.6 Establishment of Subsidiaries
+A.4.7 Establishment of Financial Holding Company
+A.4.8 New/materially different product/service
+B.1 Off-site risk assessment
+B.2 Off-site surveys / questionnaires / self assessments
+B.3 Off-site monitoring
+B.4 Off-site compliance monitoring
+Supervision B.5 Off-site general correspondence
+(Prudential,
+B.6 Off-site reporting
+AML/CFT
+C.1 On-site planning
+and Market
+C.2 On-site field work
+Conduct)
+C.3 On-site conclusion
+C.4 On-site follow-up
+D.1 Enforcement
+E.1 Market conduct
+F.1 Legislative development
+G.1 Guidelines and circulars
+H.1 External reporting
+I.1.1 Cost recovery
+I.2.1 Training
+Macroprudential
+Support
+I.3.1 Technical Assistance
+Oversight
+Processes
+I.3.2 Committee support
+I.4.1 Mailing list
+Payment J.1 Assessment and Recommendations re. PFMI Standards
+System J.2 Joint regulatory innovation hub and Regulatory sandbox
+Oversight
+Central Bank of Trinidad and Tobago 28
+Appendix 4 - High-Level Process Mapping
+This process mapping is also available in the Supporting Document entitled “FISD & PFMI High
+Level Process Map”.
+Central Bank of Trinidad and Tobago 29
+Appendix 5 – IT Description
+1. FAME is currently run on Red Hat Enterprise Linux (RHEL) 7.9. This would be upgraded to version
+8.10 when version 7 has reached end-of-maintenance.
+2. FEDM is currently run on Windows Server 2019.
+3. The FEDM application connects to the FAME database using the MCADBS Service installed on both
+servers.
+4. The GoAnywhere platform is used to securely receive the regulatory returns from the regulated
+entities.
+5. The data contained in these returns is then validated and processed by FAME & FEDM.
+6. The FEDM application provides and validates the regulatory data that is stored in the FAME database.
+Central Bank of Trinidad and Tobago 30

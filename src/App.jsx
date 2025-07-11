@@ -25,11 +25,20 @@ import { WorkflowProvider } from './context/WorkflowContext.jsx';
 // Import the full-screen submission page
 import EnhancedReportSubmissionPage from './components/Reporting/ReportSubmissionPage.jsx';
 
+// --- NEWLY ADDED ---
+// Import the new PasswordScreen component
+import PasswordScreen from './components/PasswordScreen/PasswordScreen.jsx';
+
 function App() {
   const [activeTab, setActiveTab] = useState('dashboard');
   
   // This state will now control whether we show the main app or the fintech view
   const [currentView, setCurrentView] = useState('main'); // 'main' or 'fintech_submission'
+
+  // --- NEWLY ADDED ---
+  // Add authentication state. Set to `false` to show password screen first.
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
 
   const renderMainContent = () => {
     switch (activeTab) {
@@ -64,6 +73,13 @@ function App() {
         return <div className="p-4"><h1 className="text-2xl font-semibold">Page Not Found</h1></div>;
     }
   };
+
+  // --- UPDATED RENDER LOGIC ---
+  if (!isAuthenticated) {
+    // If not authenticated, show the password screen
+    // Pass a function to update the state upon successful login
+    return <PasswordScreen onLoginSuccess={() => setIsAuthenticated(true)} />;
+  }
 
   return (
     <WorkflowProvider>

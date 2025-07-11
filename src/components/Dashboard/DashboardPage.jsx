@@ -37,11 +37,11 @@ const mockDashboardData = {
     ]
 };
 
-// --- Helper Components (Unchanged) ---
+// --- Helper Components (Updated for Dark Theme) ---
 const DashboardWidget = ({ title, children, icon, className = '' }) => (
-    <div className={`bg-white p-4 rounded-lg shadow-md h-full flex flex-col ${className}`}>
-        <div className="flex items-center text-lg font-semibold text-gray-700 mb-3 border-b pb-2">
-            {React.cloneElement(icon, { className: 'w-6 h-6 mr-2 text-gray-500' })}
+    <div className={`bg-theme-bg-secondary p-4 rounded-lg shadow-md h-full flex flex-col border border-theme-border ${className}`}>
+        <div className="flex items-center text-lg font-semibold text-theme-text-primary mb-3 border-b border-theme-border pb-2">
+            {React.cloneElement(icon, { className: 'w-6 h-6 mr-2 text-theme-text-secondary' })}
             {title}
         </div>
         <div className="flex-grow">{children}</div>
@@ -55,9 +55,9 @@ const TaskItem = ({ task }) => {
         Low: 'border-yellow-500',
     };
     return (
-        <div className={`p-2 border-l-4 ${priorityColors[task.priority]} bg-gray-50 rounded-r-md`}>
-            <p className="text-sm font-medium text-gray-800">{task.description}</p>
-            <p className="text-xs text-gray-500">{task.module} - Due: {task.dueDate}</p>
+        <div className={`p-2 border-l-4 ${priorityColors[task.priority]} bg-theme-bg rounded-r-md`}>
+            <p className="text-sm font-medium text-theme-text-primary">{task.description}</p>
+            <p className="text-xs text-theme-text-secondary">{task.module} - Due: {task.dueDate}</p>
         </div>
     );
 };
@@ -67,17 +67,16 @@ const DashboardPage = () => {
     const currentUser = { name: 'Alice Wonderland', role: 'Head of Licensing' };
 
     return (
-        <div className="p-4 md:p-6 bg-gray-100 min-h-screen">
+        <div className="p-4 md:p-6 min-h-screen">
             {/* Header */}
             <div className="mb-6">
-                <h1 className="text-3xl font-bold text-gray-800">Welcome back, {currentUser.name}!</h1>
-                <p className="text-gray-600">Here is your supervisory summary for Tuesday, June 24, 2025.</p>
+                <h1 className="text-3xl font-bold text-theme-text-primary">Welcome back, {currentUser.name}!</h1>
+                <p className="text-theme-text-secondary">Here is your supervisory summary for Tuesday, July 10, 2025.</p>
             </div>
 
-            {/* MODIFIED: New grid layout */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                
-                {/* My Tasks Column (now taller) */}
+
+                {/* My Tasks Column */}
                 <DashboardWidget title="My Priority Tasks" icon={<CheckCircleIcon />} className="lg:col-span-1 lg:row-span-2">
                     <div className="space-y-3">
                         {mockDashboardData.myTasks.map(task => <TaskItem key={task.id} task={task} />)}
@@ -86,26 +85,26 @@ const DashboardPage = () => {
 
                 {/* Top Row, Middle Column */}
                 <DashboardWidget title="Institutional Risk Radar" icon={<ShieldCheckIcon />}>
-                    <h3 className="text-md font-semibold text-gray-600 mb-2">High-Risk Watchlist</h3>
-                    <div className="p-4 bg-red-50 border border-red-200 rounded-lg">
+                    <h3 className="text-md font-semibold text-theme-text-secondary mb-2">High-Risk Watchlist</h3>
+                    <div className="p-4 bg-red-900 bg-opacity-20 border border-red-500 border-opacity-30 rounded-lg">
                         <ul className="space-y-2">
                             {mockDashboardData.highRiskWatchlist.map(entity => (
                                  <li key={entity.id} className="flex justify-between items-center">
-                                     <span className="font-medium text-red-800">{entity.name}</span>
-                                     <span className="text-sm text-red-600">Score: {entity.riskScore} ({entity.primaryDriver})</span>
+                                     <span className="font-medium text-red-300">{entity.name}</span>
+                                     <span className="text-sm text-red-400">Score: {entity.riskScore} ({entity.primaryDriver})</span>
                                  </li>
                             ))}
                         </ul>
                     </div>
                 </DashboardWidget>
-                
+
                 {/* Top Row, Right Column */}
                 <DashboardWidget title="Systemic Health Indicators" icon={<BuildingLibraryIcon />}>
                     <div className="grid grid-cols-2 gap-4 text-center">
                         {Object.entries(mockDashboardData.systemicRisk).map(([key, data]) => (
-                            <div key={key} className={`p-2 rounded-lg ${data.status === 'Warning' ? 'bg-orange-100' : 'bg-green-50'}`}>
-                                <p className="text-xs font-medium text-gray-600 capitalize">{key.replace(/([A-Z])/g, ' $1')}</p>
-                                <p className={`text-xl font-bold ${data.status === 'Warning' ? 'text-orange-600' : 'text-green-700'}`}>{data.value}</p>
+                            <div key={key} className={`p-2 rounded-lg ${data.status === 'Warning' ? 'bg-orange-900 bg-opacity-30' : 'bg-green-900 bg-opacity-20'}`}>
+                                <p className="text-xs font-medium text-theme-text-secondary capitalize">{key.replace(/([A-Z])/g, ' $1')}</p>
+                                <p className={`text-xl font-bold ${data.status === 'Warning' ? 'text-orange-300' : 'text-green-300'}`}>{data.value}</p>
                             </div>
                         ))}
                     </div>
@@ -116,13 +115,13 @@ const DashboardPage = () => {
                      <ul className="space-y-3">
                          {mockDashboardData.recentActivity.map(activity => (
                              <li key={activity.id} className="flex items-start text-sm">
-                                 <div className="flex-shrink-0 w-5 h-5 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mr-3 mt-1">
+                                 <div className="flex-shrink-0 w-5 h-5 bg-blue-900 bg-opacity-30 text-blue-300 rounded-full flex items-center justify-center mr-3 mt-1">
                                      <ExclamationCircleIcon className="w-4 h-4" />
                                  </div>
                                  <div>
-                                     <p className="font-semibold text-gray-700">{activity.type}</p>
-                                     <p className="text-gray-600">{activity.description}</p>
-                                     <p className="text-xs text-gray-400">{activity.time}</p>
+                                     <p className="font-semibold text-theme-text-primary">{activity.type}</p>
+                                     <p className="text-theme-text-secondary">{activity.description}</p>
+                                     <p className="text-xs text-gray-500">{activity.time}</p>
                                  </div>
                              </li>
                          ))}
@@ -132,21 +131,21 @@ const DashboardPage = () => {
                 {/* Bottom Row, Right Column */}
                  <DashboardWidget title="Quick Access" icon={<ScaleIcon />}>
                      <div className="grid grid-cols-2 gap-4 h-full">
-                        <button className="p-2 bg-gray-50 rounded-lg text-center hover:bg-gray-100 flex flex-col items-center justify-center">
-                            <IdentificationIcon className="w-8 h-8 mx-auto text-gray-500 mb-1" />
-                            <span className="text-sm font-semibold text-gray-700">New License Apps</span>
+                        <button className="p-2 bg-theme-bg rounded-lg text-center hover:bg-black hover:bg-opacity-20 flex flex-col items-center justify-center border border-theme-border">
+                            <IdentificationIcon className="w-8 h-8 mx-auto text-theme-text-secondary mb-1" />
+                            <span className="text-sm font-semibold text-theme-text-primary">New License Apps</span>
                         </button>
-                        <button className="p-2 bg-gray-50 rounded-lg text-center hover:bg-gray-100 flex flex-col items-center justify-center">
-                            <ExclamationTriangleIcon className="w-8 h-8 mx-auto text-gray-500 mb-1" />
-                            <span className="text-sm font-semibold text-gray-700">Overdue Reports</span>
+                        <button className="p-2 bg-theme-bg rounded-lg text-center hover:bg-black hover:bg-opacity-20 flex flex-col items-center justify-center border border-theme-border">
+                            <ExclamationTriangleIcon className="w-8 h-8 mx-auto text-theme-text-secondary mb-1" />
+                            <span className="text-sm font-semibold text-theme-text-primary">Overdue Reports</span>
                         </button>
-                         <button className="p-2 bg-gray-50 rounded-lg text-center hover:bg-gray-100 flex flex-col items-center justify-center">
-                            <ClockIcon className="w-8 h-8 mx-auto text-gray-500 mb-1" />
-                            <span className="text-sm font-semibold text-gray-700">Expiring Licenses</span>
+                         <button className="p-2 bg-theme-bg rounded-lg text-center hover:bg-black hover:bg-opacity-20 flex flex-col items-center justify-center border border-theme-border">
+                            <ClockIcon className="w-8 h-8 mx-auto text-theme-text-secondary mb-1" />
+                            <span className="text-sm font-semibold text-theme-text-primary">Expiring Licenses</span>
                         </button>
-                         <button className="p-2 bg-gray-50 rounded-lg text-center hover:bg-gray-100 flex flex-col items-center justify-center">
-                            <ExclamationCircleIcon className="w-8 h-8 mx-auto text-gray-500 mb-1" />
-                            <span className="text-sm font-semibold text-gray-700">Active Enforcement</span>
+                         <button className="p-2 bg-theme-bg rounded-lg text-center hover:bg-black hover:bg-opacity-20 flex flex-col items-center justify-center border border-theme-border">
+                            <ExclamationCircleIcon className="w-8 h-8 mx-auto text-theme-text-secondary mb-1" />
+                            <span className="text-sm font-semibold text-theme-text-primary">Active Enforcement</span>
                         </button>
                      </div>
                 </DashboardWidget>

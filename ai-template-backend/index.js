@@ -10,7 +10,6 @@ const cors = require('cors');
 const PDFDocument = require('pdfkit');
 const { Document, Packer, Paragraph, TextRun, HeadingLevel } = require('docx');
 const fs = require('fs'); // For file system access
-const csv = require('csv-parser'); // For parsing CSV files
 const path = require('path'); // For path manipulation
 const multer = require('multer'); // For handling file uploads
 const pdf = require('pdf-parse'); // For extracting text from PDF files
@@ -44,52 +43,7 @@ const upload = multer({ storage: multer.memoryStorage() });
 
 
 // ========================================================================
-// 2. DATA LOADING & CACHING FOR ANALYTICS AGENT (for general AI queries)
-// ========================================================================
-const dataCache = {};
-const SCRIPTS_DATA_DIRECTORY = path.join(__dirname, 'scripts'); // Define for clarity
-const filePaths = {
-    applications: path.join(SCRIPTS_DATA_DIRECTORY, 'applications.csv'),
-    categories:   path.join(SCRIPTS_DATA_DIRECTORY, 'categories.csv'),
-    documents:    path.join(SCRIPTS_DATA_DIRECTORY, 'documents.csv'),
-    entities:     path.join(SCRIPTS_DATA_DIRECTORY, 'entities.csv'),
-    incidents:    path.join(SCRIPTS_DATA_DIRECTORY, 'incidents.csv'),
-    licenses:     path.join(SCRIPTS_DATA_DIRECTORY, 'licenses.csv'),
-    persons:      path.join(SCRIPTS_DATA_DIRECTORY, 'persons.csv'),
-    products:     path.join(SCRIPTS_DATA_DIRECTORY, 'products.csv'),
-    reports:      path.join(SCRIPTS_DATA_DIRECTORY, 'reports.csv'),
-    staff:        path.join(SCRIPTS_DATA_DIRECTORY, 'staff.csv'),
-    submissions:  path.join(SCRIPTS_DATA_DIRECTORY, 'submissions.csv')
-};
-
-async function loadData() {
-    console.log('Starting data load into memory for general AI analytics agent (from ./scripts directory)...');
-    for (const [name, filePath] of Object.entries(filePaths)) {
-        const data = [];
-        await new Promise((resolve, reject) => {
-            if (!fs.existsSync(filePath)) {
-                console.error(`\nERROR: The data file "${filePath}" for general AI analytics was not found in the scripts directory.`);
-                return resolve();
-            }
-            fs.createReadStream(filePath)
-                .pipe(csv())
-                .on('data', (row) => data.push(row))
-                .on('end', () => {
-                    dataCache[name] = data;
-                    console.log(`- Loaded ${data.length} rows from ${filePath} for general AI.`);
-                    resolve();
-                })
-                .on('error', (err) => {
-                    console.error(`Error loading ${filePath} for general AI:`, err)
-                    resolve();
-                });
-        });
-    }
-    console.log('--- All data for general AI analytics loaded (or attempted from ./scripts). Analytics agent is ready. ---');
-}
-
-// ========================================================================
-// 3. AI TEMPLATE GENERATION & MANAGEMENT ENDPOINTS
+// 2. AI TEMPLATE GENERATION & MANAGEMENT ENDPOINTS
 // ========================================================================
 const aiGeneratedTemplates = [];
 let nextTemplateIdCounter = 1;
@@ -375,96 +329,9 @@ app.post('/api/templates/download-docx', async (req, res) => {
     }
 });
 
-// ========================================================================
-// 4. AI ANALYTICS AGENT ENDPOINT
-// ========================================================================
-app.post('/api/analytics/query', async (req, res) => {
-    const { query } = req.body;
-    console.log(`Received general analytics query: "${query}"`);
-
-    if (!query) {
-        return res.status(400).json({ error: "No query provided." });
-    }
-    if (Object.keys(dataCache).length === 0) {
-        console.warn("Data for general AI analytics has not been fully loaded yet. Query might be incomplete.");
-    }
-
-    let dataContext = '';
-    for (const [name, data] of Object.entries(dataCache)) {
-        if (data.length > 0) {
-            const headers = Object.keys(data[0]).join(',');
-            const rows = data.slice(0, 100).map(row => Object.values(row).join(',')).join('\n');
-            dataContext += `\n--- Data from ${name}.csv (first 100 rows, loaded from ./scripts) ---\n${headers}\n${rows}\n`;
-        }
-    }
-
-    const modelName = GEMINI_MODEL_NAME;
-    const geminiApiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${geminiApiKey}`;
-
-    const metaPrompt = `
-      You are an expert data analyst for a financial regulator.
-      Your task is to answer the user's question based ONLY on the data provided below.
-      The data is in CSV format. Do not use any external knowledge.
-      Assume today's date is June 4, 2025.
-
-      **Data Content:**
-      ${dataContext}
-
-      **Required Output Format:**
-      You MUST respond with a single, valid JSON object and nothing else. Your response will be parsed as JSON.
-      - For a single number or a short text answer, use: {"displayType": "scalar", "data": "Your calculated value or answer"}
-      - For a list or table of results, use: {"displayType": "table", "data": {"headers": ["Header1", "Header2"], "rows": [["row1_val1", "row1_val2"], ["row2_val1", "row2_val2"]]}}
-      - If the user asks for a chart (e.g., "show me a bar chart of X", "pie chart of Y"), use:
-        {
-          "displayType": "chart",
-          "data": {
-            "chartType": "bar",
-            "labels": ["Label A", "Label B", "Label C"],
-            "datasets": [
-              {
-                "label": "Dataset Name",
-                "data": [10, 20, 30],
-                "backgroundColor": ["rgba(255, 99, 132, 0.6)", "rgba(54, 162, 235, 0.6)", "rgba(255, 206, 86, 0.6)"],
-                "borderColor": ["rgba(255, 99, 132, 1)", "rgba(54, 162, 235, 1)", "rgba(255, 206, 86, 1)"],
-                "borderWidth": 1
-              }
-            ],
-            "options": {
-              "responsive": true,
-              "plugins": {
-                "legend": { "position": "top" },
-                "title": { "display": true, "text": "Chart Title Suggested by AI" }
-              }
-            }
-          }
-        }
-
-      If you cannot generate the requested data in the specified format, respond with:
-      {"displayType": "scalar", "data": "I could not generate the data for that request in the required format."}
-
-      **User Question:**
-      "${query}"
-    `;
-
-    try {
-        const response = await axios.post(geminiApiUrl, {
-            contents: [{ parts: [{ text: metaPrompt }] }],
-            generationConfig: {
-                response_mime_type: "application/json",
-            }
-        });
-        console.log("Received valid JSON response from Gemini API for general analytics query.");
-        const responseData = response.data.candidates[0].content.parts[0].text;
-        res.json(JSON.parse(responseData));
-
-    } catch (error) {
-        console.error("Error calling Gemini API for general analytics:", error.response ? (error.response.data.error ? error.response.data.error.message : error.response.data) : error.message);
-        res.status(500).json({ error: "Failed to get response from AI service for general analytics." });
-    }
-});
 
 // ========================================================================
-// 5. HELPER FUNCTION FOR TEXT EXTRACTION
+// 3. HELPER FUNCTION FOR TEXT EXTRACTION
 // ========================================================================
 async function extractTextFromFile(file) {
     let extractedText = '';
@@ -491,7 +358,7 @@ async function extractTextFromFile(file) {
 }
 
 // ========================================================================
-// 6. ENHANCED AI REPORTING ENDPOINT WITH DOCUMENT ANALYSIS
+// 4. ENHANCED AI REPORTING ENDPOINT WITH DOCUMENT ANALYSIS
 // ========================================================================
 app.post('/api/reporting/generate-ai-report', upload.array('documents'), async (req, res) => {
     console.log("Received request for /api/reporting/generate-ai-report with potential document uploads");
@@ -597,7 +464,7 @@ app.post('/api/reporting/generate-ai-report', upload.array('documents'), async (
 
 
 // ========================================================================
-// 7. AI REGULATORY UPDATE ANALYSIS ENDPOINTS
+// 5. AI REGULATORY UPDATE ANALYSIS ENDPOINTS
 // ========================================================================
 
 // NEW ENDPOINT for analyzing uploaded regulatory documents
@@ -688,7 +555,7 @@ app.post('/api/updates/upload-and-analyze', upload.single('document'), async (re
 
 
 // ========================================================================
-// 8. AI RISK ANALYSIS FROM UNSTRUCTURED DOCUMENT
+// 6. AI RISK ANALYSIS FROM UNSTRUCTURED DOCUMENT
 // ========================================================================
 app.post('/api/risk/analyze-document', upload.single('document'), async (req, res) => {
     console.log("Received request for /api/risk/analyze-document");
@@ -764,15 +631,12 @@ app.post('/api/risk/analyze-document', upload.single('document'), async (req, re
 
 
 // ========================================================================
-// 9. SERVER STARTUP
+// 7. SERVER STARTUP
 // ========================================================================
 app.get('/', (req, res) => {
   res.send('AI Backend Server is running! Endpoints are active.');
 });
 
 app.listen(PORT, () => {
-  loadData().catch(err => {
-      console.error("FATAL: Failed to load data on startup for general AI. The general analytics agent might not work as expected.", err);
-  });
   console.log(`AI Backend Server is listening on http://localhost:${PORT}`);
 });

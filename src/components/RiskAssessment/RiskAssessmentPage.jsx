@@ -1,7 +1,8 @@
+// src/components/RiskAssessment/RiskAssessmentPage.jsx
 import React, { useState, useEffect, useMemo } from 'react';
 import { ChartBarIcon, FireIcon, BeakerIcon, ScaleIcon, ShieldCheckIcon, DocumentMagnifyingGlassIcon, ArrowTrendingUpIcon, WalletIcon, LinkIcon, XMarkIcon, DocumentArrowUpIcon, SparklesIcon, BuildingLibraryIcon, ClockIcon, FolderIcon } from '@heroicons/react/24/outline';
 import { calculateAllEntityRisks, getAggregatedSystemicRisk, getSectorRiskTrends, runStressTestForEntity } from '../../services/riskAssessmentService.js';
-import { mockDeFiData } from '../MacroSupervision/MacroSupervisionPage.jsx';
+import { protocolMonitoring } from '../../data/defiSupervisionData.js';
 import licensesData from '../../data/licenses.js';
 import regulatorStaffData from '../../data/regulatorStaff.js';
 import complianceSubmissionsData from '../../data/complianceSubmissions.js';
@@ -200,6 +201,27 @@ const RiskAssessmentPage = () => {
 
     // New state for tab navigation
     const [activeTab, setActiveTab] = useState('Overview');
+
+    // Reconstruct the needed DeFi data structure from the new data source
+    const mockDeFiData = useMemo(() => {
+        const totalTVL = Object.values(protocolMonitoring).reduce((sum, p) => sum + p.tvl, 0);
+        const lendingProtocols = Object.values(protocolMonitoring).filter(p => p.type === 'Lending');
+        
+        const averageCollateralization = lendingProtocols.length > 0 
+            ? lendingProtocols.reduce((sum, p) => sum + (p.collateralizationRatio || 0), 0) / lendingProtocols.length 
+            : 0;
+            
+        // Simplified leverage calculation
+        const leverage = averageCollateralization > 1 
+            ? (1 / (1 - (1 / averageCollateralization))).toFixed(2) + 'x' 
+            : 'N/A';
+
+        return {
+            stablecoinCollateralization: [{ name: 'Systemic Avg.', ratio: `${(averageCollateralization * 100).toFixed(1)}%` }],
+            tvl: `$${(totalTVL / 1e9).toFixed(1)}B`,
+            leverage: leverage,
+        };
+    }, []);
 
     useEffect(() => {
         setIsLoading(true);

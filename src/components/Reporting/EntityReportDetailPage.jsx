@@ -34,32 +34,30 @@ const FileLink = ({ documentId }) => {
     }
   }, [documentId]);
 
-  if (!doc) return <div className="text-xs text-gray-400 italic">Loading doc...</div>;
+  if (!doc) return <div className="text-xs text-theme-text-secondary italic">Loading doc...</div>;
 
-  // If the document object contains a File object (from a recent upload),
-  // create a temporary URL for it. Otherwise, use the placeholder link.
   const href = doc.fileObject ? URL.createObjectURL(doc.fileObject) : doc.dummyFileContentLink;
 
   return (
-    <a 
-      href={href || '#'} 
+    <a
+      href={href || '#'}
       download={doc.fileName}
-      className="flex items-center text-sm text-blue-600 hover:underline group"
+      className="flex items-center text-sm text-blue-400 hover:text-theme-accent group"
     >
-      <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2 text-gray-400 group-hover:text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13" /></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2 text-theme-text-secondary group-hover:text-theme-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13" /></svg>
       {doc.fileName}
     </a>
   );
 };
 
 const SectionStatusBadge = ({ status }) => {
-  let bgColorClass = 'bg-gray-100 text-gray-700';
+  let bgColorClass = 'bg-gray-700 text-gray-200';
   switch (status) {
-    case 'Compliant': bgColorClass = 'bg-green-100 text-green-700'; break;
-    case 'Non-Compliant': bgColorClass = 'bg-red-100 text-red-700'; break;
-    case 'Partially Compliant': bgColorClass = 'bg-yellow-100 text-yellow-700'; break;
-    case 'Under Review': bgColorClass = 'bg-blue-100 text-blue-700'; break;
-    case 'Pending Review': bgColorClass = 'bg-indigo-100 text-indigo-700'; break;
+    case 'Compliant': bgColorClass = 'bg-green-900 bg-opacity-50 text-green-300'; break;
+    case 'Non-Compliant': bgColorClass = 'bg-red-900 bg-opacity-50 text-red-300'; break;
+    case 'Partially Compliant': bgColorClass = 'bg-yellow-900 bg-opacity-50 text-yellow-300'; break;
+    case 'Under Review': bgColorClass = 'bg-blue-900 bg-opacity-50 text-blue-300'; break;
+    case 'Pending Review': bgColorClass = 'bg-indigo-900 bg-opacity-50 text-indigo-300'; break;
   }
   return <span className={`px-2 py-0.5 text-xs font-semibold rounded-full ${bgColorClass}`}>{status}</span>;
 };
@@ -68,46 +66,46 @@ const AIAssessmentResult = ({ assessment, isLoading, error }) => {
     if (isLoading) {
         return (
             <div className="text-center p-4">
-                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-500 mx-auto"></div>
-                <p className="text-sm text-purple-700 italic mt-2">AI is analyzing the submission...</p>
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-theme-accent mx-auto"></div>
+                <p className="text-sm text-theme-accent italic mt-2">AI is analyzing the submission...</p>
             </div>
         );
     }
     if (error) {
         return (
-             <div className="p-3 bg-red-100 text-red-800 rounded-md">
+             <div className="p-3 bg-red-900 bg-opacity-30 text-red-300 rounded-md border border-red-500">
                 <p className="font-semibold text-sm">AI Analysis Failed</p>
                 <p className="text-xs mt-1">{error}</p>
             </div>
         )
     }
     if (!assessment) {
-        return <p className="text-center text-xs text-gray-500 p-4 italic">Click 'Assess with AI' to analyze submission content.</p>
+        return <p className="text-center text-xs text-theme-text-secondary p-4 italic">Click 'Assess with AI' to analyze submission content.</p>
     }
 
-    const scoreColor = assessment.complianceScore >= 85 ? 'text-green-600' : assessment.complianceScore >= 60 ? 'text-yellow-600' : 'text-red-600';
+    const scoreColor = assessment.complianceScore >= 85 ? 'text-green-400' : assessment.complianceScore >= 60 ? 'text-yellow-400' : 'text-red-400';
 
     return (
         <div>
             <div className="flex justify-between items-center mb-3">
-                <h5 className="font-bold text-purple-800">{assessment.reportTitle || "AI Assessment Results"}</h5>
+                <h5 className="font-bold text-theme-accent">{assessment.reportTitle || "AI Assessment Results"}</h5>
                 <div>
-                    <span className="text-sm text-gray-600">Compliance Score: </span>
+                    <span className="text-sm text-theme-text-secondary">Compliance Score: </span>
                     <span className={`text-2xl font-bold ${scoreColor}`}>{assessment.complianceScore}/100</span>
                 </div>
             </div>
             <div className="space-y-4">
                 <div>
-                    <h6 className="font-semibold text-sm text-gray-700 mb-1">AI Summary:</h6>
-                    <p className="text-sm text-gray-800 bg-gray-50 p-2 rounded-md border">{assessment.summary}</p>
+                    <h6 className="font-semibold text-sm text-theme-text-secondary mb-1">AI Summary:</h6>
+                    <p className="text-sm text-theme-text-primary bg-theme-bg p-2 rounded-md border border-theme-border">{assessment.summary}</p>
                 </div>
                 {assessment.keyFindings && assessment.keyFindings.length > 0 && (
                      <div>
-                        <h6 className="font-semibold text-sm text-gray-700 mb-1">Key Findings:</h6>
+                        <h6 className="font-semibold text-sm text-theme-text-secondary mb-1">Key Findings:</h6>
                         <ul className="list-disc list-inside space-y-2 text-sm">
                             {assessment.keyFindings.map((finding, index) => (
-                                <li key={index} className="text-gray-800">
-                                   <span className="font-semibold text-red-600">[{finding.status}]</span>
+                                <li key={index} className="text-theme-text-primary">
+                                   <span className="font-semibold text-red-400">[{finding.status}]</span>
                                    <span className="ml-2 font-medium">{finding.sectionName}:</span>
                                    <span className="ml-2 italic">"{finding.details}"</span>
                                 </li>
@@ -127,7 +125,7 @@ const EntityReportDetailPage = ({ entityId, onBack }) => {
   const [allStaff, setAllStaff] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-  
+
   const [expandedSubmissionId, setExpandedSubmissionId] = useState(null);
   const [detailedSubmission, setDetailedSubmission] = useState(null);
   const [isDetailLoading, setIsDetailLoading] = useState(false);
@@ -135,7 +133,7 @@ const EntityReportDetailPage = ({ entityId, onBack }) => {
   const [filterType, setFilterType] = useState('All');
   const [filterStatus, setFilterStatus] = useState('All');
   const [filterYear, setFilterYear] = useState('All');
-  
+
   const [aiAssessment, setAIAssessment] = useState({});
   const [isAILoading, setIsAILoading] = useState(null);
   const [aiError, setAIError] = useState({});
@@ -214,38 +212,38 @@ const EntityReportDetailPage = ({ entityId, onBack }) => {
     }
   };
 
-  if (isLoading) return <div className="p-6 text-center text-gray-600">Loading...</div>;
-  if (error) return <div className="p-6 text-center text-red-700">{error}</div>;
-  if (!entity) return <div className="p-6 text-center text-gray-500">Entity data not available.</div>;
+  if (isLoading) return <div className="p-6 text-center text-theme-text-secondary">Loading...</div>;
+  if (error) return <div className="p-6 text-center text-red-400">{error}</div>;
+  if (!entity) return <div className="p-6 text-center text-theme-text-secondary">Entity data not available.</div>;
 
   return (
-    <div className="p-4 md:p-6 bg-gray-50 min-h-screen">
+    <div className="p-4 md:p-6 min-h-screen">
        <div className="mb-6">
-        <button onClick={onBack} className="mb-4 px-4 py-2 text-sm font-medium text-blue-600 bg-white border border-blue-500 rounded-md hover:bg-blue-50">
+        <button onClick={onBack} className="mb-4 text-sm text-blue-400 hover:text-theme-accent">
           &larr; Back to Category Reports
         </button>
-        <h1 className="text-3xl font-bold text-gray-800">{entity.companyName}</h1>
-        <p className="text-gray-600 mt-1">Compliance Submission History</p>
+        <h1 className="text-3xl font-bold text-theme-text-primary">{entity.companyName}</h1>
+        <p className="text-theme-text-secondary mt-1">Compliance Submission History</p>
       </div>
-      
-      <div className="p-4 bg-white rounded-xl shadow-lg mb-6">
+
+      <div className="p-4 bg-theme-bg-secondary rounded-xl shadow-lg mb-6 border border-theme-border">
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
-                <h3 className="text-lg font-semibold text-gray-600 md:col-span-1">Filter Reports</h3>
+                <h3 className="text-lg font-semibold text-theme-text-primary md:col-span-1">Filter Reports</h3>
                 <div className="md:col-span-1">
-                    <label htmlFor="filterType" className="block text-sm font-medium text-gray-700">Report Type</label>
-                    <select id="filterType" value={filterType} onChange={e => setFilterType(e.target.value)} className="mt-1 block w-full p-2 border-gray-300 rounded-md shadow-sm">
+                    <label htmlFor="filterType" className="block text-sm font-medium text-theme-text-secondary">Report Type</label>
+                    <select id="filterType" value={filterType} onChange={e => setFilterType(e.target.value)} className="mt-1 block w-full p-2 bg-theme-bg border border-theme-border rounded-md shadow-sm focus:ring-theme-accent focus:border-theme-accent">
                         {filterOptions.reportTypes.map(opt => <option key={opt} value={opt}>{opt.replace(/_/g, ' ')}</option>)}
                     </select>
                 </div>
                  <div className="md:col-span-1">
-                    <label htmlFor="filterStatus" className="block text-sm font-medium text-gray-700">Status</label>
-                    <select id="filterStatus" value={filterStatus} onChange={e => setFilterStatus(e.target.value)} className="mt-1 block w-full p-2 border-gray-300 rounded-md shadow-sm">
+                    <label htmlFor="filterStatus" className="block text-sm font-medium text-theme-text-secondary">Status</label>
+                    <select id="filterStatus" value={filterStatus} onChange={e => setFilterStatus(e.target.value)} className="mt-1 block w-full p-2 bg-theme-bg border border-theme-border rounded-md shadow-sm focus:ring-theme-accent focus:border-theme-accent">
                         {filterOptions.statuses.map(opt => <option key={opt} value={opt}>{opt}</option>)}
                     </select>
                 </div>
                  <div className="md:col-span-1">
-                    <label htmlFor="filterYear" className="block text-sm font-medium text-gray-700">Year</label>
-                    <select id="filterYear" value={filterYear} onChange={e => setFilterYear(e.target.value)} className="mt-1 block w-full p-2 border-gray-300 rounded-md shadow-sm">
+                    <label htmlFor="filterYear" className="block text-sm font-medium text-theme-text-secondary">Year</label>
+                    <select id="filterYear" value={filterYear} onChange={e => setFilterYear(e.target.value)} className="mt-1 block w-full p-2 bg-theme-bg border border-theme-border rounded-md shadow-sm focus:ring-theme-accent focus:border-theme-accent">
                          {filterOptions.years.map(opt => <option key={opt} value={opt}>{opt}</option>)}
                     </select>
                 </div>
@@ -254,53 +252,53 @@ const EntityReportDetailPage = ({ entityId, onBack }) => {
 
         <div className="space-y-6">
             {filteredSubmissions.map(submission => (
-              <div key={submission.submissionId} className="bg-white shadow-xl rounded-lg">
+              <div key={submission.submissionId} className="bg-theme-bg-secondary shadow-xl rounded-lg border border-theme-border">
                 <button
                   onClick={() => handleToggleExpand(submission.submissionId)}
-                  className="w-full p-4 text-left bg-gray-50 hover:bg-gray-100 rounded-t-lg flex justify-between items-center"
+                  className="w-full p-4 text-left hover:bg-black hover:bg-opacity-20 rounded-t-lg flex justify-between items-center"
                 >
                    <div>
-                    <h3 className="text-lg font-semibold text-blue-700">{submission.reportType.replace(/_/g, ' ')} - {submission.reportingPeriod}</h3>
-                    <p className="text-xs text-gray-500">Submitted: {formatDate(submission.submissionDate)} | Status: <span className="font-medium">{submission.status}</span></p>
+                    <h3 className="text-lg font-semibold text-blue-400">{submission.reportType.replace(/_/g, ' ')} - {submission.reportingPeriod}</h3>
+                    <p className="text-xs text-theme-text-secondary">Submitted: {formatDate(submission.submissionDate)} | Status: <span className="font-medium">{submission.status}</span></p>
                    </div>
-                   <span className={`transform transition-transform duration-200 ${expandedSubmissionId === submission.submissionId ? 'rotate-180' : ''}`}>▼</span>
+                   <span className={`transform transition-transform duration-200 text-theme-text-secondary ${expandedSubmissionId === submission.submissionId ? 'rotate-180' : ''}`}>▼</span>
                 </button>
 
                 {expandedSubmissionId === submission.submissionId && (
-                  <div className="p-4 md:p-6 border-t border-gray-200">
-                      {isDetailLoading && <p className="text-center text-gray-500">Loading details...</p>}
+                  <div className="p-4 md:p-6 border-t border-theme-border">
+                      {isDetailLoading && <p className="text-center text-theme-text-secondary">Loading details...</p>}
                       {detailedSubmission && (
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                             <div>
-                                <h4 className="text-md font-semibold text-gray-700 mb-2 border-b pb-1">Submitted Metrics</h4>
+                                <h4 className="text-md font-semibold text-theme-text-primary mb-2 border-b border-theme-border pb-1">Submitted Metrics</h4>
                                 <div className="grid grid-cols-2 gap-x-4 gap-y-2 text-sm">
                                     {Object.entries(detailedSubmission.sections[0].fieldValues || {}).map(([key, value]) => (
                                         <div key={key}>
-                                            <span className="font-medium text-gray-500 capitalize">{key.replace(/([A-Z])/g, ' $1')}: </span>
-                                            <span className="text-gray-800">{value}</span>
+                                            <span className="font-medium text-theme-text-secondary capitalize">{key.replace(/([A-Z])/g, ' $1')}: </span>
+                                            <span className="text-theme-text-primary">{value}</span>
                                         </div>
                                     ))}
                                 </div>
-                                <h4 className="text-md font-semibold text-gray-700 mt-4 mb-2 border-b pb-1">Attachments</h4>
+                                <h4 className="text-md font-semibold text-theme-text-primary mt-4 mb-2 border-b border-theme-border pb-1">Attachments</h4>
                                 <div className="space-y-2">
                                     {detailedSubmission.attachments.length > 0 ? (
                                         detailedSubmission.attachments.map(docId => <FileLink key={docId} documentId={docId} />)
                                     ) : (
-                                        <p className="text-sm text-gray-500 italic">No documents were attached to this submission.</p>
+                                        <p className="text-sm text-theme-text-secondary italic">No documents were attached to this submission.</p>
                                     )}
                                 </div>
                             </div>
-                            <div className="bg-purple-50 p-4 rounded-lg shadow-inner">
-                                <AIAssessmentResult 
-                                    isLoading={isAILoading === submission.submissionId} 
-                                    assessment={aiAssessment[submission.submissionId]} 
+                            <div className="bg-yellow-900 bg-opacity-10 p-4 rounded-lg border border-yellow-500 border-opacity-20">
+                                <AIAssessmentResult
+                                    isLoading={isAILoading === submission.submissionId}
+                                    assessment={aiAssessment[submission.submissionId]}
                                     error={aiError[submission.submissionId]}
                                 />
                                 {!aiAssessment[submission.submissionId] && !aiError[submission.submissionId] && (
                                     <div className="text-center mt-2">
-                                        <button 
-                                            onClick={() => handleAIAssessment(submission.submissionId)} 
-                                            className="px-4 py-2 bg-purple-600 text-white font-semibold rounded-md shadow-sm hover:bg-purple-700 disabled:opacity-50"
+                                        <button
+                                            onClick={() => handleAIAssessment(submission.submissionId)}
+                                            className="px-4 py-2 bg-theme-accent text-sidebar-bg font-semibold rounded-md shadow-sm hover:brightness-110 disabled:opacity-50"
                                             disabled={isAILoading === submission.submissionId}
                                         >
                                             {isAILoading === submission.submissionId ? 'Assessing...' : 'Assess with AI'}
@@ -315,7 +313,7 @@ const EntityReportDetailPage = ({ entityId, onBack }) => {
               </div>
             ))}
             {filteredSubmissions.length === 0 && (
-                <div className="bg-white p-6 rounded-lg shadow text-center text-gray-500 italic">
+                <div className="bg-theme-bg-secondary p-6 rounded-lg shadow border border-theme-border text-center text-theme-text-secondary italic">
                     No submissions match the current filters.
                 </div>
             )}

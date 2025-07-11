@@ -1,0 +1,190 @@
+PUBLIC
+Monday, 3 February 2025
+CONSULTATION PAPER
+Call for Proposal — Embedded Supervision in
+the context of Decentralised Finance
+Submissions to be received by Wednesday, 30 April 2025
+PUBLIC
+PUBLIC
+Contents
+I. Introduction .................................................................................................. 3
+II. Pilot Objectives ............................................................................................ 4
+III. Background and Context ............................................................................ 5
+a. Example Pilot Projects ........................................................................ 6
+IV. Proposal Submission Guidelines ................................................................ 7
+a. Evaluation Criteria ............................................................................... 8
+b. Fees ....................................................................................................... 8
+c. How to Apply ....................................................................................... 8
+d. Contact Information ............................................................................ 8
+2
+PUBLIC
+Introduction
+The Bermuda Monetary Authority (Authority or BMA), the financial regulatory authority of
+Bermuda through its Innovation Hub activities, invites proposals for a collaborative pilot project
+aimed at testing Embedded Supervision practices within the context of Decentralised Finance
+(DeFi). Recognising that DeFi’s rapid growth compels regulators to revisit traditional regulatory
+principles to fulfil their public protection objectives, this pilot project aims to explore the potential
+of embedded regulatory supervision1 within the technological framework of these projects for
+embedded regulatory oversight, compliance, and automated reporting.
+We welcome all stakeholders. including Digital Asset Businesses, Foundations, Protocols,
+FinTech companies, DeFi operators, technology developers and academic institutions to apply for
+this novel and unique initiative and contribute to shaping the future of regulatory supervision in
+digital finance. The insights derived from this pilot will directly inform the evolution of BMA's
+supervisory mechanisms in response to the rapidly evolving DeFi sphere.
+1 “Embedded Supervision” refers to the direct integration of regulatory oversight, compliance checks, and reporting
+mechanisms into the technological foundation of a financial platform—particularly within its smart contracts,
+protocols, or data layers—so that supervisory requirements are inherently enforced in real-time with limited or
+delayed human intervention.
+3
+PUBLIC
+Pilot Objectives:
+1. Collaborative Understanding & Risk-Based Regulation
+• Engage with industry participants to grasp the complexities of DeFi and inform adaptive,
+risk-based regulatory frameworks
+• Investigate the role of Embedded Supervision for projects with varying degrees of
+decentralisation
+• Examine decentralised governance models and explore mechanisms for effective
+Embedded Supervision
+2. Technical Feasibility & Operational Efficacy
+• Determine which components of DeFi necessitate Embedded Supervision and how these
+data elements should be relayed to regulators
+• Assess the real-world outcomes of integrating embedded regulatory oversight, including
+automated compliance checks and reporting
+• Identify and address potential technological, data management, operational, security,
+interoperability, and scalability challenges
+3. Risk Monitoring & Development of Best Practices
+• Monitor changes to DeFi risk parameters, evaluating stability and disclosure practices to
+gauge the effectiveness of automated oversight
+• Quantify efficiency gains resulting from real-time compliance monitoring and reporting
+mechanisms
+• Contribute to the establishment of best practices for implementing and maintaining
+Embedded Supervision in DeFi platforms
+4
+PUBLIC
+Background and Context
+DeFi presents an innovative, alternative financial services ecosystem deeply embedded in
+Distributed Ledger Technology (DLT) intended to increase accessibility, transparency, and
+efficiencies through disintermediation. An intrinsic part of DeFi applications is smart contracts,
+peer-to-peer networks, and protocols that collectively work towards achieving these objectives.
+With its pace of evolution and inherent ethos, DeFi invokes key considerations for regulators. For
+instance:
+1. Lack of Central Authority: DeFi's decentralised nature complicates the implementation
+of centralized oversight measures. Determining responsibility for regulatory outcomes or
+executing corrective actions in such a distributed system requires innovative thinking.
+2. AML/KYC Challenges: DeFi’s pseudonymous nature may require novel Anti-Money
+Laundering (AML) and Know-Your-Customer (KYC) processes. Ensuring that illicit
+activities are effectively monitored, identified, and prevented requires effective approaches
+and potentially revised regulatory frameworks.
+3. Technological Complexity: Regulatory adaptation to DeFi's rapidly changing,
+technologically robust models can prove challenging. Skills enhancement and regulatory
+agility are of crucial importance.
+4. Cross-border Transactions: DeFi's borderless nature means that it operates globally via
+the internet, complicating jurisdictional authority and the applicability of a particular
+country's laws and regulatory frameworks.
+5. Rapid Evolution: DeFi's agile pace of innovation presents difficulties for traditional
+regulatory reviews, necessitating a proactive and adaptive approach to oversight.
+6. Parameter of Decentralization: Recognising the degree of decentralisation in a
+particular DeFi model is vital. Some platforms may claim complete decentralisation, but
+in practice, a limited group of stakeholders (developers, miners, etc.) may exert
+significant influence.
+To devise an effective regulatory approach to these models, it is fundamental to understand the
+specific challenges that DeFi solutions present, the associated risks, and the necessary and
+appropriate mode of regulatory intervention. The initiative to pilot the Embedded Supervision
+approach with industry participation – particularly DeFi operators, is a significant step towards
+navigating these challenges.
+Traditional methods of regulatory oversight face unique difficulties in this environment, making
+it necessary to craft innovative regulatory approaches tailored to DeFi and increasingly
+decentralised applications. The Embedded Supervision model offers an innovative method to
+achieve this objective and forms the basis for this call for proposals.
+5
+PUBLIC
+Embedded Supervision refers to a regulatory oversight mechanism that incorporates automated
+compliance and reporting built atop an underlying technological infrastructure. At its core,
+Embedded Supervision aims to integrate regulatory requirements within supervised institution's
+systems for real-time and efficient compliance monitoring. The BMA believes that piloting
+Embedded Supervision could be instrumental in enhancing regulatory practices for projects in the
+realm of DeFi.
+Example Pilot Projects
+Potential pilot participants are encouraged to think creatively and propose innovative pilot tests
+for the BMA's Embedded Supervision initiative. The following examples may serve as inspiration:
+1. Regulatory DAO Implementation: This pilot project could involve creating a
+Regulatory Decentralised Autonomous Organisation (DAO) on a DeFi network, with
+Embedded Supervision incorporating the BMA as a non-voting member. It could assess
+the DAO's capability in enforcing real-time regulatory decisions and maintaining
+compliance.
+2. DeFi Lending Platform Supervision: Evaluate Embedded Supervision within a DeFi
+lending platform with specified risk parameters and the disclosure practices for any
+changes to the project.
+3. Smart Contract-Driven Regulatory Compliance: This pilot project could investigate the
+feasibility of integrating key regulatory requirements (including licence conditions) into
+the smart contracts that underpin a DeFi platform.
+4. Real-Time Compliance Reporting System: This pilot project could explore developing
+and implementing a real-time compliance reporting system in a DeFi platform. The
+system would be designed to automatically collect necessary data and produce
+compliance reports in real-time, allowing for immediate detection and rectification of any
+regulatory breaches.
+5. Collateral Management Supervision: Explore implementing Embedded Supervision to
+monitor the collateral levels for issued stablecoins continuously. Automated alerts could
+be triggered if collateral thresholds defined by regulatory guidelines are breached.
+6. Regulatory Node Implementation on DeFi protocols: Develop a proof-of-concept for
+BMA's direct involvement in public blockchain networks by setting up regulatory nodes
+for direct and real-time oversight.
+6
+PUBLIC
+Proposal Submission Guidelines
+The project proposals should provide a comprehensive overview of the proposed pilot and include
+the following key elements:
+1. Executive Summary: A brief introduction outlining the project's purpose, objectives,
+collaboration with the BMA, and potential impact in relation to the DeFi environment and
+the BMA's Embedded Supervision initiative.
+2. Project Description and Objectives: A detailed explanation of the proposed pilot project,
+including its specific objectives, the problems it aims to solve, the expected outcomes, and
+the role and function of the BMA.
+3. Methodology: A thorough description of the methodologies to be used. Include
+information about the process, tools, and technologies that will be used.
+4. Work Plan and Timeline: A detailed timeline highlighting all the key stages of the project
+from inception to completion. This should cover all significant milestones, deliverables,
+and timelines.
+5. Technological Overview: An in-depth description of the technologies to be used in the
+project, explaining why these specific technologies have been chosen and how they will
+contribute to achieving the goals of the pilot project.
+6. Regulatory Considerations: Outline how the proposed pilot project aligns with BMA's
+existing regulatory framework and standards and how it contributes to the development of
+the Embedded Supervision model within the DeFi ecosystem. It should be noted that the
+pilot does not have to require a licence under the Digital Asset Business Act (DABA).
+7. High-Level Risk Analysis and Management: Identify potential risks that could affect the
+execution or outcomes of the pilot project and propose strategies for mitigating these risks.
+8. Team Composition and Roles: Describe the project team structure, including the roles
+and responsibilities of each member. Include brief biographical information highlighting
+relevant experience and expertise.
+7
+PUBLIC
+Evaluation Criteria
+Pilot project proposals should be innovative, feasible, and achievable. Proposals will be evaluated
+based on their relevancy to the objectives, soundness of the proposed approach, innovativeness,
+commitment, feasibility, ability to execute, and the potential impact on enhancing regulatory
+practices.
+Fees
+No fees are applicable to this initiative. Entities that may require a licence to run their pilot would
+be subject to fees applicable under DABA.
+How to Apply
+Interested parties should submit their proposal in PDF format via email to fintech@bma.bm by
+30 April 2025. Proposals should not exceed 20 pages and must follow the project proposal
+guidelines outlined above.
+Contact information
+Any questions should be directed to fintech@bma.bm.
+Disclaimer
+The call for proposals does not guarantee implicit or explicit regulatory approvals or
+endorsement. The BMA reserves the right to modify or terminate the pilot based upon its own
+discretion. Participation does not exempt any entity from existing statutory obligations.
+8
+PUBLIC
+Bermuda Monetary Authority
+BMA House
+43 Victoria Street
+Hamilton HM 12
+Bermuda
+Tel: (441) 295 5278
+Fax: (441) 292 7471
+Website: https://www.bma.bm
+PUBLIC

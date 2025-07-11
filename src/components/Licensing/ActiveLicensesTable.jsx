@@ -27,43 +27,39 @@ const calculateDaysDifference = (dateString1, dateString2) => {
 };
 
 const LicenseStatusBadge = ({ status, renewalStatus, expiryDate }) => {
-  let bgColorClass = 'bg-gray-100';
-  let textColorClass = 'text-gray-700';
+  let bgColorClass = 'bg-gray-200';
+  let textColorClass = 'text-gray-800';
   let effectiveStatus = status;
 
-  const today = new Date("2025-05-15");
+  const today = new Date("2025-07-10");
   const daysUntilExpiry = calculateDaysDifference(expiryDate, today.toISOString().split('T')[0]);
 
   if (status === "Active") {
-    if (renewalStatus === "Pending Submission") {
-      effectiveStatus = "Renew-Sub";
-      bgColorClass = 'bg-blue-100';
-      textColorClass = 'text-blue-700';
-    } else if (renewalStatus && renewalStatus !== "Not Started" && renewalStatus !== "Renewal Approved" && renewalStatus !== "Renewal Denied") {
+    if (renewalStatus && renewalStatus !== "Not Started" && renewalStatus !== "Renewal Approved" && renewalStatus !== "Renewal Denied") {
       effectiveStatus = `Renewal: ${renewalStatus}`;
-      bgColorClass = 'bg-blue-100';
-      textColorClass = 'text-blue-700';
+      bgColorClass = 'bg-blue-200';
+      textColorClass = 'text-blue-800';
     } else if (daysUntilExpiry !== null && daysUntilExpiry <= 60 && daysUntilExpiry > 0) {
-      effectiveStatus = `Active (Expires Soon: ${daysUntilExpiry}d)`;
-      bgColorClass = 'bg-yellow-100';
-      textColorClass = 'text-yellow-700';
+      effectiveStatus = `Expires in ${daysUntilExpiry}d`;
+      bgColorClass = 'bg-yellow-200';
+      textColorClass = 'text-yellow-800';
     } else {
       effectiveStatus = "Active";
-      bgColorClass = 'bg-green-100';
-      textColorClass = 'text-green-700';
+      bgColorClass = 'bg-green-200';
+      textColorClass = 'text-green-800';
     }
   } else if (status === "Pending Renewal") {
     effectiveStatus = 'Pending';
-    bgColorClass = 'bg-indigo-100';
-    textColorClass = 'text-indigo-700';
+    bgColorClass = 'bg-indigo-200';
+    textColorClass = 'text-indigo-800';
   } else {
     switch (status) {
       case 'Expired':
-        bgColorClass = 'bg-red-100'; textColorClass = 'text-red-700'; break;
+        bgColorClass = 'bg-red-200'; textColorClass = 'text-red-800'; break;
       case 'Suspended':
-        bgColorClass = 'bg-orange-100'; textColorClass = 'text-orange-700'; break;
+        bgColorClass = 'bg-orange-200'; textColorClass = 'text-orange-800'; break;
       case 'Revoked':
-        bgColorClass = 'bg-purple-100'; textColorClass = 'text-purple-700'; break;
+        bgColorClass = 'bg-purple-200'; textColorClass = 'text-purple-800'; break;
       default:
         break;
     }
@@ -77,51 +73,28 @@ const LicenseStatusBadge = ({ status, renewalStatus, expiryDate }) => {
 };
 
 // --- SVG Icon Components ---
-const IconManageRenewal = ({ className = "w-5 h-5" }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={className}>
-    <path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
-  </svg>
-);
-
-const IconSuspend = ({ className = "w-5 h-5" }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={className}>
-    <path strokeLinecap="round" strokeLinejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636M12 12H9.75M12 12V9.75m0 2.25L14.25 12M12 12V14.25m0-2.25L9.75 12M14.25 12L12 14.25" />
-     {/* A more common ban icon: <path strokeLinecap="round" strokeLinejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />*/}
-     {/* Pause icon: <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 5.25v13.5m-7.5-13.5v13.5" />*/}
-  </svg>
-);
-
-const IconLiftSuspension = ({ className = "w-5 h-5" }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={className}>
-    <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m0-10.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.75c0 5.592 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.57-.598-3.75h-.152c-3.196 0-6.1-1.249-8.25-3.286zm0 13.036h.008v.008H12v-.008z" />
-    {/* Play icon: <path strokeLinecap="round" strokeLinejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z" /> */}
-  </svg>
-);
-
-const IconRevoke = ({ className = "w-5 h-5" }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={className}>
-    <path strokeLinecap="round" strokeLinejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.134-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.067-2.09 1.02-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
-    {/* Gavel icon: <path strokeLinecap="round" strokeLinejoin="round" d="M11.412 15.655L9.75 21.75l3.745-4.012M9.255 9.755L15.345 3.66m0 0L21.75 9.75M15.345 3.66l-6.09 6.09m6.09-6.09L9.255 9.755m0 0l3.273 3.273c.26.26.26.681 0 .941L10.5 16.5M9.255 9.755L10.5 11.25" /> */}
-  </svg>
-);
+const IconManageRenewal = ({ className = "w-5 h-5" }) => <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={className}><path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" /></svg>;
+const IconSuspend = ({ className = "w-5 h-5" }) => <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={className}><path strokeLinecap="round" strokeLinejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" /></svg>;
+const IconLiftSuspension = ({ className = "w-5 h-5" }) => <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={className}><path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m0-10.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.75c0 5.592 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.57-.598-3.75h-.152c-3.196 0-6.1-1.249-8.25-3.286zm0 13.036h.008v.008H12v-.008z" /></svg>;
+const IconRevoke = ({ className = "w-5 h-5" }) => <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={className}><path strokeLinecap="round" strokeLinejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.134-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.067-2.09 1.02-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" /></svg>;
 
 
 // --- ActionButton Component ---
-const ActionButton = ({ icon, label, onClick, disabled, activeColorClass = "text-gray-700", disabledColorClass = "text-gray-300", hoverColorClass = "text-blue-600" }) => (
+const ActionButton = ({ icon, label, onClick, disabled, activeColorClass = "text-theme-text-secondary" }) => (
   <div className="relative flex items-center group">
     <button
       type="button"
       onClick={disabled ? undefined : onClick}
       disabled={disabled}
       aria-label={label}
-      className={`p-1.5 rounded-full transition-colors duration-150 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-gray-400
-        ${disabled ? `${disabledColorClass} cursor-not-allowed` : `${activeColorClass} hover:${hoverColorClass} hover:bg-gray-100`
+      className={`p-1.5 rounded-full transition-colors duration-150 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-theme-bg-secondary focus:ring-theme-accent
+        ${disabled ? 'text-gray-600 cursor-not-allowed' : `${activeColorClass} hover:text-theme-accent hover:bg-black hover:bg-opacity-20`
       }`}
     >
       {icon}
     </button>
     <div
-      className="absolute bottom-full left-1/2 z-20 mb-2 px-2 py-1 text-xs text-white bg-gray-800 rounded-md shadow-sm 
+      className="absolute bottom-full left-1/2 z-20 mb-2 px-2 py-1 text-xs text-white bg-gray-800 rounded-md shadow-sm
                  opacity-0 group-hover:opacity-100 transition-opacity duration-150 pointer-events-none whitespace-nowrap
                  transform -translate-x-1/2"
     >
@@ -209,21 +182,21 @@ const ActiveLicensesTable = ({ onManageRenewalClick, onManageLicenseAction }) =>
   };
 
   if (isLoading) {
-    return <div className="text-center p-4 text-gray-500">Loading active licenses...</div>;
+    return <div className="text-center p-4 text-theme-text-secondary">Loading active licenses...</div>;
   }
   if (error) {
-    return <div className="text-center p-4 text-red-600 bg-red-100 rounded-md">{error}</div>;
+    return <div className="text-center p-4 text-red-500 bg-red-100 rounded-md">{error}</div>;
   }
 
   return (
-    <div className="bg-white p-0 sm:p-6 rounded-xl shadow-lg mt-8">
-      <h2 className="text-xl font-semibold text-gray-800 mb-4 px-6 sm:px-0">Active & Expiring Licenses</h2>
+    <div className="bg-theme-bg-secondary p-0 sm:p-6 rounded-xl shadow-lg mt-8">
+      <h2 className="text-xl font-semibold text-theme-text-primary mb-4 px-6 sm:px-0">Active & Expiring Licenses</h2>
       {licenses.length === 0 && !isLoading ? (
-         <div className="text-center p-10 text-gray-500">No licenses found.</div>
+         <div className="text-center p-10 text-theme-text-secondary">No licenses found.</div>
       ) : (
       <div className="overflow-x-auto">
-        <table className="min-w-full divide-y divide-gray-200">
-          <thead className="bg-gray-50">
+        <table className="min-w-full divide-y divide-theme-border">
+          <thead className="bg-black bg-opacity-20">
             <tr>
               {[
                 { label: 'License No.', key: 'licenseNumber' },
@@ -233,12 +206,12 @@ const ActiveLicensesTable = ({ onManageRenewalClick, onManageLicenseAction }) =>
                 { label: 'Expiry Date', key: 'expiryDate' },
                 { label: 'Renewal Due', key: 'nextRenewalDueDate' },
                 { label: 'Status', key: 'licenseStatus' },
-                { label: 'Actions', key: null, thClassName: 'text-center' }, // Centered actions header
+                { label: 'Actions', key: null, thClassName: 'text-center' },
               ].map(({ label, key, thClassName }) => (
                 <th
                   key={key || label}
                   scope="col"
-                  className={`px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider ${thClassName || ''}`}
+                  className={`px-4 py-3 text-left text-xs font-medium text-theme-text-secondary uppercase tracking-wider ${thClassName || ''}`}
                   onClick={() => key && requestSort(key)}
                   style={{ cursor: key ? 'pointer' : 'default' }}
                 >
@@ -248,7 +221,7 @@ const ActiveLicensesTable = ({ onManageRenewalClick, onManageLicenseAction }) =>
               ))}
             </tr>
           </thead>
-          <tbody className="bg-white divide-y divide-gray-200">
+          <tbody className="divide-y divide-theme-border">
             {sortedLicenses.map((lic) => {
               const isManageRenewalAvailable = (lic.licenseStatus === "Active" || lic.licenseStatus === "Pending Renewal");
               const isSuspendAvailable = lic.licenseStatus === "Active";
@@ -256,27 +229,26 @@ const ActiveLicensesTable = ({ onManageRenewalClick, onManageLicenseAction }) =>
               const isRevokeAvailable = (lic.licenseStatus === "Active" || lic.licenseStatus === "Suspended");
 
               return (
-                <tr key={lic.licenseId} className="hover:bg-gray-50">
-                  <td className="px-4 py-4 whitespace-nowrap text-sm font-medium text-blue-600">{lic.licenseNumber}</td>
-                  <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-700">{lic.companyName}</td>
-                  <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-700">{formatLicenseType(lic.licenseType)}</td>
-                  <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-500">{formatDate(lic.issueDate)}</td>
-                  <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-500">{formatDate(lic.expiryDate)}</td>
-                  <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
+                <tr key={lic.licenseId} className="hover:bg-theme-bg">
+                  <td className="px-4 py-4 whitespace-nowrap text-sm font-medium text-theme-accent">{lic.licenseNumber}</td>
+                  <td className="px-4 py-4 whitespace-nowrap text-sm text-theme-text-primary">{lic.companyName}</td>
+                  <td className="px-4 py-4 whitespace-nowrap text-sm text-theme-text-secondary">{formatLicenseType(lic.licenseType)}</td>
+                  <td className="px-4 py-4 whitespace-nowrap text-sm text-theme-text-secondary">{formatDate(lic.issueDate)}</td>
+                  <td className="px-4 py-4 whitespace-nowrap text-sm text-theme-text-secondary">{formatDate(lic.expiryDate)}</td>
+                  <td className="px-4 py-4 whitespace-nowrap text-sm text-theme-text-secondary">
                       {formatDate(lic.nextRenewalDueDate) || 'N/A'}
                   </td>
                   <td className="px-4 py-4 whitespace-nowrap text-sm">
                     <LicenseStatusBadge status={lic.licenseStatus} renewalStatus={lic.renewalStatus} expiryDate={lic.expiryDate} />
                   </td>
                   <td className="px-4 py-4 whitespace-nowrap text-sm">
-                    <div className="flex items-center justify-center space-x-1"> {/* Centered actions */}
+                    <div className="flex items-center justify-center space-x-1">
                         {isManageRenewalAvailable && (
                             <ActionButton
                                 icon={<IconManageRenewal />}
                                 label="Manage Renewal"
                                 onClick={() => onManageRenewalClick(lic.licenseId)}
-                                activeColorClass="text-blue-600"
-                                hoverColorClass="text-blue-800"
+                                activeColorClass="text-blue-400"
                             />
                         )}
                         {isSuspendAvailable && (
@@ -284,8 +256,7 @@ const ActiveLicensesTable = ({ onManageRenewalClick, onManageLicenseAction }) =>
                                 icon={<IconSuspend />}
                                 label="Suspend License"
                                 onClick={() => onManageLicenseAction(lic.licenseId, 'Suspend License')}
-                                activeColorClass="text-orange-500"
-                                hoverColorClass="text-orange-700"
+                                activeColorClass="text-orange-400"
                             />
                         )}
                         {isLiftSuspensionAvailable && (
@@ -293,8 +264,7 @@ const ActiveLicensesTable = ({ onManageRenewalClick, onManageLicenseAction }) =>
                                 icon={<IconLiftSuspension />}
                                 label="Lift Suspension"
                                 onClick={() => onManageLicenseAction(lic.licenseId, 'Lift Suspension')}
-                                activeColorClass="text-green-500"
-                                hoverColorClass="text-green-700"
+                                activeColorClass="text-green-400"
                             />
                         )}
                         {isRevokeAvailable && (
@@ -302,12 +272,11 @@ const ActiveLicensesTable = ({ onManageRenewalClick, onManageLicenseAction }) =>
                                 icon={<IconRevoke />}
                                 label="Revoke License"
                                 onClick={() => onManageLicenseAction(lic.licenseId, 'Revoke License')}
-                                activeColorClass="text-red-600"
-                                hoverColorClass="text-red-800"
+                                activeColorClass="text-red-500"
                             />
                         )}
                         {!isManageRenewalAvailable && !isSuspendAvailable && !isLiftSuspensionAvailable && !isRevokeAvailable && (
-                            <span className="text-xs text-gray-400 italic">No actions</span>
+                            <span className="text-xs text-gray-600 italic">No actions</span>
                         )}
                     </div>
                   </td>

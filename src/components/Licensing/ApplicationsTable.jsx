@@ -12,10 +12,10 @@ const formatDate = (dateString) => {
 // Component to display a status badge
 const StatusBadge = ({ status }) => {
   let bgColorClass = 'bg-gray-200';
-  let textColorClass = 'text-gray-700';
+  let textColorClass = 'text-gray-800';
   switch (status) {
-    case 'Approved': bgColorClass = 'bg-green-100'; textColorClass = 'text-green-700'; break;
-    case 'Denied': bgColorClass = 'bg-red-100'; textColorClass = 'text-red-700'; break;
+    case 'Approved': bgColorClass = 'bg-green-100'; textColorClass = 'text-green-800'; break;
+    case 'Denied': bgColorClass = 'bg-red-100'; textColorClass = 'text-red-800'; break;
     case 'In Review': case 'Initial Review': case 'Detailed Review': case 'Awaiting Decision':
       bgColorClass = 'bg-yellow-100'; textColorClass = 'text-yellow-700'; break;
     case 'Submitted': bgColorClass = 'bg-blue-100'; textColorClass = 'text-blue-700'; break;
@@ -28,14 +28,14 @@ const StatusBadge = ({ status }) => {
   );
 };
 
-const ApplicationsTable = ({ 
-  onRowClick, 
-  statusFilter, 
-  sourceFilter, 
+const ApplicationsTable = ({
+  onRowClick,
+  statusFilter,
+  sourceFilter,
   companyNameFilter,
-  applicationIdFilter // For general search term if needed
+  applicationIdFilter
 }) => {
-  const [rawApplications, setRawApplications] = useState([]); // Store applications before enrichment
+  const [rawApplications, setRawApplications] = useState([]);
   const [enrichedApplications, setEnrichedApplications] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -67,10 +67,8 @@ const ApplicationsTable = ({
       setIsLoading(false);
       return;
     }
-    
+
     const enrichData = async () => {
-      // No need to set isLoading to true here again if already loading from fetchApplications
-      // or if rawApplications just updated. Let parent's loader handle initial, this is background.
       const enriched = await Promise.all(
         rawApplications.map(async (app) => {
           try {
@@ -88,7 +86,7 @@ const ApplicationsTable = ({
         })
       );
       setEnrichedApplications(enriched);
-      setIsLoading(false); // Set loading false after enrichment
+      setIsLoading(false);
       setError(null);
     };
 
@@ -99,7 +97,6 @@ const ApplicationsTable = ({
   const sortedAndFilteredApplications = useMemo(() => {
     let filteredItems = [...enrichedApplications];
 
-    // Apply filters received from props
     if (statusFilter) {
       filteredItems = filteredItems.filter(app => app.applicationStatus === statusFilter);
     }
@@ -107,22 +104,18 @@ const ApplicationsTable = ({
       filteredItems = filteredItems.filter(app => app.source === sourceFilter);
     }
     if (companyNameFilter) {
-      filteredItems = filteredItems.filter(app => 
+      filteredItems = filteredItems.filter(app =>
         app.companyName?.toLowerCase().includes(companyNameFilter.toLowerCase())
       );
     }
-    // Optional: For a general Application ID search bar if still desired from parent
     if (applicationIdFilter) {
         filteredItems = filteredItems.filter(app =>
             app.applicationId.toLowerCase().includes(applicationIdFilter.toLowerCase())
         );
     }
 
-
-    // Sort items
     if (sortConfig.key !== null) {
       filteredItems.sort((a, b) => {
-        // Handle cases where a[sortConfig.key] or b[sortConfig.key] might be null or undefined
         const valA = a[sortConfig.key] === null || typeof a[sortConfig.key] === 'undefined' ? '' : a[sortConfig.key];
         const valB = b[sortConfig.key] === null || typeof b[sortConfig.key] === 'undefined' ? '' : b[sortConfig.key];
 
@@ -152,30 +145,23 @@ const ApplicationsTable = ({
     }
     return '';
   };
-  
-  // The main isLoading and error for the table will now primarily reflect the enrichment step
-  // The initial fetch can be considered part of the overall dashboard loading.
-  if (isLoading && enrichedApplications.length === 0 && rawApplications.length > 0) {
-    return <div className="text-center p-4 text-gray-500">Enriching application data...</div>;
-  }
-  if (isLoading && rawApplications.length === 0) { // Still loading raw applications
-     return <div className="text-center p-4 text-gray-500">Loading applications list...</div>;
+
+  if (isLoading && enrichedApplications.length === 0) {
+    return <div className="text-center p-4 text-theme-text-secondary">Loading & Enriching application data...</div>;
   }
 
-
-  if (error) { 
-    return <div className="text-center p-4 text-red-600 bg-red-100 rounded-md">{error}</div>;
+  if (error) {
+    return <div className="text-center p-4 text-red-500 bg-red-100 rounded-md">{error}</div>;
   }
 
   return (
-    <div className="bg-white p-0 sm:p-6 rounded-xl shadow-lg">
-      {/* Search input removed from here, will be in parent */}
-      {enrichedApplications.length === 0 && !isLoading ? (
-         <div className="text-center p-10 text-gray-500">No applications match the current filters.</div>
+    <div className="bg-theme-bg-secondary p-0 sm:p-6 rounded-xl shadow-lg">
+      {sortedAndFilteredApplications.length === 0 && !isLoading ? (
+         <div className="text-center p-10 text-theme-text-secondary">No applications match the current filters.</div>
       ) : (
       <div className="overflow-x-auto">
-        <table className="min-w-full divide-y divide-gray-200">
-          <thead className="bg-gray-50">
+        <table className="min-w-full divide-y divide-theme-border">
+          <thead className="bg-black bg-opacity-20">
             <tr>
               {[
                 { label: 'Application No.', key: 'applicationId' },
@@ -188,7 +174,7 @@ const ApplicationsTable = ({
                 <th
                   key={key}
                   scope="col"
-                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
+                  className="px-6 py-3 text-left text-xs font-medium text-theme-text-secondary uppercase tracking-wider cursor-pointer hover:bg-black hover:bg-opacity-20"
                   onClick={() => requestSort(key)}
                 >
                   {label}
@@ -197,19 +183,19 @@ const ApplicationsTable = ({
               ))}
             </tr>
           </thead>
-          <tbody className="bg-white divide-y divide-gray-200">
+          <tbody className="bg-theme-bg-secondary divide-y divide-theme-border">
             {sortedAndFilteredApplications.map((app) => (
-              <tr key={app.applicationId} className="hover:bg-gray-50 cursor-pointer" onClick={() => onRowClick && onRowClick(app.applicationId)}>
-                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-blue-600 hover:text-blue-800">
+              <tr key={app.applicationId} className="hover:bg-theme-bg cursor-pointer" onClick={() => onRowClick && onRowClick(app.applicationId)}>
+                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-theme-accent hover:text-white">
                   {app.applicationId}
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{app.companyName}</td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{app.productName}</td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{formatDate(app.submissionDate)}</td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-theme-text-primary">{app.companyName}</td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-theme-text-secondary">{app.productName}</td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-theme-text-secondary">{formatDate(app.submissionDate)}</td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm">
                   <StatusBadge status={app.applicationStatus} />
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{app.source}</td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-theme-text-secondary">{app.source}</td>
               </tr>
             ))}
           </tbody>

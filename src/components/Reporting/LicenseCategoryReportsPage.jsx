@@ -18,16 +18,16 @@ ChartJS.register(ArcElement, Tooltip, Legend, Title);
 
 const EntityRow = ({ entity, onEntitySelect, supervisorName }) => {
   // Determine color for the 'Current Standing' marker
-  let statusColor = 'bg-gray-200 text-gray-800'; // Default for On-Time
+  let statusColor = 'bg-gray-700 text-gray-200'; // Default for On-Time
   switch (entity.complianceStanding) {
     case 'Overdue':
-      statusColor = 'bg-red-100 text-red-700';
+      statusColor = 'bg-red-900 bg-opacity-50 text-red-300';
       break;
     case 'Deficient':
-      statusColor = 'bg-yellow-100 text-yellow-700';
+      statusColor = 'bg-yellow-900 bg-opacity-50 text-yellow-300';
       break;
     case 'On-Time':
-      statusColor = 'bg-green-100 text-green-700';
+      statusColor = 'bg-green-900 bg-opacity-50 text-green-300';
       break;
     default:
         // Keep default
@@ -37,18 +37,18 @@ const EntityRow = ({ entity, onEntitySelect, supervisorName }) => {
   return (
     <tr
       onClick={() => onEntitySelect(entity.entityId)}
-      className="hover:bg-gray-50 cursor-pointer transition-colors duration-150"
+      className="hover:bg-theme-bg cursor-pointer transition-colors duration-150"
     >
-      <td className="px-6 py-3 whitespace-nowrap text-sm font-medium text-gray-900">{entity.companyName}</td>
-      <td className="px-6 py-3 whitespace-nowrap text-sm text-gray-500">{supervisorName || 'N/A'}</td>
+      <td className="px-6 py-3 whitespace-nowrap text-sm font-medium text-theme-text-primary">{entity.companyName}</td>
+      <td className="px-6 py-3 whitespace-nowrap text-sm text-theme-text-secondary">{supervisorName || 'N/A'}</td>
       <td className="px-6 py-3 whitespace-nowrap text-sm">
         <span className={`px-2.5 py-1 text-xs font-semibold rounded-full ${statusColor}`}>
           {entity.complianceStanding || 'Unknown'}
         </span>
       </td>
-       <td className="px-6 py-3 whitespace-nowrap text-sm text-gray-500">{entity.riskRating || 'N/A'}</td>
+       <td className="px-6 py-3 whitespace-nowrap text-sm text-theme-text-secondary">{entity.riskRating || 'N/A'}</td>
       <td className="px-6 py-3 whitespace-nowrap text-right text-sm font-medium">
-        <span className="text-blue-600 hover:text-blue-800">
+        <span className="text-blue-400 hover:text-theme-accent">
           View Submissions &rarr;
         </span>
       </td>
@@ -119,14 +119,14 @@ const LicenseCategoryReportsPage = ({ categoryId, onBack, onSelectEntity }) => {
           healthData?.highRisk || 0,
         ],
         backgroundColor: [
-          'rgba(52, 211, 153, 0.7)', // Green
-          'rgba(251, 191, 36, 0.7)', // Yellow
-          'rgba(239, 68, 68, 0.7)',   // Red
+          'rgba(16, 185, 129, 0.6)', // Emerald 500
+          'rgba(245, 158, 11, 0.6)', // Amber 500
+          'rgba(220, 38, 38, 0.6)',   // Red 600
         ],
         borderColor: [
-          'rgba(16, 185, 129, 1)',
-          'rgba(245, 158, 11, 1)',
-          'rgba(220, 38, 38, 1)',
+          '#059669', // Emerald 600
+          '#D97706', // Amber 600
+          '#B91C1C',   // Red 700
         ],
         borderWidth: 1,
       },
@@ -139,47 +139,51 @@ const LicenseCategoryReportsPage = ({ categoryId, onBack, onSelectEntity }) => {
     plugins: {
       legend: {
         position: 'right',
+        labels: {
+            color: '#ADB5BD' // theme-text-secondary
+        }
       },
       title: {
         display: true,
         text: 'Compliance Risk Distribution',
         font: {
             size: 16
-        }
+        },
+        color: '#E9ECEF' // theme-text-primary
       },
     },
   };
 
 
   if (isLoading) {
-    return <div className="p-6 text-center text-gray-600 text-lg">Loading category details...</div>;
+    return <div className="p-6 text-center text-theme-text-secondary text-lg">Loading category details...</div>;
   }
 
   if (error) {
-    return <div className="p-6 text-center text-red-700 bg-red-100 rounded-md shadow"><p>{error}</p></div>;
+    return <div className="p-6 text-center text-red-400 bg-red-900 bg-opacity-30 rounded-md shadow"><p>{error}</p></div>;
   }
 
   if (!category) {
-    return <div className="p-6 text-center text-gray-500">Category details not found.</div>;
+    return <div className="p-6 text-center text-theme-text-secondary">Category details not found.</div>;
   }
 
 
   return (
-    <div className="p-4 md:p-6 bg-gray-100 min-h-screen">
+    <div className="p-4 md:p-6 min-h-screen">
       <div className="mb-6">
         <button
           onClick={onBack}
-          className="mb-4 px-4 py-2 text-sm font-medium text-blue-600 bg-white border border-blue-500 rounded-md hover:bg-blue-50"
+          className="mb-4 text-sm text-blue-400 hover:text-theme-accent"
         >
           &larr; Back to Dashboard
         </button>
-        <h1 className="text-3xl font-bold text-gray-800">{category.name}</h1>
-        <p className="text-gray-600 mt-1">{category.description}</p>
+        <h1 className="text-3xl font-bold text-theme-text-primary">{category.name}</h1>
+        <p className="text-theme-text-secondary mt-1">{category.description}</p>
       </div>
 
        {/* Compliance Health Dashboard */}
-      <div className="mb-8 p-6 bg-white rounded-xl shadow-lg">
-        <h2 className="text-2xl font-semibold text-gray-700 mb-4">Compliance Health</h2>
+      <div className="mb-8 p-6 bg-theme-bg-secondary rounded-xl shadow-lg border border-theme-border">
+        <h2 className="text-2xl font-semibold text-theme-text-primary mb-4">Compliance Health</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="md:col-span-1">
                 <div className="h-64 relative">
@@ -187,21 +191,21 @@ const LicenseCategoryReportsPage = ({ categoryId, onBack, onSelectEntity }) => {
                 </div>
             </div>
             <div className="md:col-span-2 grid grid-cols-2 gap-5 content-center">
-                 <div className="bg-gray-50 p-4 rounded-lg text-center">
-                    <p className="text-4xl font-bold text-gray-800">{healthData?.totalEntities || 0}</p>
-                    <p className="text-sm font-medium text-gray-500">Total Licensed Entities</p>
+                 <div className="bg-theme-bg p-4 rounded-lg text-center border border-theme-border">
+                    <p className="text-4xl font-bold text-theme-text-primary">{healthData?.totalEntities || 0}</p>
+                    <p className="text-sm font-medium text-theme-text-secondary">Total Licensed Entities</p>
                 </div>
-                 <div className="bg-gray-50 p-4 rounded-lg text-center">
-                    <p className="text-4xl font-bold text-red-600">{healthData?.overdueSubmissions || 0}</p>
-                    <p className="text-sm font-medium text-gray-500">With Overdue Submissions</p>
+                 <div className="bg-theme-bg p-4 rounded-lg text-center border border-theme-border">
+                    <p className="text-4xl font-bold text-red-400">{healthData?.overdueSubmissions || 0}</p>
+                    <p className="text-sm font-medium text-theme-text-secondary">With Overdue Submissions</p>
                 </div>
-                 <div className="bg-gray-50 p-4 rounded-lg text-center">
-                    <p className="text-4xl font-bold text-yellow-600">{healthData?.deficientSubmissions || 0}</p>
-                    <p className="text-sm font-medium text-gray-500">With Deficient Submissions</p>
+                 <div className="bg-theme-bg p-4 rounded-lg text-center border border-theme-border">
+                    <p className="text-4xl font-bold text-yellow-400">{healthData?.deficientSubmissions || 0}</p>
+                    <p className="text-sm font-medium text-theme-text-secondary">With Deficient Submissions</p>
                 </div>
-                 <div className="bg-gray-50 p-4 rounded-lg text-center">
-                    <p className="text-4xl font-bold text-green-600">{healthData?.fullyCompliant || 0}</p>
-                    <p className="text-sm font-medium text-gray-500">Fully Compliant</p>
+                 <div className="bg-theme-bg p-4 rounded-lg text-center border border-theme-border">
+                    <p className="text-4xl font-bold text-green-400">{healthData?.fullyCompliant || 0}</p>
+                    <p className="text-sm font-medium text-theme-text-secondary">Fully Compliant</p>
                 </div>
             </div>
         </div>
@@ -209,20 +213,20 @@ const LicenseCategoryReportsPage = ({ categoryId, onBack, onSelectEntity }) => {
 
       {/* Licensed Entities List */}
       <div>
-        <h2 className="text-2xl font-semibold text-gray-700 mb-4">Licensed Entities</h2>
+        <h2 className="text-2xl font-semibold text-theme-text-primary mb-4">Licensed Entities</h2>
         {isLoading ? <p>Loading entities...</p> : entities.length > 0 ? (
-          <div className="bg-white shadow-xl rounded-lg overflow-x-auto">
-            <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-gray-50">
+          <div className="bg-theme-bg-secondary shadow-xl rounded-lg overflow-x-auto border border-theme-border">
+            <table className="min-w-full divide-y divide-theme-border">
+              <thead className="bg-black bg-opacity-20">
                 <tr>
-                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Company Name</th>
-                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Primary Supervisor</th>
-                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Current Standing</th>
-                   <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Risk Rating</th>
+                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-theme-text-secondary uppercase tracking-wider">Company Name</th>
+                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-theme-text-secondary uppercase tracking-wider">Primary Supervisor</th>
+                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-theme-text-secondary uppercase tracking-wider">Current Standing</th>
+                   <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-theme-text-secondary uppercase tracking-wider">Risk Rating</th>
                   <th scope="col" className="relative px-6 py-3"><span className="sr-only">View Submissions</span></th>
                 </tr>
               </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
+              <tbody className="divide-y divide-theme-border">
                 {entities.map(entity => (
                   <EntityRow
                     key={entity.entityId}
@@ -235,7 +239,7 @@ const LicenseCategoryReportsPage = ({ categoryId, onBack, onSelectEntity }) => {
             </table>
           </div>
         ) : (
-          <p className="text-gray-500 italic bg-white p-6 rounded-lg shadow">No entities found for this license category.</p>
+          <p className="text-theme-text-secondary italic bg-theme-bg-secondary p-6 rounded-lg shadow">No entities found for this license category.</p>
         )}
       </div>
     </div>

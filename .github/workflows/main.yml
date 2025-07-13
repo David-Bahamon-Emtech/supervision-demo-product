@@ -20,23 +20,20 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '18.x' # Using Node.js 18 for better compatibility
-          cache: 'yarn' # Caching Yarn dependencies for faster builds
-
-      - name: Install Yarn
-        run: npm install -g yarn
+          cache: 'npm' # Caching npm dependencies for faster builds
 
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: npm ci
 
       - name: Build Vite React app
-        run: yarn build
+        run: npm run build
 
       - name: Check if dist directory exists
         run: |
           if [ -d "dist" ]; then
             echo "Build successful!"
           else
-            echo "Build directory (dist) not found! Check yarn build output."
+            echo "Build directory (dist) not found! Check npm run build output."
             exit 1
           fi
 
